@@ -1,9 +1,15 @@
-import { withAuthenticator, Button, Heading, Authenticator } from '@aws-amplify/ui-react'
-import '@aws-amplify/ui-react/styles.css'
-import { useEffect } from 'react'
-import { getCurrentUser, fetchAuthSession } from '@aws-amplify/auth'
-import { useAppDispatch, useAppSelector } from './hooks/redux'
-import { setUser, clearUser } from './state/slices/userSlice'
+import { BrowserRouter as Router, Routes, Route, Navigate, BrowserRouter } from 'react-router-dom';
+import { Box, ChakraProvider, Spinner } from '@chakra-ui/react'
+import { useEffect } from 'react';
+import { getCurrentUser, fetchAuthSession } from '@aws-amplify/auth';
+import { useAppDispatch, useAppSelector } from './hooks/redux';
+import { setUser, clearUser } from './state/slices/userSlice';
+import Layout from './components/Layout';
+import LoginPage from './pages/LoginPage';
+import HomePage from './pages/HomePage';
+import LessonsPage from './pages/LessonsPage';
+import NotesPage from './pages/NotesPage';
+
 
 function App() {
   const dispatch = useAppDispatch();
@@ -15,11 +21,18 @@ function App() {
         const { username, userId, signInDetails } = await getCurrentUser();
         const { accessToken, idToken } = (await fetchAuthSession()).tokens ?? {};
         
+        console.log(`The username: ${username}`);
+        console.log(`The userId: ${userId}`);
+        console.log(`The signInDetails: ${signInDetails}`);
+        console.log(`The accessToken: ${accessToken}`);
+        console.log(`The idToken: ${idToken}`);
+        
         dispatch(setUser({
           username,
           userId,
           loginId: signInDetails?.loginId,
           email: idToken?.payload.email as string,
+          isAuthenticated: true,
         }));
       } catch (err) {
         console.error('Error fetching user data:', err);
@@ -30,22 +43,29 @@ function App() {
     updateUserData();
   }, [dispatch]);
 
+  if (user.isLoading) {
+  return(
+    <Box height="100vh" display="flex" alignItems="center" justifyContent="center">
+     <Spinner size="xl" color="blue.500" />
+   </Box>
+  )
+}
+
   return (
-    <Authenticator socialProviders={['google']}>
-      {({ signOut, user: authUser }) => (
-        <main>
-          <h1>Hello {user.username}</h1>
-          <h1>User ID: {user.userId}</h1>
-          <h1>Login ID: {user.loginId}</h1>
-          <h1>Email: {user.email}</h1>
-          <button onClick={() => {
-            signOut!();
-            dispatch(clearUser());
-          }}>Sign out</button>
-        </main>
-      )}
-    </Authenticator>
+  
+      <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
+        <Route element={user.isAuthenticated ? <Layout /> : <Navigate to="/login" />}>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/lessons" element={<LessonsPage />} />
+      <Route path="/notes" element={<NotesPage />} />
+    </Route>
+      </Routes>
+    </BrowserRouter>
+ 
+
   );
 }
 
-export default withAuthenticator(App)
+export default App;

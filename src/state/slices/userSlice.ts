@@ -6,6 +6,7 @@ interface UserState {
   email: string | null;
   isAuthenticated: boolean;
   loginId: string | null;
+  isLoading: boolean;
 }
 
 const initialState: UserState = {
@@ -14,6 +15,7 @@ const initialState: UserState = {
   email: null,
   isAuthenticated: false,
   loginId: null,
+  isLoading: true,
 };
 
 const userSlice = createSlice({
@@ -21,10 +23,10 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action: PayloadAction<Partial<UserState>>) => {
-      return { ...state, ...action.payload, isAuthenticated: true };
+      return { ...state, ...action.payload, isAuthenticated: true, isLoading: false };
     },
     clearUser: (state) => {
-      return initialState;
+      return {...initialState, isLoading: false};
     },
   },
 });
