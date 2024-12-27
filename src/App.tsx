@@ -1,5 +1,5 @@
-import { BrowserRouter as Router, Routes, Route, Navigate, BrowserRouter } from 'react-router-dom';
-import { Box, ChakraProvider, Spinner } from '@chakra-ui/react'
+import { Routes, Route, Navigate, BrowserRouter } from 'react-router-dom';
+import { Box, Spinner } from '@chakra-ui/react'
 import { useEffect } from 'react';
 import { getCurrentUser, fetchAuthSession } from '@aws-amplify/auth';
 import { useAppDispatch, useAppSelector } from './hooks/redux';
@@ -9,6 +9,7 @@ import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
 import LessonsPage from './pages/LessonsPage';
 import NotesPage from './pages/NotesPage';
+import LessonPage from './pages/LessionPage';
 
 
 function App() {
@@ -45,9 +46,12 @@ function App() {
 
   if (user.isLoading) {
   return(
+  <>
+
     <Box height="100vh" display="flex" alignItems="center" justifyContent="center">
+     
      <Spinner size="xl" color="blue.500" />
-   </Box>
+   </Box></>
   )
 }
 
@@ -60,6 +64,7 @@ function App() {
       <Route path="/" element={<HomePage />} />
       <Route path="/lessons" element={<LessonsPage />} />
       <Route path="/notes" element={<NotesPage />} />
+       <Route path="/lessons/:id/:title?" element={<LessonPage />} />
     </Route>
       </Routes>
     </BrowserRouter>

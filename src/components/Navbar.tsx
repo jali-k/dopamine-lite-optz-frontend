@@ -3,9 +3,12 @@ import { useAppDispatch } from '../hooks/redux';
 import { clearUser } from '../state/slices/userSlice';
 import { signOut } from '@aws-amplify/auth';
 import dopamineLogo from '@/assets/dopamine_logo.jpg';
+import { useLocation } from 'react-router-dom';
 
 export default function Navbar() {
   const dispatch = useAppDispatch();
+  const location = useLocation();
+  const currentPath = location.pathname;
 
   const handleSignOut = async () => {
     try {
@@ -30,8 +33,8 @@ export default function Navbar() {
 
         <Flex alignItems="center">
           <Stack direction="row" gap={7}>
-            <Link href="/lessons" colorScheme="biology">Lessons</Link>
-            <Link href="/notes" colorScheme="biology">Notes</Link>
+            <Link href="/lessons"  color={currentPath.startsWith('/lessons') ? "green" : "gray.600"}>Lessons</Link>
+            <Link href="/notes" color={currentPath.startsWith('/notes') ? "green" : "gray.600"}>Notes</Link>
             <Button colorScheme="biology" onClick={handleSignOut}>Sign Out</Button>
           </Stack>
         </Flex>

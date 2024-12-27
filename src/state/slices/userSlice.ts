@@ -25,7 +25,7 @@ const userSlice = createSlice({
     setUser: (state, action: PayloadAction<Partial<UserState>>) => {
       return { ...state, ...action.payload, isAuthenticated: true, isLoading: false };
     },
-    clearUser: (state) => {
+    clearUser: (_state) => {
       return {...initialState, isLoading: false};
     },
   },

@@ -1,5 +1,4 @@
-import Navbar from '@/components/Navbar';
-import { Box, Heading, Text, Container, VStack } from '@chakra-ui/react';
+import { Heading, Text, Container, VStack } from '@chakra-ui/react';
 
 export default function HomePage() {
   return (
