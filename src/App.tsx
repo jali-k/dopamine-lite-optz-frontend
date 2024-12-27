@@ -7,9 +7,10 @@ import { setUser, clearUser } from './state/slices/userSlice';
 import Layout from './components/Layout';
 import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
-import LessonsPage from './pages/LessonsPage';
-import NotesPage from './pages/NotesPage';
+import LessonsPage from './pages/ClassLessonsPage';
+import NotesPage from './pages/ClassNotesPage';
 import LessonPage from './pages/LessionPage';
+import ClassesPage from './pages/ClasesPage';
 
 
 function App() {
@@ -62,9 +63,10 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route element={user.isAuthenticated ? <Layout /> : <Navigate to="/login" />}>
       <Route path="/" element={<HomePage />} />
-      <Route path="/lessons" element={<LessonsPage />} />
+      <Route path="/classes/:clsid/lessons" element={<LessonsPage />} />
+      <Route path="/classes" element={<ClassesPage />} />
       <Route path="/notes" element={<NotesPage />} />
-       <Route path="/lessons/:id/:title?" element={<LessonPage />} />
+       <Route path="/classes/:clsid/lessons/:id/:title?" element={<LessonPage />} />
     </Route>
       </Routes>
     </BrowserRouter>

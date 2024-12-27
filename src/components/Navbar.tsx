@@ -33,7 +33,7 @@ export default function Navbar() {
 
         <Flex alignItems="center">
           <Stack direction="row" gap={7}>
-            <Link href="/lessons"  color={currentPath.startsWith('/lessons') ? "green" : "gray.600"}>Lessons</Link>
+            <Link href="/classes"  color={currentPath.startsWith('/classes') ? "green" : "gray.600"}>Classes</Link>
             <Link href="/notes" color={currentPath.startsWith('/notes') ? "green" : "gray.600"}>Notes</Link>
             <Button colorScheme="biology" onClick={handleSignOut}>Sign Out</Button>
           </Stack>
