@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Box, IconButton, Text, Spinner } from '@chakra-ui/react';
 import { FaPlay, FaPause, FaExpand, FaCompress, FaFastForward, FaVolumeMute, FaVolumeUp } from 'react-icons/fa';
 import Hls from 'hls.js';
+import './watermark.css';
 
 interface VideoState {
   isPlaying: boolean;
@@ -11,6 +12,7 @@ interface VideoState {
   isFullscreen: boolean;
   playbackRate: number;
   isLoading: boolean;
+  isSeeking: boolean;
   error: string | null;
   showControls: boolean;
 }
@@ -33,6 +35,7 @@ export default function VideoPlayer({ url, watermark, onError }: VideoPlayerProp
     isFullscreen: false,
     playbackRate: 1,
     isLoading: true,
+    isSeeking: false,
     error: null,
     showControls: true
   });
@@ -139,6 +142,8 @@ export default function VideoPlayer({ url, watermark, onError }: VideoPlayerProp
       timeupdate: () => setState(s => ({ ...s, currentTime: videoElement.currentTime })),
       loadedmetadata: () => setState(s => ({ ...s, duration: videoElement.duration })),
       volumechange: () => setState(s => ({ ...s, volume: videoElement.volume })),
+      seeking: () => setState(s => ({ ...s, isSeeking: true })),
+      seeked: () => setState(s => ({ ...s, isSeeking: false })),
       fullscreenchange: () => setState(s => ({ 
         ...s, 
         isFullscreen: document.fullscreenElement !== null 
@@ -220,12 +225,14 @@ export default function VideoPlayer({ url, watermark, onError }: VideoPlayerProp
   return (
     <Box 
       position="relative" 
-      width="80%" 
-      height="80vh" 
+      width="90%" 
+      height="90vh" 
       bg="black"
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setState(prev => ({ ...prev, showControls: true }))}
+       className={state.isFullscreen ? 'fullscreen-container' : ''}
     >
+       <Box position="relative" width="100%" height="100%" className="video-container">   
       <video
         ref={videoRef}
         style={{
@@ -240,7 +247,23 @@ export default function VideoPlayer({ url, watermark, onError }: VideoPlayerProp
         controlsList="nodownload"
       />
 
-      {state.isLoading && (
+       {watermark && (
+          <Box 
+            position="absolute"
+            top={0}
+            left={0}
+            width="100%"
+            height="100%"
+            overflow="hidden"
+            pointerEvents="none"
+            className="watermark-container"
+          >
+            <i className="watermark">{watermark}</i>
+          </Box>
+        )}
+
+
+      {(state.isLoading || state.isSeeking) && (
         <Box position="absolute" top="50%" left="50%" transform="translate(-50%, -50%)">
           <Spinner size="xl" color="white" />
         </Box>
@@ -257,6 +280,7 @@ export default function VideoPlayer({ url, watermark, onError }: VideoPlayerProp
           {watermark}
         </Text>
       )}
+        {/* <i className="watermark">{watermark}</i> */}
 
       <Box
         position="absolute"
@@ -271,6 +295,8 @@ export default function VideoPlayer({ url, watermark, onError }: VideoPlayerProp
           transition: 'opacity 0.3s ease, visibility 0.3s ease'
         }}
       >
+       
+
         <input
           type="range"
           value={state.currentTime}
@@ -350,6 +376,7 @@ export default function VideoPlayer({ url, watermark, onError }: VideoPlayerProp
             </IconButton>
           </Box>
         </Box>
+      </Box>
       </Box>
     </Box>
   );
