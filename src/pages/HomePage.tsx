@@ -8,7 +8,7 @@ export default function HomePage() {
       <VStack gap={6}>
         <Heading
           fontSize={{ base: '3xl', md: '5xl' }}
-          color="biology.700"
+          color="#2d3748"
           textAlign="center"
         >
           Hurry up! Start your Learning
