@@ -11,6 +11,8 @@ import LessonsPage from './pages/ClassLessonsPage';
 import NotesPage from './pages/ClassNotesPage';
 import LessonPage from './pages/LessionPage';
 import ClassesPage from './pages/ClasesPage';
+import Navbar from './components/Navbar';
+import NavbarStatic from './components/NavbarStatic';
 
 
 function App() {
@@ -47,9 +49,11 @@ function App() {
 
   if (user.isLoading) {
   return(
-  <>
 
-    <Box height="100vh" display="flex" alignItems="center" justifyContent="center">
+    
+  <>
+  <NavbarStatic />
+    <Box  height="80vh" display="flex" alignItems="center" justifyContent="center">
      
      <Spinner size="xl" color="blue.500" />
    </Box></>
