@@ -11,7 +11,6 @@ import LessonsPage from './pages/ClassLessonsPage';
 import NotesPage from './pages/ClassNotesPage';
 import LessonPage from './pages/LessionPage';
 import ClassesPage from './pages/ClasesPage';
-import Navbar from './components/Navbar';
 import NavbarStatic from './components/NavbarStatic';
 
 
@@ -68,6 +67,7 @@ function App() {
         <Route element={user.isAuthenticated ? <Layout /> : <Navigate to="/login" />}>
       <Route path="/" element={<HomePage />} />
       <Route path="/classes/:clsid/lessons" element={<LessonsPage />} />
+      <Route path="/classes/:clsid/notes" element={<NotesPage />} />
       <Route path="/classes" element={<ClassesPage />} />
       <Route path="/notes" element={<NotesPage />} />
        <Route path="/classes/:clsid/lessons/:id/:title?" element={<LessonPage />} />
