@@ -6,6 +6,7 @@ export interface Lesson {
   description: string;
   date: string;
   handler: string;
+  tutor: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -15,6 +16,7 @@ export interface CreateLessonDto {
   title: string;
   lesson: string;
   description: string;
+  tutor: string;
   date: string;
   handler: string;
 }

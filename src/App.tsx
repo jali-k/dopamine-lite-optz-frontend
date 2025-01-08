@@ -12,6 +12,14 @@ import NotesPage from './pages/ClassNotesPage';
 import LessonPage from './pages/LessionPage';
 import ClassesPage from './pages/ClasesPage';
 import NavbarStatic from './components/NavbarStatic';
+import AdminClassesPage from './pages/AdminClassesPage';
+import AdminLessonsPage from './pages/AdminLessonsPage';
+import AdminEditLessonPage from './pages/AdminEditLessonPage';
+import AdminCreateLessonPage from './pages/AdminCreateLessonPage';
+import AdminHomePage from './pages/AdminHome';
+import AdminAccessGroupsPage from './pages/AdminAccessGroupsPage';
+import AdminEditAccessGroupPage from './pages/AdminEditAccessGroups';
+import AdminCreateAccessGroupPage from './pages/AdminCreateAccessGroup';
 
 
 function App() {
@@ -71,6 +79,15 @@ function App() {
       <Route path="/classes" element={<ClassesPage />} />
       <Route path="/notes" element={<NotesPage />} />
        <Route path="/classes/:clsid/lessons/:id/:title?" element={<LessonPage />} />
+        <Route path="/admin" element={<AdminHomePage />} />
+       <Route path="/admin/classes" element={<AdminClassesPage />} />
+       <Route path="/admin/classes/:clsid/lessons" element={<AdminLessonsPage />} />
+       <Route path="/admin/classes/:clsid/lessons/:lessonid/edit" element={<AdminEditLessonPage />} />
+       <Route path="/admin/classes/:clsid/lessons/:lessonid/edit" element={<AdminEditLessonPage />} />
+       <Route path="/admin/classes/:clsid/lessons/create" element={<AdminCreateLessonPage />} />
+       <Route path="admin/access-groups" element={<AdminAccessGroupsPage />} />
+       <Route path="admin/access-groups/create" element={<AdminCreateAccessGroupPage />} />
+       <Route path="/admin/access-groups/:groupId/edit" element={<AdminEditAccessGroupPage />} />
     </Route>
       </Routes>
     </BrowserRouter>
