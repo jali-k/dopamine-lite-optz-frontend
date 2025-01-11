@@ -1,5 +1,5 @@
 import {
-  Box,
+ Box,
   Button,
   Container,
   Heading,
@@ -9,15 +9,32 @@ import {
   Icon,
   Flex,
   HStack,
+  Card,
+  CardBody,
+  Stack,
+  // Divider,
+  useDisclosure,
+  // SlideFade,
+  // ScaleFade,
+  // Wrap,
+  // WrapItem,
+  CardRoot,
 } from '@chakra-ui/react';
-import { FaDna, FaLeaf, FaBrain, FaBook, FaMicroscope, FaUsers } from 'react-icons/fa';
+import { FaDna, FaLeaf, FaBrain, FaBook, FaMicroscope, FaUsers, FaQuoteLeft, FaTelegram } from 'react-icons/fa';
 import { DopamineLiteColors } from '@/themes/colors';
 import { useNavigate } from 'react-router-dom';
+import { useInView } from 'react-intersection-observer';
+import { Avatar } from "@/components/ui/avatar"
+
 
 
 
 export default function HomePage() {
   const navigator = useNavigate();
+  const { ref: tutorRef, inView: tutorInView } = useInView({ triggerOnce: true });
+  const { ref: testimonialsRef, inView: testimonialsInView } = useInView({ triggerOnce: true });
+  const { ref: telegramRef, inView: telegramInView } = useInView({ triggerOnce: true });
+
   const features = [
     {
       icon: FaDna,
@@ -33,6 +50,45 @@ export default function HomePage() {
       icon: FaBrain,
       title: "Human Biology",
       description: "Learn about anatomy and physiology"
+    }
+  ];
+
+   const testimonials = [
+    {
+      name: "Sarah Johnson",
+      grade: "A Grade (2023)",
+      comment: "The teaching methods helped me understand complex concepts easily. I achieved my dream grade!",
+      avatar: "/path/to/avatar1.jpg"
+    },
+    {
+      name: "Michael Chen",
+      grade: "A Grade (2023)",
+      comment: "The practice questions and detailed explanations were invaluable for my exam preparation.",
+      avatar: "/path/to/avatar2.jpg"
+    },
+    {
+      name: "Emma Williams",
+      grade: "A Grade (2023)",
+      comment: "The virtual labs and interactive sessions made biology fun and engaging to learn.",
+      avatar: "/path/to/avatar3.jpg"
+    }
+  ];
+
+    const telegramGroups = [
+    {
+      name: "2026 Theory Class",
+      link: "https://t.me/biology2026theory",
+      description: "Join for daily updates and discussions on theory topics"
+    },
+    {
+      name: "2026 Revision Class",
+      link: "https://t.me/biology2026revision",
+      description: "Get access to revision materials and practice questions"
+    },
+    {
+      name: "Past Papers Discussion",
+      link: "https://t.me/biologypastpapers",
+      description: "Discuss past paper questions and solutions"
     }
   ];
 
@@ -155,6 +211,170 @@ export default function HomePage() {
               <Text fontSize="lg" color={DopamineLiteColors.lightGreenColor}>Active Students</Text>
             </VStack>
           </SimpleGrid>
+        </Container>
+      </Box>
+      {/* Tutor Profile Section */}
+      <Box bg={DopamineLiteColors.creamColor} ref={tutorRef}>
+        <Container maxW="container.xl" py={{ base: 12, md: 20 }}>
+            <SimpleGrid columns={{ base: 1, md: 2 }} gap={8} alignItems="center">
+              <Box>
+                <Avatar
+                  size="2xl"
+                  src="/path/to/tutor-image.jpg"
+                  mb={6}
+                />
+                <Heading
+                  as="h2"
+                  fontSize={{ base: "3xl", md: "4xl" }}
+                  color={DopamineLiteColors.greenColor}
+                  mb={4}
+                >
+                  Meet Your Biology Expert
+                </Heading>
+                <Text fontSize="xl" color="gray.600" mb={4}>
+                  Mr. Sashanka Dhanujaya, MBBS(UG)
+                </Text>
+                <Text color="gray.600">
+                  With over 5 years of teaching experience, Mr.Sashanka has helped thousands of students 
+                  achieve their academic goals. His innovative teaching methods and deep understanding 
+                  of biology make complex concepts easy to grasp.
+                </Text>
+              </Box>
+              <Box>
+                <SimpleGrid columns={2} gap={4}>
+                  <CardRoot>
+                    <CardBody>
+                      <Text fontSize="4xl" fontWeight="bold" color={DopamineLiteColors.greenColor}>15+</Text>
+                      <Text>Years Teaching</Text>
+                    </CardBody>
+                  </CardRoot>
+                  <CardRoot>
+                    <CardBody>
+                      <Text fontSize="4xl" fontWeight="bold" color={DopamineLiteColors.greenColor}>5000+</Text>
+                      <Text>Students Taught</Text>
+                    </CardBody>
+                  </CardRoot>
+                  <CardRoot>
+                    <CardBody>
+                      <Text fontSize="4xl" fontWeight="bold" color={DopamineLiteColors.greenColor}>98%</Text>
+                      <Text>Success Rate</Text>
+                    </CardBody>
+                  </CardRoot>
+                  <CardRoot>
+                    <CardBody>
+                      <Text fontSize="4xl" fontWeight="bold" color={DopamineLiteColors.greenColor}>200+</Text>
+                      <Text>A Grades</Text>
+                    </CardBody>
+                  </CardRoot>
+                </SimpleGrid>
+              </Box>
+            </SimpleGrid>
+        </Container>
+      </Box>
+
+       {/* Student Testimonials Section */}
+      <Box bg="white" ref={testimonialsRef}>
+        <Container maxW="container.xl" py={{ base: 12, md: 20 }}>
+          <VStack gap={8}>
+            <Heading
+              as="h2"
+              fontSize={{ base: "3xl", md: "4xl" }}
+              color={DopamineLiteColors.greenColor}
+              textAlign="center"
+            >
+              What Our Students Say
+            </Heading>
+            <SimpleGrid columns={{ base: 1, md: 3 }} gap={8} w="full">
+              {testimonials.map((testimonial, index) => (
+                  <CardRoot key={index} h="full">
+                    <CardBody>
+                      <VStack align="start" gap={4}>
+                        <Icon boxSize={6} color={DopamineLiteColors.greenColor} >
+                          <FaQuoteLeft />
+                        </Icon>
+                        <Text fontSize="md" color="gray.600">
+                          {testimonial.comment}
+                        </Text>
+                        <HStack>
+                          <Avatar size="md" src={testimonial.avatar} />
+                          <Box>
+                            <Text fontWeight="bold">{testimonial.name}</Text>
+                            <Text fontSize="sm" color="gray.500">{testimonial.grade}</Text>
+                          </Box>
+                        </HStack>
+                      </VStack>
+                    </CardBody>
+                  </CardRoot>
+            
+              ))}
+            </SimpleGrid>
+            <Button
+              onClick={() => navigator('/testimonials')}
+              size="lg"
+              variant="outline"
+              borderColor={DopamineLiteColors.greenColor}
+              color={DopamineLiteColors.greenColor}
+              _hover={{ bg: DopamineLiteColors.greenColor, color: "white" }}
+            >
+              View All Testimonials
+            </Button>
+          </VStack>
+        </Container>
+      </Box>
+      {/* Telegram Groups Section */}
+      <Box bg={DopamineLiteColors.lightGreenColor} ref={telegramRef}>
+        <Container maxW="container.xl" py={{ base: 12, md: 20 }}>
+            <VStack gap={8}>
+              <Heading
+                as="h2"
+                fontSize={{ base: "3xl", md: "4xl" }}
+                color={DopamineLiteColors.greenColor}
+                textAlign="center"
+              >
+                Join Our Learning Community
+              </Heading>
+              <Text fontSize="xl" color="gray.600" textAlign="center">
+                Connect with fellow students and get instant updates through our Telegram groups
+              </Text>
+              <SimpleGrid columns={{ base: 1, md: 3 }} gap={8} w="full">
+                {telegramGroups.map((group, index) => (
+                  <CardRoot
+                    key={index}
+                    bg="white"
+                    _hover={{
+                      transform: "translateY(-8px)",
+                      transition: "transform 0.2s"
+                    }}
+                  >
+                    <CardBody>
+                      <VStack gap={4}>
+                        <Icon boxSize={8} color={DopamineLiteColors.greenColor} >
+                          <FaTelegram />
+                        </Icon>
+                        <Heading size="md" color={DopamineLiteColors.greenColor}>
+                          {group.name}
+                        </Heading>
+                        <Text color="gray.600" textAlign="center">
+                          {group.description}
+                        </Text>
+                        <Button
+                          as="a"
+                          // href={group.link}
+                          // target="_blank"
+                          bg={DopamineLiteColors.greenColor}
+                          color="white"
+                          _hover={{ bg: "#00712D" }}
+                        >
+                          <FaTelegram />
+                          Join Group
+                        </Button>
+                      </VStack>
+                    </CardBody>
+                  </CardRoot>
+                ))}
+              </SimpleGrid>
+            </VStack>
+        
         </Container>
       </Box>
     </Box>
