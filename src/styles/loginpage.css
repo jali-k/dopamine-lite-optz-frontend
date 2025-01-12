@@ -59,7 +59,7 @@ body {
     margin-bottom: 1rem;
   }
 
-  p {
+.login-subtext {
     color: #ffffff;
     font-size: 1.25rem;
     text-align: center;

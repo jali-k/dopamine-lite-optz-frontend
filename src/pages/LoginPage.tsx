@@ -27,7 +27,7 @@ export default function LoginPage() {
       <div className="login-page">
         <div className="login-container">
           <h1 className="login-heading">Dopamine Lite</h1>
-          <p>Your journey to mastering biology starts here</p>
+          <p className='login-subtext'>Your journey to mastering biology starts here</p>
             <MotionBox
               as="div"
               animate={
