@@ -4,16 +4,31 @@ body {
   box-sizing: border-box;
   font-family: 'Roboto', Arial, sans-serif;
   color: #ffffff;
+  overflow: hidden; /* Prevent scrolling due to animations */
 }
 
 .login-page {
   min-height: 100vh;
-  background: url('../assets/background.jpg') no-repeat center center / cover;
+  background: linear-gradient(135deg, #002b20, #01371f, #06442a, #0a5d3b);
+  background-size: 300% 300%;
+  animation: darkGradientBackground 10s ease infinite;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+}
+
+@keyframes darkGradientBackground {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .login-overlay {
@@ -22,8 +37,122 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(26, 95, 122, 0.7); /* Transparent gradient overlay */
+  background: rgba(0, 0, 0, 0.5); /* Dark overlay for enhanced contrast */
   z-index: 0;
+}
+
+/* Animated Objects */
+.animated-object {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(76, 175, 80, 0.7);
+  box-shadow: 0 0 8px rgba(76, 175, 80, 0.7);
+  animation: moveObject 10s linear infinite;
+  opacity: 0.8;
+}
+
+/* Unique animations for each object */
+.animated-object:nth-child(1) {
+  width: 20px;
+  height: 20px;
+  top: 10%;
+  left: 20%;
+  animation-duration: 12s;
+}
+
+.animated-object:nth-child(2) {
+  width: 15px;
+  height: 15px;
+  top: 30%;
+  left: 60%;
+  animation-duration: 8s;
+}
+
+.animated-object:nth-child(3) {
+  width: 25px;
+  height: 25px;
+  top: 70%;
+  left: 40%;
+  animation-duration: 15s;
+}
+
+.animated-object:nth-child(4) {
+  width: 30px;
+  height: 30px;
+  top: 50%;
+  left: 10%;
+  animation-duration: 20s;
+}
+
+.animated-object:nth-child(5) {
+  width: 10px;
+  height: 10px;
+  top: 80%;
+  left: 80%;
+  animation-duration: 10s;
+}
+
+.animated-object:nth-child(6) {
+  width: 35px;
+  height: 35px;
+  top: 15%;
+  left: 70%;
+  animation-duration: 18s;
+}
+
+.animated-object:nth-child(7) {
+  width: 12px;
+  height: 12px;
+  top: 65%;
+  left: 25%;
+  animation-duration: 7s;
+}
+
+.animated-object:nth-child(8) {
+  width: 18px;
+  height: 18px;
+  top: 40%;
+  left: 90%;
+  animation-duration: 14s;
+}
+
+.animated-object:nth-child(9) {
+  width: 22px;
+  height: 22px;
+  top: 75%;
+  left: 15%;
+  animation-duration: 16s;
+}
+
+.animated-object:nth-child(10) {
+  width: 14px;
+  height: 14px;
+  top: 5%;
+  left: 45%;
+  animation-duration: 11s;
+}
+
+@keyframes moveObject {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.8;
+  }
+  25% {
+    transform: translate(50px, -50px) scale(1.2);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(-50px, -100px) scale(0.9);
+    opacity: 0.6;
+  }
+  75% {
+    transform: translate(50px, -150px) scale(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(0, -200px) scale(1);
+    opacity: 0.6;
+  }
 }
 
 .login-container {
@@ -37,6 +166,7 @@ body {
   width: 100%;
   max-width: 400px;
 }
+
 
 .login-heading {
   font-size: 3rem;
@@ -63,10 +193,8 @@ body {
   text-align: center;
   margin-bottom: 2rem;
   text-shadow: 
-        2px 2px 0px rgb(142, 186, 153),
-        -2px -2px 0px rgb(16, 51, 20),
-        -2px 2px 0px black,
-        2px -2px 0px black;
+        -2px -2px 0px rgb(105, 219, 118);
+
 }
 
 .auth-container {
@@ -111,11 +239,14 @@ button {
   font-size: 1rem;
   color: #6dff5f !important;
   border-radius: 8px 8px 0 0;
+  
+  
 }
 
 button:hover {
   background-color: rgba(251, 251, 251, 0.3);
   color: #ffffff !important;
+  
 }
 
 button:active {
@@ -129,7 +260,7 @@ button:active {
 }
 
 .amplify-tabs {
-  background-color: rgba(0, 0, 0, 0.6) !important;
+
   border-radius: 0 0 8px 8px;
   padding: 1rem;
 }

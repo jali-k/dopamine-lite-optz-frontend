@@ -25,6 +25,17 @@ export default function LoginPage() {
   return (
     <>
       <div className="login-page">
+      <div className="login-overlay"></div>
+      <div className="animated-object"></div>
+      <div className="animated-object"></div>
+      <div className="animated-object"></div>
+      <div className="animated-object"></div>
+      <div className="animated-object"></div>
+      <div className="animated-object"></div>
+      <div className="animated-object"></div>
+      <div className="animated-object"></div>
+      <div className="animated-object"></div>
+      <div className="animated-object"></div>
         <div className="login-container">
           <h1 className="login-heading"><b>Dopamine Lite</b></h1>
           <p className='login-subtext'>Your journey to mastering biology starts here</p>
