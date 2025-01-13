@@ -29,7 +29,6 @@ import {
  import CountUp from "react-countup";
  import { motion } from 'framer-motion';
 import { useState, useRef, useEffect } from 'react';
-import Navbar from '@/components/Navbar';
 
 const MotionBox = motion(Box);
 const MotionHeading = motion(Heading);
@@ -200,7 +199,6 @@ const MotionVStack = motion(VStack);
    return (
      <>
      <Box>
-      <Navbar />
       <Box bg={DopamineLiteColors.creamColor}>
         <Container maxW="container.xl" py={{ base: 12, md: 20 }}>
           <VStack gap={6} textAlign="center">
