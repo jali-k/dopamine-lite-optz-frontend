@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Box, Container, VStack, Heading, Button, Table, Icon, IconButton, HStack } from "@chakra-ui/react";
 import { FaEdit, FaTrash, FaPlus } from "react-icons/fa";
 import { accessGroupService_dev } from "@/services/access-groupes";

@@ -6,16 +6,8 @@ import {
   Image, 
   Text, 
   Link,
-  IconButton,
-  Drawer,
-  DrawerBody,
-  DrawerHeader,
-
-  DrawerContent,
   useDisclosure,
   VStack,
-  DrawerBackdrop,
-  Menu,
   MenuRoot,
   MenuTrigger,
   MenuContent
@@ -40,7 +32,7 @@ NavbarLink.displayName = 'NavbarLink';
 export default function Navbar() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { open, onOpen, onClose } = useDisclosure();
+  const { open, onClose } = useDisclosure();
 
   const handleSignOut = async () => {
     try {

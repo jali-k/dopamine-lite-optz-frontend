@@ -9,11 +9,8 @@ import {
    Icon,
    Flex,
    HStack,
-   Card,
    CardBody,
-   Stack,
    // Divider,
-   useDisclosure,
    // SlideFade,
    // ScaleFade,
    // Wrap,
@@ -21,7 +18,7 @@ import {
    CardRoot,
  } from '@chakra-ui/react';
  import "../styles/slider.css";
- import { FaDna, FaLeaf, FaBrain, FaBook, FaMicroscope, FaUsers, FaQuoteLeft, FaTelegram } from 'react-icons/fa';
+ import { FaDna, FaLeaf, FaBrain, FaBook, FaMicroscope, FaUsers, FaTelegram } from 'react-icons/fa';
  import { DopamineLiteColors } from '@/themes/colors';
  import { useNavigate } from 'react-router-dom';
  import { useInView } from 'react-intersection-observer';
@@ -33,7 +30,6 @@ import { useState, useRef, useEffect } from 'react';
 const MotionBox = motion(Box);
 const MotionHeading = motion(Heading);
 const MotionText = motion(Text);
-const BouncingCard = motion(CardRoot);
 const MotionVStack = motion(VStack);
 
  
@@ -44,8 +40,8 @@ const MotionVStack = motion(VStack);
     triggerOnce: false,
     threshold: 0.6 
   });
-   const { ref: testimonialsRef, inView: testimonialsInView } = useInView({ triggerOnce: true });
-   const { ref: telegramRef, inView: telegramInView } = useInView({ triggerOnce: true });
+   const { ref: testimonialsRef } = useInView({ triggerOnce: true });
+   const { ref: telegramRef} = useInView({ triggerOnce: true });
    const { ref: featuresRef, inView: featuresInView } = useInView(
     { triggerOnce: false,
       threshold: 0.6,

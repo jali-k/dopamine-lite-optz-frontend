@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Container, VStack, Heading, Button, Input, Textarea, Text, HStack, Toaster } from "@chakra-ui/react";
+import { Box, Container, VStack, Heading, Button, Input, Textarea, Text, HStack} from "@chakra-ui/react";
 import { useParams, useNavigate } from 'react-router-dom';
 import { lessonsService, lessonsService_dev } from "@/services/lessons";
 import { toaster } from "@/components/ui/toaster";
