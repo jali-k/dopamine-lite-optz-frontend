@@ -17,6 +17,7 @@ import {
   Icon,
   Badge,
   Separator,
+  Flex,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
@@ -78,38 +79,40 @@ const SideDrawer = ({ classId }: SideDrawerProps) => {
     <Box zIndex={1}>
       <DrawerRoot  placement={'start'}>
       <DrawerBackdrop />
-      <DrawerTrigger bg={DopamineLiteColors.greenColor} asChild>
+      <DrawerTrigger bg="transparent" asChild>
         <Button 
-       
+          color="#000000"
           variant="ghost" 
-          size="sm"
+          height="2rem"
         >
           <Icon  >
             <FaBars />
           </Icon>
-          Menu
         </Button>
       </DrawerTrigger>
-      <DrawerContent bg={DopamineLiteColors.creamColor}>
-        <DrawerHeader bg={DopamineLiteColors.greenColor}>
-          <Button onClick={() => {
-          handleTitleClick(classData?.id||'')
-        }} bg={'transparent'}><Box   py={2}>
+      <DrawerContent bg="#FFFFFF" width={{ base: '100%', md: '27rem' }} >
+        <DrawerHeader bg="#387259" paddingTop={"1.4rem"} paddingBottom={"1.4rem"}>
+          <Flex flexDir={'row'} justifyContent={'space-between'} alignItems={'center'}>
+            <Button onClick={() => {
+            handleTitleClick(classData?.id||'')
+          }} bg={'transparent'}><Box   py={2}>
             <Badge
-              fontSize="sm"
-              px={3}
-              py={1}
-              bg={DopamineLiteColors.lightGreenColor}
-              color={DopamineLiteColors.greenColor}
+              padding="0.2rem 0.7rem"
+              fontSize="1.25rem" // 20px = 1.25rem
+              lineHeight="1.5rem" // 24px = 1.5rem
+              fontWeight="500"
+              fontFamily="'Bricolage Grotesque', sans-serif"
+              alignItems="center"
+              bg="#FFFFFF"
+              color="#387259"
               borderRadius="full"
             >
               {classData?.name || 'Loading...'}
             </Badge>
-          </Box></Button>
-          
-          <DrawerCloseTrigger />
-        </DrawerHeader>
-        
+            </Box></Button> 
+            <DrawerCloseTrigger />
+          </Flex>
+        </DrawerHeader>       
         <DrawerBody>
           <VStack align="stretch" gap={4}>
             {/* Lessons Section */}
