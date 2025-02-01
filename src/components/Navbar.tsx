@@ -52,47 +52,81 @@ export default function Navbar() {
     navigate('/classes');
     onClose();
   };
-
+  const fontFamily = "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif";
   const NavButtons = () => (
     <>
       <Button 
-        variant={'outline'} 
-        borderColor={'#00712D'} 
-        color={'white'} 
-        _hover={{bg: 'white', color: 'green'}} 
+        variant="link"
+        color="#000000" // Black color
+        fontWeight="400" // Font weight
+        fontSize="20px" // Font size
+        lineHeight="24px" // Line height
+        fontFamily={fontFamily} // Use consistent font family
         onClick={onClassesClick}
+        
+
       >
         Classes
       </Button>
       <Button 
-        variant={'outline'} 
+        variant="link"
         onClick={()=>{}} 
-        borderColor={'#00712D'} 
-        _hover={{bg: 'white', color: 'green'}} 
-        color={'white'}
+        color="#000000"
+        fontWeight="400"
+        fontSize="20px"
+        lineHeight="24px"
+        fontFamily={fontFamily} // Use consistent font family
       >
         Profile
       </Button>
       <Button 
-        colorScheme="biology" 
-        onClick={handleSignOut}
-      >
+      colorScheme="biology" 
+      onClick={handleSignOut}
+      bg="white"
+      color="#000000"
+      boxShadow="0px 3px 2px rgba(0, 0, 0, 0.1)"
+      borderRadius="8px"
+      fontWeight="400"
+      fontSize="20px"
+      lineHeight="24px"
+      fontFamily={fontFamily} // Use consistent font family
+      px={6}
+      py={4}
+      _hover={{ bg: "gray.200" }}
+      
+    >
         Sign Out
       </Button>
     </>
   );
 
   return (
-    <Box bg={DopamineLiteColors.greenColor} position="sticky" top="0" zIndex={2} w="100%">
+    <Box 
+    bg="#F0F0F0" // Light gray background color
+    position="sticky" 
+    top="0" 
+    w="100%" 
+    border="none" // Explicitly remove any border
+    boxShadow="none" // Remove box shadow if it's there
+    zIndex="50"
+  >
       <Flex h={16} alignItems="center" justifyContent="space-between" px={4}>
+      <Flex flex="1" >
         <NavbarLink onClick={onHomeClick}>
           <Flex alignItems="center">
-            <Image h="40px" src={dopamineLogo} alt="Logo" />
-            <Text ml={3} fontSize="xl" fontWeight="bold" color="biology.600">
+            <Text
+            fontSize="xl"
+            fontWeight="bold"
+            color="black"
+            fontFamily={fontFamily} // Use consistent font family
+            ml = {10}
+            zIndex="50"
+          >
               Dopamine Lite
             </Text>
           </Flex>
         </NavbarLink>
+        </Flex>
 
         {/* Desktop Navigation */}
         <Flex alignItems="center" display={{ base: 'none', md: 'flex' }}>
