@@ -20,8 +20,8 @@ import AdminHomePage from './pages/AdminHome';
 import AdminAccessGroupsPage from './pages/AdminAccessGroupsPage';
 import AdminEditAccessGroupPage from './pages/AdminEditAccessGroups';
 import AdminCreateAccessGroupPage from './pages/AdminCreateAccessGroup';
-import { Provider } from 'react-redux';
-import store from './state/store'; // Correct path
+
+
 
 
 
@@ -73,7 +73,7 @@ function App() {
 
 
   return (
-    <Provider store={store}>
+
       <BrowserRouter>
       <Routes>
        <Route path="/login" element={<LoginPage />} />
@@ -95,7 +95,7 @@ function App() {
        <Route path="/admin/access-groups/:groupId/edit" element={<AdminEditAccessGroupPage />} />
       </Routes>
     </BrowserRouter>
-    </Provider>
+   
 
   );
 }
