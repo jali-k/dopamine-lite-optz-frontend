@@ -20,8 +20,6 @@ import AdminHomePage from './pages/AdminHome';
 import AdminAccessGroupsPage from './pages/AdminAccessGroupsPage';
 import AdminEditAccessGroupPage from './pages/AdminEditAccessGroups';
 import AdminCreateAccessGroupPage from './pages/AdminCreateAccessGroup';
-import { Provider } from 'react-redux';
-import store from './state/store'; // Correct path
 
 
 
@@ -73,11 +71,10 @@ function App() {
 
 
   return (
-    <Provider store={store}>
       <BrowserRouter>
       <Routes>
-       <Route path="/login" element={<LoginPage />} />
-       <Route element={user.isAuthenticated ? <Layout /> : <Navigate to="/login" />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route element={user.isAuthenticated ? <Layout /> : <Navigate to="/login" />}>
       <Route path="/" element={<HomePage />} />
       <Route path="/classes/:clsid/lessons" element={<LessonsPage />} />
       <Route path="/classes/:clsid/notes" element={<NotesPage />} />
@@ -93,9 +90,9 @@ function App() {
        <Route path="admin/access-groups" element={<AdminAccessGroupsPage />} />
        <Route path="admin/access-groups/create" element={<AdminCreateAccessGroupPage />} />
        <Route path="/admin/access-groups/:groupId/edit" element={<AdminEditAccessGroupPage />} />
+       </Route>
       </Routes>
     </BrowserRouter>
-    </Provider>
 
   );
 }

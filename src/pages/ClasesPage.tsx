@@ -8,17 +8,14 @@ import {
   Card,
   CardBody,
   Icon,
-  Button,
   HStack,
   Tag,
 } from "@chakra-ui/react";
-import Class1Image from "../styles/class1.png"
 import { useNavigate } from "react-router-dom";
 import { classesService_dev } from "@/services/classes";
 import { useEffect, useState } from "react";
 import { Class } from "@/types/class.types";
-import { FaGraduationCap, FaArrowRight, FaCalculator } from "react-icons/fa";
-import { Divider } from "@aws-amplify/ui-react";
+import { FaGraduationCap, FaArrowRight } from "react-icons/fa";
 
 // Color palette
 const colors = {
@@ -44,7 +41,7 @@ const ClassesPage = () => {
   };
 
   return (
-    <Box bg="#F0F0F0" minH="100vh" py={8}>
+    <Box bg={colors.background} minH="100vh" py={8}>
       <Container maxW="container.xl">
         <VStack gap={8} align="stretch">
           <Box textAlign="center" mb={8}>
@@ -60,52 +57,71 @@ const ClassesPage = () => {
               Select a class to begin your learning experience
             </Text>
           </Box>
-          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={6} w="full">
+
+          <SimpleGrid
+            columns={{ base: 1, md: 2, lg: 3 }}
+            gap={6}
+            w="full"
+          >
             {classes.map((cls) => (
               <Card.Root
                 key={cls.id}
                 onClick={() => onClickHandler(cls)}
                 cursor="pointer"
                 bg="white"
-                borderRadius="40px"
+                borderRadius="lg"
                 overflow="hidden"
-                borderWidth="2px"
-                borderColor="green.500"
-                boxShadow="sm"
+                boxShadow="md"
                 transition="all 0.3s"
                 _hover={{
-                  transform: "scale(1.02)",
-                  boxShadow: "md",
+                  transform: "translateY(-4px)",
+                  boxShadow: "lg",
+                  borderColor: colors.primary,
                 }}
+                borderWidth="1px"
+                borderColor="gray.100"
               >
                 <CardBody p={6}>
-                  <VStack align="stretch" gap={4}>
-                    {/* Icon + Class ID + Class Name */}
-                    <HStack align="center" justify="flex-start" gap={4}>
-                      <Icon as={FaCalculator} boxSize={8} color="green.600" />
-                      <VStack align="start" gap={1}>
-                        <Text fontSize="18px" fontWeight="400" color="#000000B2">
+                  <VStack align="start" gap={4}>
+                      <HStack gap={3}>
+                        <Icon
+                          // as={FaGraduationCap}
+                          boxSize={6}
+                          color={colors.primary}
+                        >
+                        <FaGraduationCap />
+                        </Icon>
+                        <Tag.Root
+                          size="sm"
+                          variant="subtle"
+                          colorScheme="green"
+                          bg={colors.secondary}
+                          color={colors.primary}
+                        >
                           Class ID: {cls.id}
-                        </Text>
-                        <Text fontSize="24px" fontWeight="500" color="#000000">
-                          {cls.name}
-                        </Text>
-                      </VStack>
+                        </Tag.Root>
+                  
                     </HStack>
 
-                    {/* Divider */}
-                    <Divider borderColor="gray.200" />
-
-                    {/* View Lesson Button */}
-                    <Button
-                      colorScheme="green"
-                      variant="solid"
-                      borderRadius="20px"
-                      size="sm"
-                      alignSelf="center"
+                    <Heading
+                      as="h3"
+                      fontSize="xl"
+                      color={colors.primary}
+                      fontWeight="bold"
                     >
-                      View Lesson
-                    </Button>
+                      {cls.name}
+                    </Heading>
+
+                    <HStack
+                      justify="space-between"
+                      w="full"
+                      color={colors.accent}
+                      fontSize="sm"
+                      fontWeight="medium"
+                    >
+                      <Text>View Lessons</Text>
+                      <Icon  ><FaArrowRight /></Icon>
+                    </HStack>
                   </VStack>
                 </CardBody>
               </Card.Root>
