@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { Provider as ChakraInitialProvider } from "@/components/ui/provider"
+import { ChakraProvider as ChakraInitialProvider } from '@chakra-ui/react'
 import App from './App.tsx'
 import { Amplify } from 'aws-amplify'
 import config from './aws-exports'
@@ -42,7 +42,7 @@ Amplify.configure(config)
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <Provider store={store}>
-      <ChakraInitialProvider >
+      <ChakraInitialProvider value={defaultSystem}>
         <ChakraProvider value={defaultSystem}>
       <App />
       </ChakraProvider>

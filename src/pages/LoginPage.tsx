@@ -3,7 +3,7 @@ import { Navigate } from 'react-router-dom';
 import { useAppSelector } from '../hooks/redux';
 import '@aws-amplify/ui-react/styles.css';
 import { Authenticator, ThemeProvider } from '@aws-amplify/ui-react';
-import { theme } from '@/themes/amplifytheme';
+import { theme } from '../themes/amplifytheme';
 import "../styles/loginpage.css";
 import { Box } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
