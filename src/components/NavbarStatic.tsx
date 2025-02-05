@@ -1,4 +1,5 @@
 import { Box, Flex, Button, Stack, Image, Text, Link } from '@chakra-ui/react';
+
 import dopamineLogo from '@/assets/dopamine_logo.jpg';
 import { DopamineLiteColors } from '@/themes/colors';
 
