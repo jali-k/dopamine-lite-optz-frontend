@@ -1,6 +1,6 @@
 import { Box, Image, Text, VStack } from "@chakra-ui/react";
+import { DopamineLiteColors } from "../../themes/colors";
 
-// Renaming Card to Hcard
 interface HcardProps {
   title: string;
   description: string;
@@ -8,55 +8,59 @@ interface HcardProps {
 }
 
 const Hcard: React.FC<HcardProps> = ({ title, description, imageUrl }) => {
+  const Light = DopamineLiteColors;
   return (
     <Box
-      bg="white"
+      bg={Light.white100}
       borderRadius="1rem"
-      boxShadow="0 0.25rem 0.5rem rgba(0, 0, 0, 0.1)"
-      width={{ base: "18rem", md: "22rem", lg: "350px" }} // Adjust width for better responsiveness
-      height={{ base: "18rem", md: "22rem", lg: "300px" }} // Adjust height for responsiveness
+      boxShadow={Light.boxShadow}
+      width={{ base: "90%", sm: "20rem", md: "22rem"}}
+      height={{ base: "auto", md: "22rem", lg: "300px" }}
       textAlign="center"
       overflow="hidden"
       position="relative"
+      mx="auto"
+      p={{ base: "1rem", md: "2rem" }}
     >
       {/* Icon/Image */}
-      <Box p="2rem">
+      <Box p={{ base: "0.5rem", md: "0.7rem" }}>
         <Image
           src={imageUrl}
           alt={`${title} Icon`}
           mx="auto"
-          width="100px"
-          height="100px"
+          width={{ base: "80px", md: "100px" }}
+          height={{ base: "80px", md: "100px" }}
         />
       </Box>
-    
+
       {/* Text Content */}
-      <VStack  align="center" px={{ base: "1rem", md: "2rem" }}>
+      <VStack align="center" width="100%">
         <Text
           fontFamily="Bricolage Grotesque"
           fontWeight="600"
-          fontSize={{ base: "1.25rem", md: "1.7rem" }} // Font size scaling for responsiveness
-          color="#000000"
-          lineHeight="1.1"
+          fontSize={{ base: "1.1rem", md: "1.7rem" }}
+          color={Light.black100}
+          lineHeight="1.2"
+          textAlign="center"
         >
           {title}
         </Text>
         <Text
           fontFamily="Bricolage Grotesque"
           fontWeight="500"
-          fontSize={{ base: "1rem", md: "1.125rem" }} // Font size scaling for responsiveness
-          lineHeight="1.2"
-          color="#000000BF"
-          width={{ base: "90%", md: "260px" }} // Adjusted width for responsiveness
+          fontSize={{ base: "0.9rem", md: "1.125rem" }}
+          lineHeight="1.4"
+          color={Light.black75}
+          width={{ base: "100%", sm: "90%", md: "260px" }}
           mx="auto"
         >
           {description}
         </Text>
       </VStack>
-    
+
       {/* Bottom Bar */}
       <Box
-        bg="#FFA500"
+        bg={Light.orange}
         height="0.75rem"
         width="100%"
         position="absolute"
