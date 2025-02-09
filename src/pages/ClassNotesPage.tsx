@@ -35,15 +35,6 @@ const colors = {
   accent: "#FF9100",
 };
 
-interface Note {
-  id: string;
-  title: string;
-  fileName: string;
-  size: string;
-  uploadDate: string;
-  description?: string;
-}
-
 export default function NotesPage() {
   const params = useParams();
   const [classData, setClassData] = useState<ClassDetails>();
