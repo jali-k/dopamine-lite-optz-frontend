@@ -52,14 +52,13 @@ export default function Navbar() {
     navigate('/classes');
     onClose();
   };
-
   const NavButtons = () => (
     <>
-      <Button 
+      <Button
         variant={'outline'} 
         borderColor={'#00712D'} 
         color={'white'} 
-        _hover={{bg: 'white', color: 'green'}} 
+        _hover={{bg: 'white', color: 'green'}}  
         onClick={onClassesClick}
       >
         Classes
@@ -77,14 +76,17 @@ export default function Navbar() {
         colorScheme="biology" 
         onClick={handleSignOut}
       >
+      
         Sign Out
       </Button>
     </>
   );
 
   return (
-    <Box bg={DopamineLiteColors.greenColor} position="sticky" top="0" zIndex={2} w="100%">
+    <Box bg={DopamineLiteColors.darkGreen} position="sticky" top="0" zIndex={2} w="100%">
+   
       <Flex h={16} alignItems="center" justifyContent="space-between" px={4}>
+
         <NavbarLink onClick={onHomeClick}>
           <Flex alignItems="center">
             <Image h="40px" src={dopamineLogo} alt="Logo" />
@@ -93,7 +95,7 @@ export default function Navbar() {
             </Text>
           </Flex>
         </NavbarLink>
-
+        
         {/* Desktop Navigation */}
         <Flex alignItems="center" display={{ base: 'none', md: 'flex' }}>
           <Stack direction="row" gap={7}>

@@ -33,6 +33,8 @@ const colors = {
   accent: "#FF9100",
 };
 
+
+
 const LessonPage = () => {
   const params = useParams();
   const [lessonData, setLessonData] = useState<Lesson>();
@@ -114,7 +116,6 @@ const LessonPage = () => {
               {lessonData?.title}
             </Heading>
           </Box>
-
           <HStack
             gap={8}
             flexWrap="wrap"
@@ -125,6 +126,7 @@ const LessonPage = () => {
                 <FaRegCalendarAlt />
               </Icon>
               <Text>{formatDate(lessonData?.createdAt || '')}</Text>
+    
             </HStack>
             <HStack gap={2}>
               <Icon  color={colors.accent} >
@@ -134,9 +136,8 @@ const LessonPage = () => {
             </HStack>
           </HStack>
         </VStack>
-
-        {/* Video Player Section */}
-        <Card.Root
+         {/* Video Player Section */}
+         <Card.Root
           bg="white"
           shadow="xl"
           borderRadius="lg"
@@ -147,7 +148,6 @@ const LessonPage = () => {
             <VideoPlayer url={url} watermark="Dopamine lite" />
           </Box>
         </Card.Root>
-
         {/* Content Section */}
         <Card.Root bg="white" shadow="md" borderRadius="lg">
           <CardBody>
@@ -165,9 +165,7 @@ const LessonPage = () => {
                   {lessonData?.description}
                 </Text>
               </Box>
-
               <Separator borderColor="gray.200" />
-
               <Box>
                 <HStack mb={4}>
                   <Icon color={colors.primary} boxSize={5} >
@@ -188,5 +186,7 @@ const LessonPage = () => {
     </Box>
   );
 };
+
+
 
 export default LessonPage;
