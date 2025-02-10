@@ -32,7 +32,7 @@ export const classesService = {
   },
 
   createClass: (data: CreateClassDto) => {
-    return api.request<Class>('/classes?email=${encodeURIComponent(email)}', {
+    return api.request<Class>(`/classes?email=${encodeURIComponent(email)}`, {
       method: 'POST',
       body: JSON.stringify(data),
     });
