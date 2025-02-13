@@ -8,7 +8,7 @@ export default function Layout() {
   return (
     <Flex flexDirection="column" minH="100vh" position={'relative'}>
       <Navbar />
-      <Box flex="1" bg={DopamineLiteColors.creamColor} w="100%" position={'relative'} >
+      <Box flex="1" bg={DopamineLiteColors.backgroundWhite} w="100%" position={'relative'} >
         <Outlet />
       </Box>
       <Footer />
