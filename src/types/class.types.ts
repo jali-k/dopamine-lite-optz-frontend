@@ -1,5 +1,5 @@
 export interface Class {
-  classId: string;
+  id: string;
   name: string;
   createdAt: string;
   updatedAt: string;

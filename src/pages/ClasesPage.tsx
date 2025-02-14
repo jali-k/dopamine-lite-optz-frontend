@@ -12,7 +12,7 @@ import {
   Tag,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import { classesService } from "@/services/classes";
+import { classesService_dev } from "@/services/classes";
 import { useEffect, useState } from "react";
 import { Class } from "@/types/class.types";
 import { FaGraduationCap, FaArrowRight } from "react-icons/fa";
@@ -25,22 +25,19 @@ const colors = {
   accent: "#FF9100",
 };
 
-const getClases = classesService.getClasses;
+const getClases = classesService_dev.getClasses;
 
 const ClassesPage = () => {
   const [classes, setClasses] = useState<Class[]>([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    getClases().then((data) => {
-      console.log(data);
-      setClasses(data);
-    });
+    getClases().then((data) => setClasses(data));
   }, []);
 
   const onClickHandler = (cls: Class) => {
     console.log(`The class ${cls.name} was clicked`);
-    navigate(`/classes/${cls.classId}/lessons`);
+    navigate(`/classes/${cls.id}/lessons`);
   };
 
   return (
@@ -61,10 +58,14 @@ const ClassesPage = () => {
             </Text>
           </Box>
 
-          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={6} w="full">
+          <SimpleGrid
+            columns={{ base: 1, md: 2, lg: 3 }}
+            gap={6}
+            w="full"
+          >
             {classes.map((cls) => (
               <Card.Root
-                key={cls.classId}
+                key={cls.id}
                 onClick={() => onClickHandler(cls)}
                 cursor="pointer"
                 bg="white"
@@ -82,23 +83,24 @@ const ClassesPage = () => {
               >
                 <CardBody p={6}>
                   <VStack align="start" gap={4}>
-                    <HStack gap={3}>
-                      <Icon
-                        // as={FaGraduationCap}
-                        boxSize={6}
-                        color={colors.primary}
-                      >
+                      <HStack gap={3}>
+                        <Icon
+                          // as={FaGraduationCap}
+                          boxSize={6}
+                          color={colors.primary}
+                        >
                         <FaGraduationCap />
-                      </Icon>
-                      <Tag.Root
-                        size="sm"
-                        variant="subtle"
-                        colorScheme="green"
-                        bg={colors.secondary}
-                        color={colors.primary}
-                      >
-                        Class ID: {cls.classId}
-                      </Tag.Root>
+                        </Icon>
+                        <Tag.Root
+                          size="sm"
+                          variant="subtle"
+                          colorScheme="green"
+                          bg={colors.secondary}
+                          color={colors.primary}
+                        >
+                          Class ID: {cls.id}
+                        </Tag.Root>
+                  
                     </HStack>
 
                     <Heading
@@ -118,15 +120,16 @@ const ClassesPage = () => {
                       fontWeight="medium"
                     >
                       <Text>View Lessons</Text>
-                      <Icon>
-                        <FaArrowRight />
-                      </Icon>
+                      <Icon  ><FaArrowRight /></Icon>
                     </HStack>
                   </VStack>
                 </CardBody>
               </Card.Root>
             ))}
           </SimpleGrid>
+
+
+
         </VStack>
       </Container>
     </Box>

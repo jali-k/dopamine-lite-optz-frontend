@@ -1,4 +1,3 @@
-import { ClassDetails } from '@/types/class-details.types';
 import { Lesson, CreateLessonDto } from '../types/lesson.types';
 import { api } from './api';
 
@@ -41,14 +40,8 @@ export const dummyLessons: Lesson[] = [
 ];
 
 export const lessonsService = {
-  getLessonsByClassId: (classId: string, email: string) => {
-    console.log('getLessonsByClassId');
-    const queryParams = new URLSearchParams({ classId, email }).toString();
-    console.log(queryParams);
-    const data = api.request<ClassDetails>(`/lessons?${queryParams}`).then((data) => {
-      return data;
-    });
-    return data;
+  getLessonsByClassId: (classId: string) => {
+    return api.request<Lesson[]>(`/classes/${classId}/lessons`);
   },
 
   getLesson: (classId: string, lessonId: string) => {

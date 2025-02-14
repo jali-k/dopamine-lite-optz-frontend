@@ -3,45 +3,43 @@ import { api } from './api';
 
 const dummyAccessGroups: AccessGroup[] = [
   {
-    accessGroupId: 'group-001',
+    id: 'group-001',
     name: '2026 Revision',
     accessList: []
   },
   {
-    accessGroupId: 'group-002',
+    id: 'group-002',
     name: 'Teachers',
     accessList: ['jalikuma86@gmail.com', 'test@gmail.com']
   }
 ];
 
-const email = "test@email.com"
-
 export const accessGroupService = {
-  getGroups: () => api.request<AccessGroup[]>(`/access-groups?email=${encodeURIComponent(email)}`),
+  getGroups: () => api.request<AccessGroup[]>('/access-groups'),
 
-  getGroupById: (id: string) => api.request<AccessGroup>(`/access-groups/${id}?email=${encodeURIComponent(email)}`),
+  getGroupById: (id: string) => api.request<AccessGroup>(`/access-groups/${id}`),
 
   createGroup: (data: Omit<AccessGroup, 'id'>) =>
-    api.request<AccessGroup>(`/access-groups?email=${encodeURIComponent(email)}`, {
+    api.request<AccessGroup>('/access-groups', {
       method: 'POST',
       body: JSON.stringify(data)
     }),
 
   updateGroup: (id: string, data: Partial<AccessGroup>) =>
-    api.request<AccessGroup>(`/access-groups/${id}?email=${encodeURIComponent(email)}`, {
+    api.request<AccessGroup>(`/access-groups/${id}`, {
       method: 'PUT',
       body: JSON.stringify(data)
     }),
 
   deleteGroup: (id: string) =>
-    api.request(`/access-groups/${id}?email=${encodeURIComponent(email)}`, { method: 'DELETE' })
+    api.request(`/access-groups/${id}`, { method: 'DELETE' })
 };
 
 export const accessGroupService_dev = {
   getGroups: () => Promise.resolve(dummyAccessGroups),
 
   getGroupById: (id: string) => {
-    const group = dummyAccessGroups.find(g => g.accessGroupId === id);
+    const group = dummyAccessGroups.find(g => g.id === id);
     return group ? Promise.resolve(group) : Promise.reject(new Error('Group not found'));
   },
 
@@ -55,7 +53,7 @@ export const accessGroupService_dev = {
   },
 
   updateGroup: (id: string, data: Partial<AccessGroup>) => {
-    const group = dummyAccessGroups.find(g => g.accessGroupId === id);
+    const group = dummyAccessGroups.find(g => g.id === id);
     if (group) {
       Object.assign(group, data);
       return Promise.resolve(group);
@@ -64,7 +62,7 @@ export const accessGroupService_dev = {
   },
 
   deleteGroup: (id: string) => {
-    const index = dummyAccessGroups.findIndex(g => g.accessGroupId === id);
+    const index = dummyAccessGroups.findIndex(g => g.id === id);
     if (index !== -1) {
       dummyAccessGroups.splice(index, 1);
       return Promise.resolve();
