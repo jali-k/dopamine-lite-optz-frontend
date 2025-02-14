@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button"
 import {
   DrawerBackdrop,
   DrawerBody,
@@ -7,231 +7,231 @@ import {
   DrawerHeader,
   DrawerRoot,
   DrawerTrigger,
-} from "@/components/ui/drawer";
-import { DopamineLiteColors } from "@/themes/colors";
-import {
+} from "@/components/ui/drawer"
+import { 
   Box,
   VStack,
   HStack,
   Text,
   Icon,
   Badge,
-  Separator,
-} from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import {
-  FaBook,
-  FaVideo,
-  FaNotesMedical,
-  FaChevronRight,
-  FaBars,
-} from "react-icons/fa";
-import { ClassDetails } from "@/types/class-details.types";
-import { ILecture } from "@/types/lecture.types";
-import { INote } from "@/types/note.types";
+  Flex,
+} from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { FaVideo, FaNotesMedical, FaChevronRight, FaBars } from 'react-icons/fa';
+import { Class } from '@/types/class.types';
+import { Lesson } from '@/types/lesson.types';
+import { classesService_dev } from '@/services/classes';
+import { lessonsService_dev } from '@/services/lessons';
+import { DopamineLiteColors } from "@/themes/colors";
 
 interface SideDrawerProps {
-  classData: ClassDetails;
+  classId?: string;
 }
 
-const SideDrawer = ({ classData }: SideDrawerProps) => {
+const SideDrawer = ({ classId }: SideDrawerProps) => {
   const navigate = useNavigate();
-  // const [classData, setClassData] = useState<ClassDetails>();
-  // const [classLessons, setClassLessons] = useState<Lesson[]>([]);
-  const [selectedLesson, _setSelectedLesson] = useState<number | null>(null);
+  const [classData, setClassData] = useState<Class>();
+  const [classLessons, setClassLessons] = useState<Lesson[]>([]);
+  const [selectedLesson, _setSelectedLesson] = useState<string | null>(null);
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     if (classId) {
-  //       try {
-  //         const data = await classesService_dev.getClassById(classId);
-  //         setClassData(data);
-  //         const lessons = await lessonsService_dev.getLessonsByClassId(data.id);
-  //         setClassLessons(lessons);
-  //       } catch (error) {
-  //         console.error('Error fetching data:', error);
-  //       }
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchData = async () => {
+      if (classId) {
+        try {
+          const data = await classesService_dev.getClassById(classId);
+          setClassData(data);
+          const lessons = await lessonsService_dev.getLessonsByClassId(data.id);
+          setClassLessons(lessons);
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      }
+    };
 
-  //   fetchData();
-  // }, [classId]);
+    fetchData();
+  }, [classId]);
 
-  const handleTitleClick = () => {
-    navigate(`/classes/${classData.classDetails.classId}/lessons`);
+  const handleTitleClick = (classId: string) => {
+    navigate(`/classes/${classId}/lessons`)
+  }
+
+  const handleEachLessonClick = (lesson: Lesson) => {
+    const urlTitle = lesson.title.toLowerCase().replace(/\s+/g, '-');
+    navigate(`/classes/${lesson.classId}/lessons/${lesson.id}/${urlTitle}`);
   };
 
-  const handleEachLessonClick = (lesson: ILecture) => {
-    const urlTitle = lesson.title.toLowerCase().replace(/\s+/g, "-");
-    navigate(
-      `/classes/${lesson.classId}/lessons/${lesson.lectureId}/${urlTitle}`
-    );
-  };
+  const handleLessonsClick = () => {
+    navigate(`/classes/${classId}/lessons`);
+  }
 
-  // const handleLessonsClick = (classId: string) => {
-  //   navigate(`/classes/${classId}/lessons`);
-  // };
+  const handleNotesClick = () => {
+    navigate(`/classes/${classId}/notes`);
+  }
 
-  // const handleNotesClick = (classId: string) => {
-  //   navigate(`/classes/${classId}/notes`);
-  // };
+   const handleEachNoteClick = (lesson: Lesson) => {
+    navigate(`/classes/${lesson.classId}/notes/${lesson.id}`);
+  }
 
-  const handleEachNoteClick = (lesson: INote) => {
-    navigate(`/classes/${lesson.classId}/notes/${lesson.noteId}`);
-  };
-
+  const Light = DopamineLiteColors;
   return (
     <Box zIndex={1}>
-      <DrawerRoot placement={"start"}>
-        <DrawerBackdrop />
-        <DrawerTrigger bg={DopamineLiteColors.greenColor} asChild>
-          <Button variant="ghost" size="sm">
-            <Icon>
-              <FaBars />
-            </Icon>
-            Menu
-          </Button>
-        </DrawerTrigger>
-        <DrawerContent bg={DopamineLiteColors.creamColor}>
-          <DrawerHeader bg={DopamineLiteColors.greenColor}>
-            <Button
-              onClick={() => {
-                handleTitleClick();
-              }}
-              bg={"transparent"}
+      <DrawerRoot  placement={'start'}>
+      <DrawerBackdrop />
+      <DrawerTrigger bg="transparent" asChild>
+        <Button 
+          color={Light.black100}
+          variant="ghost" 
+          height="2rem"
+        >
+          <Icon  >
+            <FaBars />
+          </Icon>
+        </Button>
+      </DrawerTrigger>
+      <DrawerContent bg={Light.white100} width={{"base": "18rem", "md" : "20rem", "lg": "26rem"}} maxWidth="30rem" >
+        <DrawerHeader bg={Light.darkGreen} paddingTop={"1.4rem"} paddingBottom={"1.4rem"}>
+          <Flex flexDir={'row'} justifyContent="flex-start" alignItems={'center'}>
+            <Button onClick={() => {
+            handleTitleClick(classData?.id||'')
+          }} bg={'transparent'}><Box   py={2}>
+            <Badge
+              padding="0.2rem 0.7rem"
+              fontSize="1.25rem" // 20px = 1.25rem
+              lineHeight="1.5rem" // 24px = 1.5rem
+              fontWeight="500"
+              fontFamily="'Bricolage Grotesque', sans-serif"
+              alignItems="center"
+              bg={Light.white100}
+              color={Light.darkGreen}
+              borderRadius="full"
             >
-              <Box py={2}>
-                <Badge
-                  fontSize="sm"
-                  px={3}
-                  py={1}
-                  bg={DopamineLiteColors.lightGreenColor}
-                  color={DopamineLiteColors.greenColor}
-                  borderRadius="full"
-                >
-                  {classData.classDetails.name || "Loading..."}
-                </Badge>
-              </Box>
+              {classData?.name || 'Loading...'}
+            </Badge>
+            </Box></Button> 
+            <DrawerCloseTrigger />
+          </Flex>
+        </DrawerHeader>       
+        <DrawerBody>
+          <VStack align="stretch" gap={4} padding={0}>
+            {/* Lessons Section */}
+            <Box  marginTop="0.7rem">
+
+            <Button 
+              bg={Light.lightGreenlite} 
+              onClick={handleLessonsClick} 
+              width="100%" 
+              height="3.5rem"
+              justifyContent="flex-start" 
+              textAlign="left" 
+              padding="1rem"
+              borderRadius="1rem"
+            >
+              <HStack color={Light.darkGreen} gap="0.8rem"> {/* Ensure consistent spacing */}
+                <Icon as={FaVideo} w="1.5rem" h="1.5rem" />
+                <Text fontWeight="bold" fontSize="1.25rem" marginBottom="0.3rem">Lessons</Text>
+              </HStack>
             </Button>
 
-            <DrawerCloseTrigger />
-          </DrawerHeader>
 
-          <DrawerBody>
-            <VStack align="stretch" gap={4}>
-              {/* Lessons Section */}
-              <Box>
-                <Button bg={"transparent"} onClick={handleTitleClick}>
-                  <HStack mb={4} color={DopamineLiteColors.greenColor}>
-                    <Icon>
-                      <FaVideo />
-                    </Icon>
-                    <Text fontWeight="bold">Lessons</Text>
-                  </HStack>
-                </Button>
-
-                <VStack align="stretch" gap={2}>
-                  {classData.lectures.map((lesson) => (
-                    <Button
-                      color={"black"}
-                      key={lesson.lectureId}
-                      variant="ghost"
-                      justifyContent="flex-start"
-                      h="auto"
-                      py={2}
-                      px={4}
-                      onClick={() => handleEachLessonClick(lesson)}
-                      bg={
-                        selectedLesson === lesson.classId
-                          ? DopamineLiteColors.lightGreenColor
-                          : "transparent"
-                      }
-                      _hover={{
-                        bg: DopamineLiteColors.lightGreenColor,
-                        color: DopamineLiteColors.greenColor,
-                      }}
-                    >
-                      <Icon boxSize={4}>
-                        <FaBook />
-                      </Icon>
-                      <VStack align="start" gap={0}>
-                        <Text color={"black"} fontSize="sm" fontWeight="medium">
-                          Lesson {lesson.title}
-                        </Text>
-                        <Text fontSize="xs" color="gray.600" truncate>
-                          {lesson.description}
-                        </Text>
-                      </VStack>
-                      <Icon boxSize={3}>
-                        <FaChevronRight />
-                      </Icon>
-                    </Button>
-                  ))}
-                </VStack>
-              </Box>
-
-              <Separator />
-
-              {/* Notes Section */}
-              <Box>
-                <Button bg={"transparent"} onClick={handleTitleClick}>
-                  <HStack mb={4} color={DopamineLiteColors.greenColor}>
-                    <Icon>
-                      <FaNotesMedical />
-                    </Icon>
-                    <Text fontWeight="bold">Notes</Text>
-                  </HStack>
-                </Button>
-
-                <VStack align="stretch" gap={2}>
-                  {classData.notes.map((lesson) => (
-                    <Button
-                      key={`note-${lesson.noteId}`}
-                      variant="ghost"
-                      justifyContent="flex-start"
-                      h="auto"
-                      py={2}
-                      px={4}
-                      onClick={() => handleEachNoteClick(lesson)}
-                      bg={
-                        selectedLesson === lesson.classId
-                          ? DopamineLiteColors.lightGreenColor
-                          : "transparent"
-                      }
-                      _hover={{
-                        bg: DopamineLiteColors.lightGreenColor,
-                        color: DopamineLiteColors.greenColor,
-                      }}
-                    >
-                      <Icon color={"black"} boxSize={4}>
-                        <FaNotesMedical />
-                      </Icon>
-                      {/* <Text color={"black"} fontSize="sm">
+              
+              <VStack align="stretch" gap="1rem" marginTop="1rem">
+                {classLessons.map((lesson) => (
+                  <Button
+                    color={Light.black100}
+                    key={lesson.id}
+                    variant="ghost"
+                    overflow="hidden"
+                    justifyContent="flex-start"
+                    width={{"base": "16rem", "md" : "16rem", "lg": "22rem"}}
+                    height="3.5rem"
+                    borderRadius="0.9rem"
+                    borderWidth="1px"
+                    borderColor={Light.black20} // 1px border with 10% black opacity
+                    onClick={() => handleEachLessonClick(lesson)}
+                    bg={selectedLesson === lesson.id ? Light.lightGreenlite : 'transparent'}
+                    _hover={{
+                      bg: Light.lightGreenHover,
+                      color: Light.darkGreen,
+                    }}
+                  >
+                    <VStack align="start" gap={0}>
+                      <Text color={Light.black70} fontSize="1.05rem" fontWeight="400px">
+                        Lesson {lesson.lesson}
+                      </Text>
+                      <Text fontSize="0.8rem" color={Light.black60}>
                         {lesson.title}
-                      </Text> */}
+                      </Text>
+                    </VStack>
+                    <Icon boxSize={3} marginLeft={"auto"} marginRight="1rem"><FaChevronRight /></Icon>
+                  </Button>
 
-                      <VStack align="start" gap={0}>
-                        <Text color={"black"} fontSize="sm" fontWeight="medium">
-                          Lesson {lesson.title}
-                        </Text>
-                        <Text fontSize="xs" color="gray.600" truncate>
-                          {lesson.description}
-                        </Text>
-                      </VStack>
-                      {/* <Icon boxSize={3}>
-                        <FaChevronRight />
-                      </Icon> */}
-                    </Button>
-                  ))}
-                </VStack>
-              </Box>
-            </VStack>
-          </DrawerBody>
-        </DrawerContent>
-      </DrawerRoot>
+                ))}
+              </VStack>
+            </Box>
+
+            {/* Notes Section */}
+            <Box>
+
+            <Button 
+              bg={Light.lightGreenlite} 
+              onClick={handleNotesClick} 
+              width="100%" 
+              height="3.5rem"
+              justifyContent="flex-start" 
+              textAlign="left" 
+              padding="1rem" 
+              borderRadius="1rem"
+              marginTop="2rem"
+            >
+              <HStack color={Light.darkGreen} gap="0.8rem">
+                <Icon as={FaNotesMedical} w="1.5rem" h="1.5rem" />
+                <Text fontWeight="bold" fontSize="1.25rem" marginBottom="0.3rem">Notes</Text>
+              </HStack>
+            </Button>
+
+              
+              <VStack align="stretch" gap="1rem" marginTop="1rem">
+                {classLessons.map((lesson) => (
+                  <Button
+                    key={`note-${lesson.id}`}
+                    variant="ghost"
+                    justifyContent="flex-start"
+                    width={{"base": "16rem", "md" : "16rem", "lg": "22rem"}}
+                    height="3.5rem"
+                    borderRadius="0.9rem"
+                    borderWidth="1px"
+                    overflow="hidden"
+                    borderColor={Light.black20}
+                    onClick={() => handleEachNoteClick(lesson)}
+                    _hover={{
+                      bg: Light.lightGreenHover,
+                      color: Light.darkGreen,
+                    }}
+                  >
+                    <VStack  align="start" gap={0}>
+                    <Text 
+                      textAlign="left"
+                      color={Light.black70}
+                      fontSize={{ base: "0.9rem", md: "1rem", lg: "1.05rem" }} // Responsive font size
+                      fontWeight="500"
+                      width={{ base: "12rem", md: "16rem", lg: "16rem" }}
+                    >
+                      Notes for Lesson {lesson.lesson}
+                    </Text>
+                    </VStack>
+                    <Icon boxSize={3} marginLeft={"auto"} marginRight="1rem" color={Light.black100}><FaChevronRight /></Icon>
+                  </Button>
+                ))}
+              </VStack>
+            </Box>
+          </VStack>
+        </DrawerBody>
+      </DrawerContent>
+    </DrawerRoot>
     </Box>
   );
-};
+}
 
 export default SideDrawer;
