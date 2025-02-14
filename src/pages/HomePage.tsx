@@ -1,490 +1,423 @@
-import { useNavigate } from "react-router-dom";
 import {
-  Box,
-  Flex,
+ Box,
+  Button,
+  Container,
   Heading,
   Text,
-  Button,
-  Image,
-  HStack,
   VStack,
-} from "@chakra-ui/react";
-import Hcard from "@/components/ui/homecard";
-import TestimonialCard from "@/components/ui/Homecard1";
-import HomeStatisticsComponent from "@/components/ui/AchievementHighlights";
-import PlantImage from "../styles/Plant.png";
-import BookImage from "../styles/book.png";
-import MicroImage from "../styles/micro.png";
-import TeamImage from "../styles/team.png";
-import MolecularImage from "../styles/Molecular.png";
-import HeartImage from "../styles/heart.png";
-import RecycleImage from "../styles/recycle.png";
-import TeacherImage from "../styles/teacher.png";
-import TelegramGroupCard from "@/components/ui/TelegramGroupCard";
-import { DopamineLiteColors } from "../themes/colors"
+  SimpleGrid,
+  Icon,
+  Flex,
+  HStack,
+  Card,
+  CardBody,
+  Stack,
+  // Divider,
+  useDisclosure,
+  // SlideFade,
+  // ScaleFade,
+  // Wrap,
+  // WrapItem,
+  CardRoot,
+} from '@chakra-ui/react';
+import { FaDna, FaLeaf, FaBrain, FaBook, FaMicroscope, FaUsers, FaQuoteLeft, FaTelegram } from 'react-icons/fa';
+import { DopamineLiteColors } from '@/themes/colors';
+import { useNavigate } from 'react-router-dom';
+import { useInView } from 'react-intersection-observer';
+import { Avatar } from "@/components/ui/avatar"
+import CountUp from "react-countup";
+import { motion } from 'framer-motion';
+const MotionBox = motion(Box);
 
 
-const HomePage = () => {
+
+
+export default function HomePage() {
   const navigator = useNavigate();
-  const Light = DopamineLiteColors;
+  const { ref: tutorRef, inView: tutorInView } = useInView({ triggerOnce: true });
+  const { ref: testimonialsRef, inView: testimonialsInView } = useInView({ triggerOnce: true });
+  const { ref: telegramRef, inView: telegramInView } = useInView({ triggerOnce: true });
+
+  const features = [
+    {
+      icon: FaDna,
+      title: "Molecular Biology",
+      description: "Explore DNA, RNA, and cellular processes"
+    },
+    {
+      icon: FaLeaf,
+      title: "Ecology & Environment",
+      description: "Study ecosystems and environmental biology"
+    },
+    {
+      icon: FaBrain,
+      title: "Human Biology",
+      description: "Learn about anatomy and physiology"
+    }
+  ];
+
+   const testimonials = [
+    {
+      name: "Sarah Johnson",
+      grade: "A Grade (2023)",
+      comment: "The teaching methods helped me understand complex concepts easily. I achieved my dream grade!",
+      avatar: "/path/to/avatar1.jpg"
+    },
+    {
+      name: "Michael Chen",
+      grade: "A Grade (2023)",
+      comment: "The practice questions and detailed explanations were invaluable for my exam preparation.",
+      avatar: "/path/to/avatar2.jpg"
+    },
+    {
+      name: "Emma Williams",
+      grade: "A Grade (2023)",
+      comment: "The virtual labs and interactive sessions made biology fun and engaging to learn.",
+      avatar: "/path/to/avatar3.jpg"
+    }
+  ];
+
+    const telegramGroups = [
+    {
+      name: "2026 Theory Class",
+      link: "https://t.me/biology2026theory",
+      description: "Join for daily updates and discussions on theory topics"
+    },
+    {
+      name: "2026 Revision Class",
+      link: "https://t.me/biology2026revision",
+      description: "Get access to revision materials and practice questions"
+    },
+    {
+      name: "Past Papers Discussion",
+      link: "https://t.me/biologypastpapers",
+      description: "Discuss past paper questions and solutions"
+    }
+  ];
+  const { ref: lessonsRef, inView: lessonsInView } = useInView({ triggerOnce: true });
+  const { ref: labsRef, inView: labsInView } = useInView({ triggerOnce: true });
+  const { ref: studentsRef, inView: studentsInView } = useInView({ triggerOnce: true });
+
   return (
-    <Box bg={Light.backgroundWhite} minHeight="100vh" paddingTop={{ base: "0rem", md: "0rem" }}>
-      {/* Hero Section */}
-      <Flex
-        w="93%"
-        mx="auto"
-        direction={{ base: "column", md: "row" }}
-        bg={Light.componentWhite}
-        borderRadius="2.48rem"
-        zIndex={1}
-        height={{ base: "auto", md: "44.4375rem" }} // Consistent height
-        boxSizing="border-box"
-        overflow="hidden"
-      >
-        {/* Left Content */}
-        <VStack
-          align="start"
-          flex="1"
-          padding={{ base: "1rem", md: "2.5rem" }} // Adjusted padding
-          marginBottom={{ base: "2rem", md: "0" }}
-        >
-          <Heading
-            textAlign="left"
-            zIndex={2}
-            width={{ base: "90%", md: "453px" }}
-            height={{ base: "auto", md: "266px" }}
-            marginLeft="20px"
-          >
+    <>
+    <Box>
+      <Box bg={DopamineLiteColors.creamColor}>
+        <Container maxW="container.xl" py={{ base: 12, md: 20 }}>
+          <VStack gap={6} textAlign="center">
+            <Heading
+              as="h1"
+              fontSize={{ base: "4xl", md: "6xl" }}
+              color={DopamineLiteColors.greenColor}
+              lineHeight="1.2"
+              fontWeight="bold"
+            >
+              Discover the Wonder of Biology
+            </Heading>
             <Text
-              fontFamily="Bricolage Grotesque"
-              fontWeight="600"
-              fontSize={{ base: "60px", md: "65px", lg : "85px" }} // Adjusted font size for mobile
-              color={Light.black100}
-              lineHeight="90px"
+              fontSize={{ base: "xl", md: "2xl" }}
+              color="gray.600"
+              maxW="container.md"
             >
-              Discover the Wonder of
+              Interactive lessons and resources to make learning biology engaging and effective
             </Text>
-            <Text
-              fontFamily="Bricolage Grotesque"
-              color={Light.darkGreen}
-              fontWeight="600"
-              fontSize={{ base: "80px", md: "95px", lg : "115px" }} // Adjusted font size for mobile
-              lineHeight="120px"
-            >
-              Biology
-            </Text>
-          </Heading>
-
-          <Text
-            fontSize={{ base: "sm", md: "lg" }} // Adjusted font size for mobile
-            color={Light.black75}
-            lineHeight="1.5"
-            maxW="30rem"
-            marginTop="3.5rem"
-            marginLeft="20px"
-          >
-            Interactive lessons and resources to make learning biology engaging and effective.
-          </Text>
-          <HStack 
-            marginTop="3rem"
-            marginLeft={{ base: "10px", md: "20px" }} 
-            gap={8}
-          >
-            <Button
-              width={{ base: "10rem", md: "12.46rem" }}
-              height="3rem"
-              borderRadius="0.817rem"
-              background={Light.orange}
-              boxShadow={Light.boxShadow}
-              _hover={{
-                transform: "scale(1.05)",
-                transition: "transform 0.2s ease-in-out",
+            <Flex gap={4} mt={4}>
+              <Button
+                size="lg"
+                bg={DopamineLiteColors.orangeColor}
+                color="white"
+                _hover={{ bg: "#e68200" }}
+              >
+                <HStack gap={2}>
+                  <FaBook />
+                  <Text>Start Learning</Text>
+                </HStack>
+              </Button>
+              <Button
+              onClick={()=>{
+                navigator('/classes')
               }}
-            >
-              <Text fontWeight="bold" fontSize="lg" color={Light.white100}>
-                Start Learning
-              </Text>
-            </Button>
-            <Button
-              onClick={() => navigator("/classes")}
-              width={{ base: "10rem", md: "12.46rem" }}
-              height="3rem"
-              borderRadius="0.817rem"
-              background={Light.white100}
-              boxShadow={Light.boxShadow}
-              border={Light.border}
-              _hover={{
-                transform: "scale(1.05)",
-                transition: "transform 0.2s ease-in-out",
-              }}
-            >
-              <Text fontWeight="bold" fontSize="lg" color={Light.black100}>
+                size="lg"
+                variant="outline"
+                borderColor={DopamineLiteColors.greenColor}
+                color={DopamineLiteColors.greenColor}
+                _hover={{ bg: "#00712D", color: "white" }}
+              >
                 Browse Courses
-              </Text>
-            </Button>
-          </HStack>
-        </VStack>
+              </Button>
+            </Flex>
+          </VStack>
+        </Container>
+      </Box>
+      <Box>
 
-        {/* Right Image */}
-        <Box
-          flex="1"
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          height="100%"
-        >
-          <Image
-            src={PlantImage}
-            alt="Plant illustration"
-            objectFit="cover"
-            height="100%"
-            width="100%"
-            borderBottomRightRadius="2.48rem"
-            borderTopRightRadius="2.48rem"
-          />
-        </Box>
-      </Flex>
-
-      {/* Section 2 */}
-      <Flex
-        flexDir={{ base: "column", md: "row" }} // Stack on mobile, row on desktop
-        align="center"
-        justify="center"
-        bg="transparent"
-        position="relative"
-        top={{ base: "-2rem", md: "-5rem" }} // Adjusted for smaller screen sizes
-        zIndex={10}
-        gap={{ base: "1rem", md: "2rem", lg: "8rem" }} // Adjusted gap for better spacing
-        padding={{ base: "1rem", md: "2rem" }} // Adjusted padding for mobile
-        width="94%"
-        mx="auto"
-        mt="2rem"
-        borderRadius="1rem"
-      >
-        {/* Interactive Lessons */}
-        <Box
-          bg={Light.darkGreen}
-          borderRadius="10px"
-          w="100%" // Makes it responsive
-          maxW="22rem"
-          h="auto"
-          textAlign="center"
-          boxShadow={Light.boxShadow}
-          padding="1.5rem"
-        >
-          <Flex align="center">
-            <Image src={BookImage} w={{ base: "3.5rem", md: "4.6875rem" }} h={{ base: "3.5rem", md: "4.6875rem" }} />
-            <Box ml="1rem">
-              <Text fontSize={{ base: "1.5rem", md: "2rem" }} fontWeight="bold" color={Light.white100} textAlign="left">
-                100+
+</Box>
+      <Box bg="white">
+        <Container maxW="container.xl" py={{ base: 12, md: 20 }}>
+          <VStack gap={12}>
+            <Box textAlign="center">
+              <Heading
+                as="h2"
+                fontSize={{ base: "3xl", md: "4xl" }}
+                color={DopamineLiteColors.greenColor}
+                mb={4}
+              >
+                Comprehensive Learning Experience
+              </Heading>
+              <Text fontSize="xl" color="gray.600">
+                Explore our wide range of biology topics
               </Text>
-              <Text fontSize={{ base: "1rem", md: "1.5rem" }} color={Light.white100} textAlign="left">
+            </Box>
+            <SimpleGrid columns={{ base: 1, md: 3 }} gap={8} w="full">
+                {features.map((feature, index) => (
+                  <MotionBox
+                    key={index}
+                    bg={DopamineLiteColors.lightGreenColor}
+                    p={8}
+                    borderRadius="lg"
+                    transition={{ duration: 0.2 }}
+                    _hover={{
+                      transform: "scale(1.05)",
+                      boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",  // Add subtle shadow
+                    }}
+                    animate={{
+                      x: [0, 20, 0],  
+                      transition: {
+                        repeat: Infinity,
+                        duration: 3,
+                        ease: "easeInOut",
+                        delay: index * 0.5  
+                      }
+                    }}
+                    willChange="transform, box-shadow"  // For performance
+                  >
+                    <VStack gap={4} align="flex-start">
+                      <Icon boxSize={8} color={DopamineLiteColors.greenColor}> 
+                        <feature.icon />
+                      </Icon>
+                      <Heading as="h3" fontSize="xl" color={DopamineLiteColors.greenColor}>
+                        {feature.title}
+                      </Heading>
+                      <Text color="gray.600">{feature.description}</Text>
+                    </VStack>
+                  </MotionBox>
+                ))}
+              </SimpleGrid>
+          </VStack>
+        </Container>
+      </Box>
+      <Box bg={DopamineLiteColors.greenColor} ref={lessonsRef}>
+        <Container maxW="container.xl" py={{ base: 12, md: 20 }}>
+          <SimpleGrid columns={{ base: 1, md: 3 }} gap={8}>
+            <VStack textAlign="center">
+              <Icon boxSize={8} color="white" mb={4}>
+                <FaBook />
+              </Icon>
+              {/* CountUp component for the number */}
+              <CountUp start={lessonsInView ? 0 : undefined} end={100} duration={2} redraw={true}>
+                {({ countUpRef }) => (
+                  <Text fontSize="4xl" fontWeight="bold" color="white" ref={countUpRef as React.RefObject<HTMLParagraphElement>} />
+                )}
+              </CountUp>
+              <Text fontSize="lg" color={DopamineLiteColors.lightGreenColor}>
                 Interactive Lessons
               </Text>
-            </Box>
-          </Flex>
-        </Box>
-
-        {/* Virtual Labs */}
-        <Box
-          bg={Light.darkGreen}
-          borderRadius="10px"
-          w="100%"
-          maxW="22rem"
-          h="auto"
-          textAlign="center"
-          boxShadow={Light.boxShadow}
-          padding="1.5rem"
-        >
-          <Flex align="center">
-            <Image src={MicroImage} w={{ base: "3.5rem", md: "4.6875rem" }} h={{ base: "3.5rem", md: "4.6875rem" }} />
-            <Box ml="1rem">
-              <Text fontSize={{ base: "1.5rem", md: "2rem" }} fontWeight="bold" color={Light.white100} textAlign="left">
-                50+
-              </Text>
-              <Text fontSize={{ base: "1rem", md: "1.5rem" }} color={Light.white100} textAlign="left">
+            </VStack>
+            <VStack textAlign="center">
+              <Icon boxSize={8} color="white" mb={4}>
+                <FaMicroscope />
+              </Icon>
+              {/* CountUp component for the number */}
+              <CountUp start={labsInView ? 0 : undefined} end={50} duration={2} redraw={true}>
+                {({ countUpRef }) => (
+                  <Text fontSize="4xl" fontWeight="bold" color="white" ref={countUpRef as React.RefObject<HTMLParagraphElement>} />
+                )}
+              </CountUp>
+              <Text fontSize="lg" color={DopamineLiteColors.lightGreenColor}>
                 Virtual Labs
               </Text>
-            </Box>
-          </Flex>
-        </Box>
-
-        {/* Active Students */}
-        <Box
-          bg={Light.darkGreen}
-          borderRadius="10px"
-          w="100%"
-          maxW="22rem"
-          h="auto"
-          textAlign="center"
-          boxShadow={Light.boxShadow}
-          padding="1.5rem"
-        >
-          <Flex align="center">
-            <Image src={TeamImage} w={{ base: "3.5rem", md: "4.6875rem" }} h={{ base: "3.5rem", md: "4.6875rem" }} />
-            <Box ml="1rem">
-              <Text fontSize={{ base: "1.5rem", md: "2rem" }} fontWeight="bold" color={Light.white100} textAlign="left">
-                10,000+
-              </Text>
-              <Text fontSize={{ base: "1rem", md: "1.5rem" }} color={Light.white100} textAlign="left">
+            </VStack>
+            <VStack textAlign="center">
+              <Icon boxSize={8} color="white" mb={4}>
+                <FaUsers />
+              </Icon>
+              {/* CountUp component for the number */}
+              <CountUp start={studentsInView ? 0 : undefined} end={10000} duration={2} redraw={true}>
+                {({ countUpRef }) => (
+                  <Text fontSize="4xl" fontWeight="bold" color="white" ref={countUpRef as React.RefObject<HTMLParagraphElement>} />
+                )}
+              </CountUp>
+              <Text fontSize="lg" color={DopamineLiteColors.lightGreenColor}>
                 Active Students
               </Text>
-            </Box>
-          </Flex>
-        </Box>
-      </Flex>
-
-
-      {/*section 2 */}
-      <Box
-        position="relative"
-        width="100%"
-        textAlign="center"
-        marginTop={{ base: "-3rem", md: "-5rem" }} // Adjusted for smaller screen sizes
-        marginBottom={0}
-      >
-        <Text
-          fontFamily="Bricolage Grotesque"
-          fontSize={{ base: "1.5rem", md: "2rem", lg: "2.75rem" }} // Consistent font size scaling
-          fontWeight="600"
-          lineHeight={{ base: "2rem", md: "2.5rem" }} // Adjusted line height for readability
-          textAlign="center"
-          color={Light.black100}
-          width={{ base: "90%", md: "80%", lg: "705px" }}
-          mx="auto"
-          marginTop={{ base: "1rem", md: "2rem" }}
-        >
-          Comprehensive Learning Experience
-        </Text>
-
-        <Text
-          fontFamily="Bricolage Grotesque"
-          fontSize={{ base: "0.875rem", md: "1.1rem" }} // Reduced font size for better consistency
-          fontWeight="400"
-          lineHeight={{ base: "1.2rem", md: "1.6rem" }} // Adjusted line height
-          textAlign="center"
-          color={Light.black100}
-          width={{ base: "90%", md: "80%", lg: "705px" }}
-          mx="auto"
-        >
-          Explore our wide range of biology topics
-        </Text>
-        <Flex
-          flexDir={{ base: "column", md: "row" }}
-          bg="transparent"
-          position="relative"
-          zIndex={10}
-          columns={{ base: 1, sm: 2, md: 3 }}
-          paddingTop={{ base: "1.5rem", md: "2.5rem" }}
-          w="90%"
-          mx="auto"
-          borderRadius="1rem"
-          gap={{ base: "1.5rem", sm: "2rem", md: "3rem" }} // Adjusted for better responsiveness
-        >
-          <Hcard
-            title="Molecular Biology"
-            description="Explore DNA, RNA, and cellular processes"
-            imageUrl={MolecularImage}
-          />
-          <Hcard
-            title="Ecology & Environment"
-            description="Study ecosystems and environmental biology"
-            imageUrl={RecycleImage}
-          />
-          <Hcard
-            title="Human Biology"
-            description="Learn about anatomy and physiology"
-            imageUrl={HeartImage}
-          />
-        </Flex>
-
+            </VStack>
+          </SimpleGrid>
+        </Container>
+      </Box>
+      {/* Tutor Profile Section */}
+      <Box bg={DopamineLiteColors.creamColor} ref={tutorRef}>
+        <Container maxW="container.xl" py={{ base: 12, md: 20 }}>
+            <SimpleGrid columns={{ base: 1, md: 2 }} gap={8} alignItems="center">
+              <Box>
+                <Avatar
+                  size="2xl"
+                  src="/path/to/tutor-image.jpg"
+                  mb={6}
+                />
+                <Heading
+                  as="h2"
+                  fontSize={{ base: "3xl", md: "4xl" }}
+                  color={DopamineLiteColors.greenColor}
+                  mb={4}
+                >
+                  Meet Your Biology Expert
+                </Heading>
+                <Text fontSize="xl" color="gray.600" mb={4}>
+                  Mr. Sashanka Dhanujaya, MBBS(UG)
+                </Text>
+                <Text color="gray.600">
+                  With over 5 years of teaching experience, Mr.Sashanka has helped thousands of students 
+                  achieve their academic goals. His innovative teaching methods and deep understanding 
+                  of biology make complex concepts easy to grasp.
+                </Text>
+              </Box>
+              <Box>
+                <SimpleGrid columns={2} gap={4}>
+                  <CardRoot>
+                    <CardBody>
+                      <Text fontSize="4xl" fontWeight="bold" color={DopamineLiteColors.greenColor}>15+</Text>
+                      <Text>Years Teaching</Text>
+                    </CardBody>
+                  </CardRoot>
+                  <CardRoot>
+                    <CardBody>
+                      <Text fontSize="4xl" fontWeight="bold" color={DopamineLiteColors.greenColor}>5000+</Text>
+                      <Text>Students Taught</Text>
+                    </CardBody>
+                  </CardRoot>
+                  <CardRoot>
+                    <CardBody>
+                      <Text fontSize="4xl" fontWeight="bold" color={DopamineLiteColors.greenColor}>98%</Text>
+                      <Text>Success Rate</Text>
+                    </CardBody>
+                  </CardRoot>
+                  <CardRoot>
+                    <CardBody>
+                      <Text fontSize="4xl" fontWeight="bold" color={DopamineLiteColors.greenColor}>200+</Text>
+                      <Text>A Grades</Text>
+                    </CardBody>
+                  </CardRoot>
+                </SimpleGrid>
+              </Box>
+            </SimpleGrid>
+        </Container>
       </Box>
 
-
-
-      {/* section 3*/}
-      <Flex
-        padding="2.5rem"
-        borderTopRightRadius="40px"
-        borderBottomLeftRadius="40px"
-        marginTop={{ base: "2rem", md: "4rem" }} // Adjusted margin-top for mobile
-        position="relative" 
-        w="90%"
-        mx="auto"
-        bg={Light.white100}
-        marginBottom="10rem"
-        direction={{ base: "column", md: "row" }} // Stacks the elements vertically on smaller screens
-      >
-        <Box
-          width={{ base: "100%", md: "50%" }} // Full width on mobile, 50% on desktop
-          padding="0.5rem"
-          textAlign="center" // Ensures all text is centered for mobile
-        >
-          <Text
-            fontFamily="Bricolage Grotesque"
-            fontSize={{ base: "1.75rem", md: "40px" }}
-            fontWeight="bold"
-            textAlign="center"
-            color={Light.black100}
-          >
-            Meet Your Biology Expert
-          </Text>
-          <Text
-            fontFamily="Bricolage Grotesque"
-            fontSize={{ base: "1.75rem", md: "24px" }}
-            fontWeight="500"
-            textAlign="center"
-            color={Light.black100}
-          >
-            Mr. Sashanka Dhanujaya, MBBS(UG)
-          </Text>
-          <Text
-            marginTop="25px"
-            fontFamily="Bricolage Grotesque"
-            fontSize={{ base: "1.75rem", md: "20px" }}
-            fontWeight="300"
-            textAlign="center"
-            color={Light.black100}
-          >
-            With over 5 years of teaching experience, Mr. Sashanka has helped thousands of students achieve their academic goals. His innovative teaching methods and deep understanding of biology make complex concepts easy to grasp.
-          </Text>
-        </Box>
-        <Image
-          marginTop={{ base: "2rem", md: "0" }} // Adds margin on top for mobile
-          marginLeft={{ base: "0", md: "5rem" }} // Removes left margin on mobile
-          src={TeacherImage}
-          width={{ base: "100%", md: "435px" }} // 100% width for mobile, fixed width on desktop
-          height="auto" // Makes the height responsive
-        />
-      </Flex>
-
-
-      {/* section 3*/}
-      <Box
-        marginBottom="20px"
-        marginTop="-3rem" 
-      >
-        <HomeStatisticsComponent />
+       {/* Student Testimonials Section */}
+      <Box bg="white" ref={testimonialsRef}>
+        <Container maxW="container.xl" py={{ base: 12, md: 20 }}>
+          <VStack gap={8}>
+            <Heading
+              as="h2"
+              fontSize={{ base: "3xl", md: "4xl" }}
+              color={DopamineLiteColors.greenColor}
+              textAlign="center"
+            >
+              What Our Students Say
+            </Heading>
+            <SimpleGrid columns={{ base: 1, md: 3 }} gap={8} w="full">
+              {testimonials.map((testimonial, index) => (
+                  <CardRoot key={index} h="full">
+                    <CardBody>
+                      <VStack align="start" gap={4}>
+                        <Icon boxSize={6} color={DopamineLiteColors.greenColor} >
+                          <FaQuoteLeft />
+                        </Icon>
+                        <Text fontSize="md" color="gray.600">
+                          {testimonial.comment}
+                        </Text>
+                        <HStack>
+                          <Avatar size="md" src={testimonial.avatar} />
+                          <Box>
+                            <Text fontWeight="bold">{testimonial.name}</Text>
+                            <Text fontSize="sm" color="gray.500">{testimonial.grade}</Text>
+                          </Box>
+                        </HStack>
+                      </VStack>
+                    </CardBody>
+                  </CardRoot>
+            
+              ))}
+            </SimpleGrid>
+            <Button
+              onClick={() => navigator('/testimonials')}
+              size="lg"
+              variant="outline"
+              borderColor={DopamineLiteColors.greenColor}
+              color={DopamineLiteColors.greenColor}
+              _hover={{ bg: DopamineLiteColors.greenColor, color: "white" }}
+            >
+              View All Testimonials
+            </Button>
+          </VStack>
+        </Container>
       </Box>
-
-
-      {/* section 4*/}
-      <Flex
-        flexDir={{ base: "column", md: "row" }}
-        flexWrap="wrap"
-        justify="center"
-        align="center"
-        bg="transparent"
-        marginTop="4rem"
-        marginBottom="2rem"
-        width="100%"
-        maxW="1200px"
-        mx="auto"
-        gap={{ base: "1rem", md: "4rem" }} // Better spacing across screens
-      >
-        {[
-          {
-            name: "Alex Jay",
-            grade: "A Grade (2024)",
-            date: "23/12/2024",
-            avatarUrl: "https://via.placeholder.com/60",
-            title: "Super Class With Great Experience!",
-            testimonial:
-              "I absolutely enjoyed my biology class this semester! The materialcovered was both challenging and fascinating. From learning about thecell's intricate processes to diving deep into genetics, each topicwas presented in a way that was easy to understand. The teacher did an excellent job of explaining complex concepts, using visual aidsand real-life examples that made everything more relatable.",
-          },
-          {
-            name: "Alex Jay",
-            grade: "A Grade (2024)",
-            date: "23/12/2024",
-            avatarUrl: "https://via.placeholder.com/60",
-            title: "Super Class With Great Experience!",
-            testimonial:
-              "I absolutely enjoyed my biology class this semester! The materialcovered was both challenging and fascinating. From learning about thecell's intricate processes to diving deep into genetics, each topicwas presented in a way that was easy to understand. The teacher did an excellent job of explaining complex concepts, using visual aidsand real-life examples that made everything more relatable.",
-          },
-          {
-            name: "Alex Jay",
-            grade: "A Grade (2024)",
-            date: "23/12/2024",
-            avatarUrl: "https://via.placeholder.com/60",
-            title: "Super Class With Great Experience!",
-            testimonial:
-              "I absolutely enjoyed my biology class this semester! The materialcovered was both challenging and fascinating. From learning about thecell's intricate processes to diving deep into genetics, each topicwas presented in a way that was easy to understand. The teacher did an excellent job of explaining complex concepts, using visual aidsand real-life examples that made everything more relatable.",
-          },
-        ].map((testimonial, index) => (
-          <Box
-            key={index}
-            flex="1 1 300px" // Allows wrapping
-            maxWidth="400px" // Prevents excessive stretching
-            width="100%"
-          >
-            <TestimonialCard {...testimonial} />
-          </Box>
-        ))}
-      </Flex>
-
-
-      <Box
-        position="relative"
-        width="100%"
-        textAlign="center"
-        marginTop="5rem"
-        marginBottom={0}
-      >
-        <Text
-          fontFamily="Bricolage Grotesque"
-          fontSize={{ base: "1.5rem", md: "2.5rem", lg: "2.75rem" }} 
-          fontWeight="600"
-          lineHeight={{ base: "2rem", md: "3rem" }} 
-          textAlign="center"
-          color={Light.black100}
-          width={{ base: "90%", md: "80%", lg: "705px" }} 
-          mx="auto"
-          marginTop={{ base: "1rem", md: "2rem" }} 
-        >
-          Join Our Learning Community
-        </Text>
-        <Text
-          fontFamily="Bricolage Grotesque"
-          fontSize={{ base: "0.875rem", md: "1.3rem" }}
-          fontWeight="400"
-          lineHeight={{ base: "1.2rem", md: "1.7rem" }}
-          textAlign="center"
-          color={Light.black100}
-          width={{ base: "90%", md: "80%", lg: "705px" }}
-          mx="auto"
-        >
-          Connect with fellow students and get instant updates through our Telegram groups
-        </Text>
-        </Box>
-        <Text color={"green"}>{"aaaasddss"}</Text>
-
-        <Flex
-        flexDir={{ base: "column", md: "row" }}
-        flexWrap="wrap"
-        justify="center"
-        align="center"
-        bg="transparent"
-        marginTop="4rem"
-        marginBottom="2rem"
-        width="82%"
-        maxW="1200px"
-        mx="auto"
-        gap={{ base: "1rem", md: "4rem" }} // Better spacing across screens
-        >
-          <Box flex="1 1 18.75rem" maxW="25rem" width="100%" minWidth="17.5rem">
-            <TelegramGroupCard />
-          </Box>
-
-          <Box flex="1 1 18.75rem" maxW="25rem" width="100%" minWidth="17.5rem">
-            <TelegramGroupCard />
-          </Box>
-
-          <Box flex="1 1 18.75rem" maxW="25rem" width="100%" minWidth="17.5rem">
-            <TelegramGroupCard />
-          </Box>
-        </Flex>
+      {/* Telegram Groups Section */}
+      <Box bg={DopamineLiteColors.lightGreenColor} ref={telegramRef}>
+        <Container maxW="container.xl" py={{ base: 12, md: 20 }}>
+            <VStack gap={8}>
+              <Heading
+                as="h2"
+                fontSize={{ base: "3xl", md: "4xl" }}
+                color={DopamineLiteColors.greenColor}
+                textAlign="center"
+              >
+                Join Our Learning Community
+              </Heading>
+              <Text fontSize="xl" color="gray.600" textAlign="center">
+                Connect with fellow students and get instant updates through our Telegram groups
+              </Text>
+              <SimpleGrid columns={{ base: 1, md: 3 }} gap={8} w="full">
+                {telegramGroups.map((group, index) => (
+                  <CardRoot
+                    key={index}
+                    bg="white"
+                    _hover={{
+                      transform: "translateY(-8px)",
+                      transition: "transform 0.2s"
+                    }}
+                  >
+                    <CardBody>
+                      <VStack gap={4}>
+                        <Icon boxSize={8} color={DopamineLiteColors.greenColor} >
+                          <FaTelegram />
+                        </Icon>
+                        <Heading size="md" color={DopamineLiteColors.greenColor}>
+                          {group.name}
+                        </Heading>
+                        <Text color="gray.600" textAlign="center">
+                          {group.description}
+                        </Text>
+                        <Button
+                          as="a"
+                          // href={group.link}
+                          // target="_blank"
+                          bg={DopamineLiteColors.greenColor}
+                          color="white"
+                          _hover={{ bg: "#00712D" }}
+                        >
+                          <FaTelegram />
+                          Join Group
+                        </Button>
+                      </VStack>
+                    </CardBody>
+                  </CardRoot>
+                ))}
+              </SimpleGrid>
+            </VStack>
+        
+        </Container>
+      </Box>
     </Box>
+    </>
   );
-};
-
-export default HomePage;
+}
