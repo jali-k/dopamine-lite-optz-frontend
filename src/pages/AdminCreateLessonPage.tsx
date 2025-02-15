@@ -61,7 +61,7 @@ export default function AdminCreateLessonPage() {
   const processAccessGroups = (groups: AccessGroup[]) => {
     const processedGroups = groups.map(group => ({
       label: group.name,
-      value: group.id,
+      value: group.accessGroupId,
     }));
     setAccessGroupsList(processedGroups);
   };
