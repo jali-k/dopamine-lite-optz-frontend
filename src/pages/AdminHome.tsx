@@ -1,4 +1,5 @@
 
+import React from 'react';
 import { Box, Container, SimpleGrid, VStack, Heading, Text, Icon, Card } from "@chakra-ui/react";
 import { FaGraduationCap, FaUsers } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';

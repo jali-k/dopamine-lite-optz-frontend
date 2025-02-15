@@ -7,7 +7,6 @@ import { setUser, clearUser } from './state/slices/userSlice';
 import Layout from './components/Layout';
 import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
-import Profile from './pages/ProfilePage';
 import LessonsPage from './pages/ClassLessonsPage';
 import NotesPage from './pages/ClassNotesPage';
 import LessonPage from './pages/LessionPage';
@@ -75,7 +74,6 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route element={user.isAuthenticated ? <Layout /> : <Navigate to="/login" />}>
       <Route path="/" element={<HomePage />} />
-      <Route path="/profile" element={<Profile />} />
       <Route path="/classes/:clsid/lessons" element={<LessonsPage />} />
       <Route path="/classes/:clsid/notes" element={<NotesPage />} />
       <Route path="/classes" element={<ClassesPage />} />

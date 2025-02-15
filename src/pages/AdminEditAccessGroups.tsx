@@ -9,7 +9,7 @@ import {
   Text,
   HStack,
   Textarea,
-  //Badge,
+  Badge,
   IconButton,
   Card
 } from "@chakra-ui/react";

@@ -8,6 +8,7 @@ import {
   DrawerRoot,
   DrawerTrigger,
 } from "@/components/ui/drawer"
+import { DopamineLiteColors } from "@/themes/colors"
 import { 
   Box,
   VStack,
@@ -15,16 +16,15 @@ import {
   Text,
   Icon,
   Badge,
-  Flex,
+  Separator,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { FaVideo, FaNotesMedical, FaChevronRight, FaBars } from 'react-icons/fa';
+import { FaBook, FaVideo, FaNotesMedical, FaChevronRight, FaBars } from 'react-icons/fa';
 import { Class } from '@/types/class.types';
 import { Lesson } from '@/types/lesson.types';
 import { classesService_dev } from '@/services/classes';
 import { lessonsService_dev } from '@/services/lessons';
-import { DopamineLiteColors } from "@/themes/colors";
 
 interface SideDrawerProps {
   classId?: string;
@@ -74,154 +74,114 @@ const SideDrawer = ({ classId }: SideDrawerProps) => {
     navigate(`/classes/${lesson.classId}/notes/${lesson.id}`);
   }
 
-  const Light = DopamineLiteColors;
   return (
     <Box zIndex={1}>
       <DrawerRoot  placement={'start'}>
       <DrawerBackdrop />
-      <DrawerTrigger bg="transparent" asChild>
+      <DrawerTrigger bg={DopamineLiteColors.greenColor} asChild>
         <Button 
-          color={Light.black100}
+       
           variant="ghost" 
-          height="2rem"
+          size="sm"
         >
           <Icon  >
             <FaBars />
           </Icon>
+          Menu
         </Button>
       </DrawerTrigger>
-      <DrawerContent bg={Light.white100} width={{"base": "18rem", "md" : "20rem", "lg": "26rem"}} maxWidth="30rem" >
-        <DrawerHeader bg={Light.darkGreen} paddingTop={"1.4rem"} paddingBottom={"1.4rem"}>
-          <Flex flexDir={'row'} justifyContent="flex-start" alignItems={'center'}>
-            <Button onClick={() => {
-            handleTitleClick(classData?.id||'')
-          }} bg={'transparent'}><Box   py={2}>
+      <DrawerContent bg={DopamineLiteColors.creamColor}>
+        <DrawerHeader bg={DopamineLiteColors.greenColor}>
+          <Button onClick={() => {
+          handleTitleClick(classData?.id||'')
+        }} bg={'transparent'}><Box   py={2}>
             <Badge
-              padding="0.2rem 0.7rem"
-              fontSize="1.25rem" // 20px = 1.25rem
-              lineHeight="1.5rem" // 24px = 1.5rem
-              fontWeight="500"
-              fontFamily="'Bricolage Grotesque', sans-serif"
-              alignItems="center"
-              bg={Light.white100}
-              color={Light.darkGreen}
+              fontSize="sm"
+              px={3}
+              py={1}
+              bg={DopamineLiteColors.lightGreenColor}
+              color={DopamineLiteColors.greenColor}
               borderRadius="full"
             >
               {classData?.name || 'Loading...'}
             </Badge>
-            </Box></Button> 
-            <DrawerCloseTrigger />
-          </Flex>
-        </DrawerHeader>       
+          </Box></Button>
+          
+          <DrawerCloseTrigger />
+        </DrawerHeader>
+        
         <DrawerBody>
-          <VStack align="stretch" gap={4} padding={0}>
+          <VStack align="stretch" gap={4}>
             {/* Lessons Section */}
-            <Box  marginTop="0.7rem">
+            <Box>
 
-            <Button 
-              bg={Light.lightGreenlite} 
-              onClick={handleLessonsClick} 
-              width="100%" 
-              height="3.5rem"
-              justifyContent="flex-start" 
-              textAlign="left" 
-              padding="1rem"
-              borderRadius="1rem"
-            >
-              <HStack color={Light.darkGreen} gap="0.8rem"> {/* Ensure consistent spacing */}
-                <Icon as={FaVideo} w="1.5rem" h="1.5rem" />
-                <Text fontWeight="bold" fontSize="1.25rem" marginBottom="0.3rem">Lessons</Text>
+              <Button bg={'transparent'} onClick={handleLessonsClick}>
+                <HStack mb={4} color={DopamineLiteColors.greenColor}>
+                <Icon><FaVideo /></Icon>
+                <Text fontWeight="bold">Lessons</Text>
               </HStack>
-            </Button>
-
-
+              </Button>
               
-              <VStack align="stretch" gap="1rem" marginTop="1rem">
+              <VStack align="stretch" gap={2}>
                 {classLessons.map((lesson) => (
                   <Button
-                    color={Light.black100}
+                  color={'black'}
                     key={lesson.id}
                     variant="ghost"
-                    overflow="hidden"
                     justifyContent="flex-start"
-                    width={{"base": "16rem", "md" : "16rem", "lg": "22rem"}}
-                    height="3.5rem"
-                    borderRadius="0.9rem"
-                    borderWidth="1px"
-                    borderColor={Light.black20} // 1px border with 10% black opacity
+                    h="auto"
+                    py={2}
+                    px={4}
                     onClick={() => handleEachLessonClick(lesson)}
-                    bg={selectedLesson === lesson.id ? Light.lightGreenlite : 'transparent'}
+                    bg={selectedLesson === lesson.id ? DopamineLiteColors.lightGreenColor : 'transparent'}
                     _hover={{
-                      bg: Light.lightGreenHover,
-                      color: Light.darkGreen,
+                      bg: DopamineLiteColors.lightGreenColor,
+                      color: DopamineLiteColors.greenColor,
                     }}
                   >
+                    <Icon boxSize={4}><FaBook /></Icon>
                     <VStack align="start" gap={0}>
-                      <Text color={Light.black70} fontSize="1.05rem" fontWeight="400px">
+                      <Text color={'black'} fontSize="sm" fontWeight="medium">
                         Lesson {lesson.lesson}
                       </Text>
-                      <Text fontSize="0.8rem" color={Light.black60}>
+                      <Text fontSize="xs" color="gray.600">
                         {lesson.title}
                       </Text>
                     </VStack>
-                    <Icon boxSize={3} marginLeft={"auto"} marginRight="1rem"><FaChevronRight /></Icon>
+                    <Icon boxSize={3}><FaChevronRight /></Icon>
                   </Button>
-
                 ))}
               </VStack>
             </Box>
 
+            <Separator />
+
             {/* Notes Section */}
             <Box>
-
-            <Button 
-              bg={Light.lightGreenlite} 
-              onClick={handleNotesClick} 
-              width="100%" 
-              height="3.5rem"
-              justifyContent="flex-start" 
-              textAlign="left" 
-              padding="1rem" 
-              borderRadius="1rem"
-              marginTop="2rem"
-            >
-              <HStack color={Light.darkGreen} gap="0.8rem">
-                <Icon as={FaNotesMedical} w="1.5rem" h="1.5rem" />
-                <Text fontWeight="bold" fontSize="1.25rem" marginBottom="0.3rem">Notes</Text>
+              <Button bg={'transparent'} onClick={handleNotesClick}>
+                <HStack mb={4} color={DopamineLiteColors.greenColor}>
+                <Icon><FaNotesMedical /></Icon>
+                <Text fontWeight="bold">Notes</Text>
               </HStack>
-            </Button>
-
+              </Button>
               
-              <VStack align="stretch" gap="1rem" marginTop="1rem">
+              <VStack align="stretch" gap={2}>
                 {classLessons.map((lesson) => (
                   <Button
                     key={`note-${lesson.id}`}
                     variant="ghost"
                     justifyContent="flex-start"
-                    width={{"base": "16rem", "md" : "16rem", "lg": "22rem"}}
-                    height="3.5rem"
-                    borderRadius="0.9rem"
-                    borderWidth="1px"
-                    overflow="hidden"
-                    borderColor={Light.black20}
+                    h="auto"
+                    py={2}
+                    px={4}
                     onClick={() => handleEachNoteClick(lesson)}
                     _hover={{
-                      bg: Light.lightGreenHover,
-                      color: Light.darkGreen,
+                      bg: DopamineLiteColors.lightGreenColor,
+                      color: DopamineLiteColors.greenColor,
                     }}
                   >
-                    <VStack  align="start" gap={0}>
-                    <Text 
-                      textAlign="left"
-                      color={Light.black70}
-                      fontSize={{ base: "0.9rem", md: "1rem", lg: "1.05rem" }} // Responsive font size
-                      fontWeight="500"
-                      width={{ base: "12rem", md: "16rem", lg: "16rem" }}
-                    >
-                      Notes for Lesson {lesson.lesson}
-                    </Text>
-                    </VStack>
-                    <Icon boxSize={3} marginLeft={"auto"} marginRight="1rem" color={Light.black100}><FaChevronRight /></Icon>
+                    <Icon color={'black'} boxSize={4}><FaNotesMedical /></Icon>
+                    <Text color={'black'} fontSize="sm">Notes for Lesson {lesson.lesson}</Text>
                   </Button>
                 ))}
               </VStack>
