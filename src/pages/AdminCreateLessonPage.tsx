@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Container,
@@ -14,15 +14,14 @@ import {
   SelectValueText,
   SelectContent,
   SelectItem,
-  createListCollection
+  createListCollection,
 } from "@chakra-ui/react";
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from "react-router-dom";
 import { lessonsService_dev } from "@/services/lessons";
 import { accessGroupService_dev } from "@/services/access-groupes";
 import { toaster } from "@/components/ui/toaster";
-import { AccessGroup } from '@/types/access-group.types';
-import { belongingLessons } from '@/assets/static/belongingLessons';
-
+import { AccessGroup } from "@/types/access-group.types";
+import { belongingLessons } from "@/assets/static/belongingLessons";
 
 const colors = {
   primary: "#00712D",
@@ -33,14 +32,16 @@ export default function AdminCreateLessonPage() {
   const { clsid } = useParams();
   const navigate = useNavigate();
   // const [accessGroups, setAccessGroups] = useState<AccessGroup[]>([]);
-  const [accessGroupsList, setAccessGroupsList] = useState<{ label: string; value: string }[]>([]);
+  const [accessGroupsList, setAccessGroupsList] = useState<
+    { label: string; value: string }[]
+  >([]);
   const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    lesson: '',
-    tutor: '',
-    handler: '',
-    accessGroupId: ''
+    title: "",
+    description: "",
+    lesson: "",
+    tutor: "",
+    handler: "",
+    accessGroupId: "",
   });
 
   useEffect(() => {
@@ -51,7 +52,10 @@ export default function AdminCreateLessonPage() {
         processAccessGroups(groups);
         // No default selection
       } catch (error) {
-        toaster.create({ title: 'Error fetching access groups', type: 'error' });
+        toaster.create({
+          title: "Error fetching access groups",
+          type: "error",
+        });
       }
     };
 
@@ -59,7 +63,7 @@ export default function AdminCreateLessonPage() {
   }, []);
 
   const processAccessGroups = (groups: AccessGroup[]) => {
-    const processedGroups = groups.map(group => ({
+    const processedGroups = groups.map((group) => ({
       label: group.name,
       value: group.accessGroupId,
     }));
@@ -73,12 +77,12 @@ export default function AdminCreateLessonPage() {
       await lessonsService_dev.createLesson({
         ...formData,
         classId: clsid!,
-        date: new Date().toISOString()
+        date: new Date().toISOString(),
       });
-      toaster.create({ title: 'Lesson created successfully', type: 'success' });
+      toaster.create({ title: "Lesson created successfully", type: "success" });
       navigate(`/admin/classes/${clsid}/lessons`);
     } catch (error) {
-      toaster.create({ title: 'Error creating lesson', type: 'error' });
+      toaster.create({ title: "Error creating lesson", type: "error" });
     }
   };
 
@@ -89,52 +93,75 @@ export default function AdminCreateLessonPage() {
           <Heading color={colors.primary}>Create New Lesson</Heading>
           <form onSubmit={handleSubmit}>
             <VStack gap={4}>
-
               <Box w="full">
-                <Text color={colors.primary} mb={2}>Title</Text>
+                <Text color={colors.primary} mb={2}>
+                  Title
+                </Text>
                 <Input
-                  color='black'
+                  color="black"
                   value={formData.title}
-                  onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, title: e.target.value })
+                  }
                   required
                 />
               </Box>
               <Box w="full">
-                <Text color={colors.primary} mb={2}>Description</Text>
+                <Text color={colors.primary} mb={2}>
+                  Description
+                </Text>
                 <Textarea
-                  color='black'
+                  color="black"
                   value={formData.description}
-                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, description: e.target.value })
+                  }
                   required
                 />
               </Box>
 
               <Box w="full">
-                <Text color={colors.primary} mb={2}>Handler</Text>
+                <Text color={colors.primary} mb={2}>
+                  Handler
+                </Text>
                 <Input
-                  color='black'
+                  color="black"
                   value={formData.handler}
-                  onChange={(e) => setFormData({ ...formData, handler: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, handler: e.target.value })
+                  }
                   required
                 />
               </Box>
               <Box w="full">
-                <Text color={colors.primary} mb={2}>Tutor</Text>
+                <Text color={colors.primary} mb={2}>
+                  Tutor
+                </Text>
                 <Input
-                  color='black'
+                  color="black"
                   value={formData.tutor}
-                  onChange={(e) => setFormData({ ...formData, tutor: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, tutor: e.target.value })
+                  }
                   required
                 />
               </Box>
               <Box w="full">
-                <Text mb={2} color={colors.primary}>Belonging lesson</Text>
-                <SelectRoot color={colors.primary} collection={createListCollection({ items: belongingLessons })} required>
+                <Text mb={2} color={colors.primary}>
+                  Belonging lesson
+                </Text>
+                <SelectRoot
+                  color={colors.primary}
+                  collection={createListCollection({ items: belongingLessons })}
+                  required
+                >
                   <SelectTrigger>
                     <SelectValueText placeholder="Select a belonging lesson" />
                   </SelectTrigger>
                   <SelectContent>
-                    {(createListCollection({ items: belongingLessons })).items.map(eachLesson => {
+                    {createListCollection({
+                      items: belongingLessons,
+                    }).items.map((eachLesson) => {
                       return (
                         <SelectItem key={eachLesson.value} item={eachLesson}>
                           {eachLesson.label}
@@ -145,7 +172,9 @@ export default function AdminCreateLessonPage() {
                 </SelectRoot>
               </Box>
               <Box w="full">
-                <Text color={colors.primary} mb={2}>Access Group</Text>
+                <Text color={colors.primary} mb={2}>
+                  Access Group
+                </Text>
                 <SelectRoot
                   color={colors.primary}
                   collection={createListCollection({ items: accessGroupsList })}
@@ -157,17 +186,20 @@ export default function AdminCreateLessonPage() {
                   </SelectTrigger>
 
                   <SelectContent>
-                    {(createListCollection({ items: accessGroupsList })).items.map(group => (
+                    {createListCollection({
+                      items: accessGroupsList,
+                    }).items.map((group) => (
                       <SelectItem key={group.value} item={group}>
                         {group.label}
                       </SelectItem>
                     ))}
                   </SelectContent>
-
                 </SelectRoot>
               </Box>
               <HStack justify="flex-end" w="full">
-                <Button onClick={() => navigate(-1)} mr={3}>Cancel</Button>
+                <Button onClick={() => navigate(-1)} mr={3}>
+                  Cancel
+                </Button>
                 <Button type="submit" bg={colors.primary} color="white">
                   Create Lesson
                 </Button>
