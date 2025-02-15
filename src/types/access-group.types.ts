@@ -1,5 +1,5 @@
 export interface AccessGroup {
-  id: string;
+  accessGroupId: string;
   name: string;
   accessList: string[];
 }
