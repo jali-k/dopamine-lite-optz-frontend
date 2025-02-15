@@ -14,11 +14,9 @@ import {
 } from "@chakra-ui/react";
 import { FaTimes } from "react-icons/fa";
 import { useNavigate, useParams } from "react-router-dom";
-import {
-  accessGroupService,
-  accessGroupService_dev,
-} from "@/services/access-groupes";
+import { accessGroupService } from "@/services/access-groupes";
 import { toaster } from "@/components/ui/toaster";
+import { AccessGroup } from "@/types/access-group.types";
 
 const colors = {
   primary: "#00712D",
@@ -30,7 +28,8 @@ const colors = {
 export default function AdminEditAccessGroupPage() {
   const navigate = useNavigate();
   const { groupId } = useParams();
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<AccessGroup>({
+    accessGroupId: "",
     name: "",
     accessList: [] as string[],
   });
@@ -43,10 +42,7 @@ export default function AdminEditAccessGroupPage() {
     const fetchGroup = async () => {
       try {
         const group = await accessGroupService.getGroupById(groupId!);
-        setFormData({
-          name: group.name,
-          accessList: group.accessList,
-        });
+        setFormData(group);
       } catch (error) {
         toaster.create({ title: "Error fetching group", type: "error" });
       }
@@ -67,7 +63,7 @@ export default function AdminEditAccessGroupPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await accessGroupService_dev.updateGroup(groupId!, formData);
+      await accessGroupService.updateGroup(groupId!, formData);
       toaster.create({ title: "Group updated successfully", type: "success" });
       navigate("/admin/access-groups");
     } catch (error) {

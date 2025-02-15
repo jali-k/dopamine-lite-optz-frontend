@@ -18,7 +18,10 @@ import {
 } from "@chakra-ui/react";
 import { useParams, useNavigate } from "react-router-dom";
 import { lessonsService_dev } from "@/services/lessons";
-import { accessGroupService_dev } from "@/services/access-groupes";
+import {
+  accessGroupService,
+  accessGroupService_dev,
+} from "@/services/access-groupes";
 import { toaster } from "@/components/ui/toaster";
 import { AccessGroup } from "@/types/access-group.types";
 import { belongingLessons } from "@/assets/static/belongingLessons";
@@ -47,7 +50,7 @@ export default function AdminCreateLessonPage() {
   useEffect(() => {
     const fetchAccessGroups = async () => {
       try {
-        const groups = await accessGroupService_dev.getGroups();
+        const groups = await accessGroupService.getGroups();
         // setAccessGroups(groups);
         processAccessGroups(groups);
         // No default selection
