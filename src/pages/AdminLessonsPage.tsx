@@ -13,7 +13,7 @@ import {
   HStack,
   Icon,
   Button,
-  Dialog,
+  //Dialog,
   DialogContent,
   DialogHeader,
   DialogBody,

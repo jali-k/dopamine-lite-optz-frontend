@@ -7,31 +7,27 @@ import {
   Text,
   VStack,
   HStack,
-  Badge,
   Skeleton,
   Icon,
-  Separator,
   Card,
-  CardBody,
 } from '@chakra-ui/react';
 import {
   FaRegClock,
   FaRegCalendarAlt,
   FaChalkboardTeacher,
-  FaBookReader,
+  FaInfoCircle
 } from 'react-icons/fa';
 import VideoPlayer from '@/components/VideoPlayer';
 import { lessonsService_dev } from '@/services/lessons';
 import { Lesson } from '@/types/lesson.types';
 import SideDrawer from '@/components/SideDrawer';
+import {DopamineLiteColors} from '@/themes/colors';
 
-// Color palette
-const colors = {
-  primary: "#00712D",
-  secondary: "#D5ED9F",
-  background: "#FFFBE6",
-  accent: "#FF9100",
-};
+const Light = DopamineLiteColors;
+
+
+
+
 
 const LessonPage = () => {
   const params = useParams();
@@ -69,124 +65,66 @@ const LessonPage = () => {
     return (
       <Container maxW="container.xl" py={8}>
         <VStack gap={8} align="stretch">
-          <Skeleton height="40px" width="70%" />
-          <Skeleton height="24px" width="40%" />
-          <Skeleton height="400px" borderRadius="lg" />
-          <Skeleton height="100px" />
+          <Skeleton height="2.5rem" width="70%" />
+          <Skeleton height="1.5rem" width="40%" />
+          <Skeleton height="25rem" borderRadius="lg" />
+          <Skeleton height="6rem" />
         </VStack>
       </Container>
     );
   }
 
   return (
-    <Box bg={colors.background} minH="100vh" >
-      <Box my={6} mx={8}>
-        <SideDrawer classId={lessonData?.classId}  />
-      </Box>
-      
-      <Container maxW="container.xl" >
-        
-        {/* Header Section */}
-        <VStack align="stretch" gap={6} mb={8}>
-          <Box>
-            <Badge
-              colorScheme="green"
-              bg={colors.secondary}
-              color={colors.primary}
-              px={3}
-              py={1}
-              borderRadius="full"
-              mb={4}
-            >
-              <HStack gap={1}>
-                <Icon >
-                  <FaChalkboardTeacher />
-                </Icon>
-                <Text>Lesson {lessonData?.lesson}</Text>
-              </HStack>
-            </Badge>
-            <Heading
-              as="h1"
-              size="xl"
-              color={colors.primary}
-              mb={4}
-            >
-              {lessonData?.title}
-            </Heading>
-          </Box>
-
-          <HStack
-            gap={8}
-            flexWrap="wrap"
-            color="gray.600"
-          >
-            <HStack gap={2}>
-              <Icon color={colors.accent} >
-                <FaRegCalendarAlt />
-              </Icon>
-              <Text>{formatDate(lessonData?.createdAt || '')}</Text>
+    <Box bg={Light.backgroundWhite} minH="100vh">
+    <Container maxW="container.xl" px={{ base: "1rem", md: "2rem" }}>
+      <HStack mx={"auto"} gap={{ base: "1rem", md: "2rem" }} align="start" flexWrap="wrap">
+        <Box mt="1.5rem">
+          <SideDrawer classId={lessonData?.classId} />
+        </Box>
+        <VStack align="stretch" gap={6} mb={8} w="full">
+          <Heading as="h1" size="xl" color={Light.black100}>
+            {lessonData?.title}
+          </Heading>
+          <HStack gap={8} flexWrap="wrap" color="gray.600">
+            <HStack>
+              <Icon as={FaRegCalendarAlt} color={Light.black100} />
+              <Text fontSize="0.875rem" color={Light.black75}>Created:</Text>
+              <Text fontSize="0.875rem" color={Light.black100}>{formatDate(lessonData?.createdAt || '')}</Text>
             </HStack>
-            <HStack gap={2}>
-              <Icon  color={colors.accent} >
-                <FaChalkboardTeacher />
-              </Icon>
-              <Text>{lessonData?.handler}</Text>
+            <HStack>
+              <Icon as={FaChalkboardTeacher} color={Light.black100} />
+              <Text fontSize="0.875rem" color={Light.black75}>Handler:</Text>
+              <Text fontSize="0.875rem" color={Light.black100}>{lessonData?.handler}</Text>
+            </HStack>
+          </HStack>
+          <Card.Root shadow="sm" borderRadius="1rem" overflow="hidden" w="full">
+            <Box aspectRatio={16 / 9}>
+              <VideoPlayer url={url} watermark="Dopamine lite" />
+            </Box>
+          </Card.Root>
+          <HStack justifyContent="space-between" alignItems="flex-start" flexWrap="wrap" p={4} mt={3}>
+            <HStack align="flex-start" maxW={{ base: "100%", md: "60%" }}>
+              <Icon as={FaInfoCircle} color={Light.black100} boxSize={5} mt="0.5rem" />
+              <VStack align="stretch">
+                <Text fontSize="1.125rem" color={Light.black100}>About this lesson</Text>
+                <Text fontSize="0.9375rem" color={Light.black75}>{lessonData?.description}</Text>
+              </VStack>
+            </HStack>
+            <HStack align="flex-start" maxW={{ base: "100%", md: "40%" }}>
+              <Icon as={FaRegClock} color={Light.black100} boxSize={5} mt="0.5rem" />
+              <VStack align="stretch" textAlign={{ base: "left", md: "right" }}>
+                <Text fontSize="1.125rem" color={Light.black100}>Last Updated</Text>
+                <Text fontSize="0.9375rem" color={Light.black75}>{formatDate(lessonData?.updatedAt || '')}</Text>
+              </VStack>
             </HStack>
           </HStack>
         </VStack>
-
-        {/* Video Player Section */}
-        <Card.Root
-          bg="white"
-          shadow="xl"
-          borderRadius="lg"
-          overflow="hidden"
-          mb={8}
-        >
-          <Box bg="gray.900" aspectRatio={16/9}>
-            <VideoPlayer url={url} watermark="Dopamine lite" />
-          </Box>
-        </Card.Root>
-
-        {/* Content Section */}
-        <Card.Root bg="white" shadow="md" borderRadius="lg">
-          <CardBody>
-            <VStack align="stretch" gap={8}>
-              <Box>
-                <HStack mb={4}>
-                  <Icon  color={colors.primary} boxSize={5} >
-                    <FaBookReader />
-                  </Icon> 
-                  <Heading size="md" color={colors.primary}>
-                    About this lesson
-                  </Heading>
-                </HStack>
-                <Text color="gray.700" fontSize="lg" lineHeight="tall">
-                  {lessonData?.description}
-                </Text>
-              </Box>
-
-              <Separator borderColor="gray.200" />
-
-              <Box>
-                <HStack mb={4}>
-                  <Icon color={colors.primary} boxSize={5} >
-                    <FaRegClock />
-                  </Icon>
-                  <Heading size="md" color={colors.primary}>
-                    Last Updated
-                  </Heading>
-                </HStack>
-                <Text color="gray.700">
-                  {formatDate(lessonData?.updatedAt || '')}
-                </Text>
-              </Box>
-            </VStack>
-          </CardBody>
-        </Card.Root>
-      </Container>
-    </Box>
+      </HStack>
+    </Container>
+  </Box>
   );
 };
+
+
 
 export default LessonPage;
