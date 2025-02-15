@@ -3,28 +3,18 @@ import {
   Flex, 
   Button, 
   Stack, 
-  Image, 
   Text, 
   Link,
-  IconButton,
-  Drawer,
-  DrawerBody,
-  DrawerHeader,
-
-  DrawerContent,
   useDisclosure,
   VStack,
-  DrawerBackdrop,
-  Menu,
   MenuRoot,
   MenuTrigger,
   MenuContent
 } from '@chakra-ui/react';
-import { FiMenu, FiX } from 'react-icons/fi';
+import { FiMenu } from 'react-icons/fi';
 import { useAppDispatch } from '../hooks/redux';
 import { clearUser } from '../state/slices/userSlice';
 import { signOut } from '@aws-amplify/auth';
-import dopamineLogo from '@/assets/dopamine_logo.jpg';
 import { useNavigate } from 'react-router-dom';
 import { DopamineLiteColors } from '@/themes/colors';
 import { forwardRef, ForwardedRef } from 'react';
@@ -38,9 +28,10 @@ const NavbarLink = forwardRef(({ onClick, children, ...props }: any, ref: Forwar
 NavbarLink.displayName = 'NavbarLink';
 
 export default function Navbar() {
+  const Light = DopamineLiteColors;
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { open, onOpen, onClose } = useDisclosure();
+  const { open, onClose } = useDisclosure();
 
   const handleSignOut = async () => {
     try {
@@ -61,46 +52,88 @@ export default function Navbar() {
     onClose();
   };
 
+
+  const onPrfileClick = () => {
+    navigate('/profile');
+    onClose();
+  }
+
+
+  const fontFamily = "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif";
   const NavButtons = () => (
     <>
       <Button 
-        variant={'outline'} 
-        borderColor={'#00712D'} 
-        color={'white'} 
-        _hover={{bg: 'white', color: 'green'}} 
+        variant="ghost"
+        color={Light.black100}
+        bg={Light.backgroundWhite}
+        fontWeight="400" // Font weight
+        fontSize="20px" // Font size
+        lineHeight="24px" // Line height
+        fontFamily={fontFamily} // Use consistent font family
         onClick={onClassesClick}
       >
         Classes
       </Button>
       <Button 
-        variant={'outline'} 
-        onClick={()=>{}} 
-        borderColor={'#00712D'} 
-        _hover={{bg: 'white', color: 'green'}} 
-        color={'white'}
+        variant="ghost"
+        onClick={onPrfileClick} 
+        color={Light.black100}
+        bg={Light.backgroundWhite}
+        fontWeight="400"
+        fontSize="20px"
+        lineHeight="24px"
+        fontFamily={fontFamily} // Use consistent font family
       >
         Profile
       </Button>
       <Button 
         colorScheme="biology" 
         onClick={handleSignOut}
+        color={Light.black100}
+        bg={Light.white800}
+        boxShadow={Light.boxShadow}
+        borderRadius="8px"
+        fontWeight="400"
+        fontSize="20px"
+        lineHeight="24px"
+        fontFamily={fontFamily} // Use consistent font family
+        px={6}
+        py={4}
+        _hover={{ bg: Light.gray300 }} 
+        
       >
-        Sign Out
+          Sign Out
       </Button>
     </>
   );
 
   return (
-    <Box bg={DopamineLiteColors.greenColor} position="sticky" top="0" zIndex={2} w="100%">
+    <Box 
+      bg={Light.backgroundWhite} // Light gray background color
+      position="sticky" 
+      top="0" 
+      w="100%" 
+      border="none" // Explicitly remove any border
+      boxShadow="none" // Remove box shadow if it's there
+      zIndex="50"
+  >
       <Flex h={16} alignItems="center" justifyContent="space-between" px={4}>
+      <Flex flex="1" >
         <NavbarLink onClick={onHomeClick}>
           <Flex alignItems="center">
-            <Image h="40px" src={dopamineLogo} alt="Logo" />
-            <Text ml={3} fontSize="xl" fontWeight="bold" color="biology.600">
+            <Text
+            fontSize="xl"
+            fontWeight="bold"
+            color={Light.black100}
+            fontFamily={fontFamily} // Use consistent font family
+            ml = {10}
+            zIndex="50"
+          >
               Dopamine Lite
             </Text>
           </Flex>
         </NavbarLink>
+        </Flex>
 
         {/* Desktop Navigation */}
         <Flex alignItems="center" display={{ base: 'none', md: 'flex' }}>
@@ -109,53 +142,27 @@ export default function Navbar() {
           </Stack>
         </Flex>
 
-        {/* Mobile Navigation */}
+      {/* Mobile Navigation */}
 
         <Box display={{ base: 'flex', md: 'none' }}>
           <MenuRoot>
             <MenuTrigger>
               <Button>
-                {open ? <FiMenu /> : <FiX />}
+                {open ? <FiMenu /> : <FiMenu />}
               </Button>
-              {/* <IconButton
-                aria-label="Open menu"
-                display={{ base: 'flex', md: 'none' }}
-                variant="outline"
-                colorScheme="whiteAlpha"
-              >
-{open ? <FiMenu /> : <FiX />}
-              </IconButton> */}
             </MenuTrigger>
-            <MenuContent>
-              <VStack gap={4} align="stretch" mt={4}>
+            <MenuContent bg="transparent" boxShadow="none">
+              <VStack 
+                bg={Light.backgroundWhite} 
+                position="absolute" 
+                top="0"
+                left="auto"
+              >
                 <NavButtons />
               </VStack>
             </MenuContent>
           </MenuRoot>
         </Box>
-        {/* <IconButton
-          aria-label="Open menu"
-          display={{ base: 'flex', md: 'none' }}
-          onClick={onOpen}
-          variant="outline"
-          colorScheme="whiteAlpha"
-        >
-          {open ? <FiX /> : <FiMenu />}
-          </IconButton>
-
-        <Drawer.Root open={open} placement="end">
-          <DrawerBackdrop />
-          <DrawerContent>
-            <DrawerHeader bg={DopamineLiteColors.greenColor} color="white">
-              Menu
-            </DrawerHeader>
-            <DrawerBody bg={DopamineLiteColors.greenColor}>
-              <VStack gap={4} align="stretch" mt={4}>
-                <NavButtons />
-              </VStack>
-            </DrawerBody>
-          </DrawerContent>
-        </Drawer.Root> */}
       </Flex>
     </Box>
   );

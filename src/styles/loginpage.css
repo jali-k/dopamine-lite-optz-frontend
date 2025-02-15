@@ -1,0 +1,85 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.login-page {
+  min-height: 100vh;
+  background-color: white;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+[data-amplify-router] {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+
+.amplify-button {
+  background-color: #387259 !important;
+  color: #fff !important;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+}
+
+.federated-sign-in-button {
+  background-color: #DDF0E8 !important;
+
+}
+
+.amplify-button--small {
+  color: rgb(0, 0, 0, 0.6) !important;
+  font-size: 0.8rem !important;
+  background-color: transparent !important;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+}
+
+.amplify-button--small:hover {
+  color: rgb(0, 0, 0) !important;
+}
+
+[data-amplify-footer] {
+  display: flex;
+  justify-content:flex-end;
+}
+
+
+
+.auth-container input {
+
+  height: 4.438rem;
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+[data-amplify-form] {
+  max-width: 35rem !important;
+  padding: 0 !important;
+}
+
+
+.amplify-tabs__panel {
+  max-width: 35rem !important;
+}
+
+.amplify-tabs__list {
+  max-width: 35rem !important;
+}
+
+
+
+
+
+@media (max-width: 700px) {
+  .login-image {
+    display:none !important;
+  }
+}

@@ -1,31 +1,18 @@
 import {
   Box,
   Container,
-  SimpleGrid,
   VStack,
   Heading,
   Text,
-  Card,
-  CardBody,
-  Badge,
-  HStack,
-  Icon,
   Skeleton,
   Flex,
-  Button
 } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { FaCalendarAlt, FaFilePdf, FaDownload, FaFileAlt } from 'react-icons/fa';
 import SideDrawer from '@/components/SideDrawer';
+import { DopamineLiteColors } from '@/themes/colors';
+import NotesCard from '@/components/ui/NotesCard';
 
-// Color palette (matching ClassLessonsPage)
-const colors = {
-  primary: "#00712D",
-  secondary: "#D5ED9F",
-  background: "#FFFBE6",
-  accent: "#FF9100",
-};
 
 interface Note {
   id: string;
@@ -37,6 +24,7 @@ interface Note {
 }
 
 export default function NotesPage() {
+  const Light = DopamineLiteColors;
   const params = useParams();
   const [notes, setNotes] = useState<Note[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -83,12 +71,7 @@ export default function NotesPage() {
 
     fetchNotes();
   }, [params.clsid]);
-
-  const handleDownload = (fileName: string) => {
-    // Implement download functionality
-    console.log(`Downloading ${fileName}`);
-  };
-
+/*
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
       year: 'numeric',
@@ -96,116 +79,54 @@ export default function NotesPage() {
       day: 'numeric'
     });
   };
-
+*/
   return (
     <Flex minH="100vh">
       {/* Main Content */}
-      <Box zIndex={0} flex="1" bg={colors.background} py={8} px={6} position="relative">
+      <Box zIndex={0} flex="1" bg={Light.backgroundWhite} py={8} px={6} position="relative">
         <SideDrawer classId={params.clsid} />
         <Container maxW="container.xl">
           <VStack gap={8} align="stretch">
             <Box textAlign="center" mb={8}>
               <Heading
                 as="h1"
-                fontSize={{ base: "3xl", md: "4xl" }}
-                color={colors.primary}
+                fontSize="40px"
+                color={Light.black100}
                 mb={4}
               >
                 Class Notes
               </Heading>
-              <Text fontSize="lg" color="gray.600">
+              <Text fontSize="16px" color={Light.black100}>
                 Download study materials and resources
               </Text>
             </Box>
-
-            <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={6}>
+            <Flex 
+              flexDir={{ base: "column", md: "column", lg: "row" }}
+              gap={{ base: "1rem", md: "4rem" }}
+              space-arownd={{ base: "1rem", md: "4rem" }}
+             >
               {isLoading ? (
                 // Loading skeletons
                 [...Array(6)].map((_, index) => (
-                  <Card.Root key={index} borderRadius="lg" overflow="hidden" boxShadow="md">
-                    <CardBody>
-                      <VStack align="start" gap={4}>
-                        <Skeleton height="20px" width="40%" />
-                        <Skeleton height="24px" width="100%" />
-                        <Skeleton height="20px" width="60%" />
-                      </VStack>
-                    </CardBody>
-                  </Card.Root>
+                  <Box key={index} w="full">
+                    <Skeleton height="20px" width="100%" />
+                    <Skeleton height="100px" width="100%" mt={4} />
+                  </Box>
                 ))
               ) : (
                 notes.map((note) => (
-                  <Card.Root
+                  <NotesCard
                     key={note.id}
-                    overflow="hidden"
-                    borderRadius="lg"
-                    boxShadow="md"
-                    transition="all 0.3s"
-                    _hover={{
-                      transform: "translateY(-4px)",
-                      boxShadow: "lg",
-                      borderColor: colors.primary,
-                    }}
-                    borderWidth="1px"
-                    borderColor="gray.100"
-                  >
-                    <CardBody>
-                      <VStack align="start" gap={4}>
-                        <Badge
-                          colorScheme="green"
-                          bg={colors.secondary}
-                          color={colors.primary}
-                          px={3}
-                          py={1}
-                          borderRadius="full"
-                        >
-                          <HStack gap={1}>
-                            <Icon  boxSize={3} >
-                              <FaFilePdf />
-                              </Icon>
-                            <Text>{note.size}</Text>
-                          </HStack>
-                        </Badge>
-
-                        <Heading size="md" color={colors.primary}>
-                          {note.title}
-                        </Heading>
-
-                        <Text color="gray.600" fontSize="sm">
-                          {note.description}
-                        </Text>
-
-                        <VStack gap={2} align="start" w="full">
-                          <HStack fontSize="sm" color="gray.600">
-                            <Icon color={colors.accent} > 
-                            
-                              <FaCalendarAlt />
-                              </Icon >
-                            
-                            <Text>Uploaded: {formatDate(note.uploadDate)}</Text>
-                          </HStack>
-                          <HStack fontSize="sm" color="gray.600">
-                            <Icon color={colors.accent} >
-                              <FaFileAlt />
-                              </Icon>
-                            <Text>Filename: {note.fileName}</Text>
-                          </HStack>
-                        </VStack>
-
-                        <Button
-                          colorScheme="green"
-                          variant="outline"
-                          w="full"
-                          onClick={() => handleDownload(note.fileName)}
-                        >
-                          <FaDownload />
-                          Download PDF
-                        </Button>
-                      </VStack>
-                    </CardBody>
-                  </Card.Root>
+                    title={note.title}
+                    description={note.description || ''}
+                    fileName={note.fileName}
+                    size={note.size}
+                    uploadDate={note.uploadDate}
+                    fileUrl={`/path/to/${note.fileName}`} // Adjust this path as needed
+                  />
                 ))
               )}
-            </SimpleGrid>
+            </Flex>
           </VStack>
         </Container>
       </Box>

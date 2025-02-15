@@ -1,7 +1,6 @@
 import {
   Box,
   Container,
-  SimpleGrid,
   VStack,
   Heading,
   Text,
@@ -14,22 +13,18 @@ import {
   Skeleton,
   Flex,
 } from '@chakra-ui/react';
+import CoverImage from "../styles/lessoncover.jpeg"
 import { useNavigate, useParams } from 'react-router-dom';
 import { Class } from '@/types/class.types';
+import { Divider } from '@aws-amplify/ui-react';
 import { useEffect, useState } from 'react';
 import { classesService_dev } from '@/services/classes';
 import { lessonsService_dev } from '@/services/lessons';
 import { Lesson } from '@/types/lesson.types';
 import { FaCalendarAlt, FaUserAlt, FaBook } from 'react-icons/fa';
 import SideDrawer from '@/components/SideDrawer';
+import { DopamineLiteColors } from '@/themes/colors';
 
-// Color palette
-const colors = {
-  primary: "#00712D",
-  secondary: "#D5ED9F",
-  background: "#FFFBE6",
-  accent: "#FF9100",
-};
 
 
 export default function LessonsPage() {
@@ -71,30 +66,30 @@ export default function LessonsPage() {
     });
   };
 
+  const Light = DopamineLiteColors;
   return (
     <Flex minH="100vh">
      
 
       {/* Main Content */}
-      <Box zIndex={0} flex="1" bg={colors.background} py={8} px={6} position={'relative'}>
+      <Box zIndex={0} flex="1" bg={Light.backgroundWhite} py={8} px={6} position={'relative'}>
         <SideDrawer classId={classData?.id} />
         <Container maxW="container.xl">
           <VStack gap={8} align="stretch">
-            <Box textAlign="center" mb={8}>
+            <Box textAlign="center" mb={4}>
               <Heading
-                as="h1"
-                fontSize={{ base: "3xl", md: "4xl" }}
-                color={colors.primary}
+                fontSize={{ base: "2rem", md: "2.5rem" }}
+                color={Light.black100}
                 mb={4}
               >
                 Available Lessons
               </Heading>
-              <Text fontSize="lg" color="gray.600">
+              <Text fontSize={{ base: "0.8rem", md: "1.2rem" }} color={Light.black75}>
                 Select a lesson to start learning
               </Text>
             </Box>
 
-            <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={6}>
+            <Flex justify="space-around" align="center" width={{ base: "100%", md: "100%" }} wrap="wrap" gap="3rem">
               {isLoading ? (
                 // Loading skeletons
                 [...Array(6)].map((_, index) => (
@@ -113,61 +108,73 @@ export default function LessonsPage() {
                 classLessons.map((lesson) => (
                   <Card.Root
                     key={lesson.id}
+                    width={{ base: "18rem", md: "25rem", lg: "29rem" }}
+                    height={{ base: "33rem", md: "33rem" }}
                     overflow="hidden"
+                    bg={Light.washedGreen}
                     cursor="pointer"
                     onClick={() => handleOnClick(lesson)}
-                    borderRadius="lg"
+                    borderRadius="1rem"
                     boxShadow="md"
                     transition="all 0.3s"
                     _hover={{
                       transform: "translateY(-4px)",
                       boxShadow: "lg",
-                      borderColor: colors.primary,
+                      borderColor: {_hover: Light.lightGreen},
                     }}
                     borderWidth="1px"
                     borderColor="gray.100"
+                    padding="1.5rem"
                   >
+                    <Text
+                      padding="0.3rem"
+                      fontSize="1.05rem"
+                      color={Light.white100}
+                    >
+                      {lesson.title}
+                    </Text>
                     <Image
-                      src={'/api/placeholder/400/200'}
-                      alt={lesson.title}
+                      src={CoverImage}
                       height="200px"
                       objectFit="cover"
                     />
+                      <Badge
+                        bg={Light.darkGreen}
+                        color={Light.white100}
+                        width="100%"
+                        maxW="12rem"
+                        height="1.7rem"
+                        borderRadius="full"
+                        marginTop="1rem"
+                      >
+                        <HStack gap="1rem">
+                          <Icon  boxSize={3} >
+                            <FaBook />
+                          </Icon>
+                          <Text fontSize="1.05rem" marginBottom="0.2rem">Lesson {lesson.lesson}</Text>
+                        </HStack>
+                      </Badge>
                     <CardBody>
-                      <VStack align="start" gap={4}>
-                        <Badge
-                          colorScheme="green"
-                          bg={colors.secondary}
-                          color={colors.primary}
-                          px={3}
-                          py={1}
-                          borderRadius="full"
-                        >
-                          <HStack gap={1}>
-                            <Icon  boxSize={3} >
-                              <FaBook />
-                            </Icon>
-                            <Text>Lesson {lesson.lesson}</Text>
-                          </HStack>
-                        </Badge>
-
-                        <Heading size="md" color={colors.primary}>
+                      <VStack align="start" gap="0.7rem">
+                        <Heading size="md" color={Light.white100}>
                           {lesson.title}
                         </Heading>
 
-                        <Text color="gray.600" fontSize="sm">
+                        <Text color={Light.white800} fontSize="sm">
                           {lesson.description}
                         </Text>
 
+                        <Divider marginTop="1rem" width="100%" borderColor={Light.gray300} marginBottom="1rem"/>
+
                         <VStack gap={2} align="start" w="full">
-                          <HStack fontSize="sm" color="gray.600">
-                            <Icon  color={colors.accent} >
+                          <HStack fontSize="sm" color={Light.white800}>
+                            <Icon  color={Light.white100} >
                               <FaCalendarAlt />
                             </Icon>
                             <Text>Created: {formatDate(lesson.createdAt)}</Text>
                           </HStack>
-                          <HStack fontSize="sm" color="gray.600">
-                            <Icon  color={colors.accent} >
+                          <HStack fontSize="sm" color={Light.white800}>
+                            <Icon  color={Light.white100} >
                               <FaUserAlt />
                             </Icon>
                             <Text>Handler: {lesson.handler}</Text>
@@ -178,7 +185,7 @@ export default function LessonsPage() {
                   </Card.Root>
                 ))
               )}
-            </SimpleGrid>
+            </Flex>
           </VStack>
         </Container>
       </Box>
