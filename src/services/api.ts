@@ -1,5 +1,4 @@
-const BASE_URL = 'https://api.example.com';
-
+const BASE_URL = 'http://ec2-52-23-210-229.compute-1.amazonaws.com:8080/api';
 export class ApiError extends Error {
   constructor(public status: number, message: string) {
     super(message);
@@ -25,7 +24,12 @@ export const api = {
         throw new ApiError(response.status, response.statusText);
       }
 
-      return await response.json();
+      const jsonResponse = await response.json();
+      if (jsonResponse.success) {
+        return jsonResponse.data;
+      } else {
+        throw new ApiError(response.status, jsonResponse.message || 'API error');
+      }
     } catch (error) {
       if (error instanceof ApiError) throw error;
       throw new Error('Network error occurred');
