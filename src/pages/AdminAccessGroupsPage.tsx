@@ -30,8 +30,12 @@ export default function AdminAccessGroupsPage() {
   }, []);
 
   const fetchGroups = async () => {
-    const data = await accessGroupService.getGroups();
-    setGroups(data);
+    try {
+      const data = await accessGroupService.getGroups();
+      setGroups(data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   };
 
   const handleDelete = async (id: string) => {
@@ -70,6 +74,7 @@ export default function AdminAccessGroupsPage() {
           <Table.Root bg="white" rounded="lg">
             <Table.Header>
               <Table.Row>
+                <Table.ColumnHeader>Access Group ID</Table.ColumnHeader>
                 <Table.ColumnHeader>Name</Table.ColumnHeader>
                 <Table.ColumnHeader>Access List</Table.ColumnHeader>
                 <Table.ColumnHeader>Actions</Table.ColumnHeader>
@@ -78,6 +83,7 @@ export default function AdminAccessGroupsPage() {
             <Table.Body>
               {groups.map((group) => (
                 <Table.Row key={group.accessGroupId}>
+                  <Table.Cell>{group.accessGroupId}</Table.Cell>
                   <Table.Cell>{group.name}</Table.Cell>
                   <Table.Cell>{group.accessList.join(", ")}</Table.Cell>
                   <Table.Cell>

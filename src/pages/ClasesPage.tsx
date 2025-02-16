@@ -19,15 +19,21 @@ import { Class } from "@/types/class.types";
 import { FaCalculator } from "react-icons/fa";
 import { DopamineLiteColors } from "@/themes/colors";
 
-const getClasses = classesService.getClasses;
-
 const ClassesPage = () => {
   const Light = DopamineLiteColors;
   const [classes, setClasses] = useState<Class[]>([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    getClasses().then((data) => setClasses(data));
+    try {
+      const fetchData = async () => {
+        const data = await classesService.getClasses();
+        setClasses(data);
+      };
+      fetchData();
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   }, []);
 
   const onClickHandler = (cls: Class) => {
