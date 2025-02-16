@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { FaTimes } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-// import { accessGroupService } from "@/services/access-groupes";
+import { accessGroupService } from "@/services/access-groupes";
 import { toaster } from "@/components/ui/toaster";
 import { AccessGroup } from "@/types/access-group.types";
 
@@ -27,7 +27,8 @@ const colors = {
 
 export default function AdminCreateAccessGroupPage() {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState<Omit<AccessGroup, "accessGroupId">>({
+  const [formData, setFormData] = useState<AccessGroup>({
+    accessGroupId: "",
     name: "",
     accessList: [],
   });
@@ -39,6 +40,7 @@ export default function AdminCreateAccessGroupPage() {
   const filteredEmails = formData.accessList.filter((email) =>
     email.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
   const paginatedEmails = filteredEmails.slice(
     currentPage * itemsPerPage,
     (currentPage + 1) * itemsPerPage
@@ -49,7 +51,7 @@ export default function AdminCreateAccessGroupPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      //await accessGroupService.createGroup(formData); //TODO: Fix it
+      await accessGroupService.createGroup(formData);
       toaster.create({ title: "Group created successfully", type: "success" });
       navigate("/admin/access-groups");
     } catch (error) {
@@ -104,6 +106,23 @@ export default function AdminCreateAccessGroupPage() {
 
               <form onSubmit={handleSubmit}>
                 <VStack gap={6} align="stretch">
+                  <Box>
+                    <Text mb={2} fontWeight="medium" color={colors.primary}>
+                      Group Unique ID
+                    </Text>
+                    <Input
+                      color={"black"}
+                      bg="white"
+                      value={formData.accessGroupId}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          accessGroupId: e.target.value,
+                        })
+                      }
+                      required
+                    />
+                  </Box>
                   <Box>
                     <Text mb={2} fontWeight="medium" color={colors.primary}>
                       Group Name

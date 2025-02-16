@@ -19,7 +19,10 @@ const email = "test@email.com"
 export const accessGroupService = {
   getGroups: () => api.request<AccessGroup[]>(`/access-groups?email=${encodeURIComponent(email)}`),
 
-  getGroupById: (id: string) => api.request<AccessGroup>(`/access-groups/${id}?email=${encodeURIComponent(email)}`),
+  getGroupById: (id: string) => {
+    console.log('getGroupById');
+    return api.request<AccessGroup>(`/access-groups/${id}?email=${encodeURIComponent(email)}`);
+  },
 
   createGroup: (data: Omit<AccessGroup, 'id'>) =>
     api.request<AccessGroup>(`/access-groups?email=${encodeURIComponent(email)}`, {
@@ -45,7 +48,7 @@ export const accessGroupService_dev = {
     return group ? Promise.resolve(group) : Promise.reject(new Error('Group not found'));
   },
 
-  createGroup: (data: Omit<AccessGroup, 'id'>) => {
+  createGroup: (data: AccessGroup) => {
     const newGroup = {
       ...data,
       id: `group-${dummyAccessGroups.length + 1}`
