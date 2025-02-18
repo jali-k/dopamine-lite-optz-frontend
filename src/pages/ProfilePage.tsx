@@ -4,6 +4,7 @@ import { getCurrentUser } from '@aws-amplify/auth';
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
 import { setUser, clearUser } from '../state/slices/userSlice';
+import { DLFonts } from "@/themes/fonts";
 
 const Profile = () => {
   const dispatch = useAppDispatch();
@@ -38,6 +39,7 @@ const Profile = () => {
       minH="100vh"
       gap={{ base: "2rem" }}
       padding={0}
+      fontFamily={DLFonts.body}
     >
       <Text color={Light.black100} fontSize={"4rem"} marginTop={"2rem"}>
         Profile

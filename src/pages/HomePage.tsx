@@ -9,6 +9,7 @@ import {
   Image,
   HStack,
   VStack,
+  //Center,
 } from "@chakra-ui/react";
 import Hcard from "@/components/ui/homecard";
 import TestimonialCard from "@/components/ui/Homecard1";
@@ -25,8 +26,10 @@ import Background from "../styles/StatisticsComponent_background.png";
 import graduation from "../styles/StatisticsComponent_grajuation.png";
 import teaching from "../styles/StatisticsComponent_teaching.png";
 import star from "../styles/StatisticsComponent_five_star.png";
+import AvetarImage from "../styles/avetar.png";
 import grade from "../styles/StatisticsComponent_grades.png";
 import { DopamineLiteColors } from "../themes/colors"
+import { DLFonts } from "@/themes/fonts";
 import { useInView } from 'react-intersection-observer';
 const MotionBox = motion(Box);
 
@@ -37,10 +40,11 @@ const HomePage = () => {
 
   const { ref: ref1, inView: inView1 } = useInView({ triggerOnce: true, threshold: 0.5 });
   const { ref: ref2, inView: inView2 } = useInView({ triggerOnce: true, threshold: 1 });
-  const { ref: ref3, inView: inView3 } = useInView({ triggerOnce: true, threshold: 0.7});
+  const { ref: ref3, inView: inView3 } = useInView({ triggerOnce: true, threshold: 0.5});
   const { ref: ref4, inView: inView4 } = useInView({ triggerOnce: true, threshold: 0.5 });
-  const { ref: ref5, inView: inView5 } = useInView({ triggerOnce: true, threshold: 0.5 });
+  const { ref: ref5, inView: inView5 } = useInView({ triggerOnce: true, threshold: 0.1 });
   const { ref: ref6, inView: inView6 } = useInView({ triggerOnce: true, threshold: 0.5 });
+  const { ref: ref7, inView: inView7 } = useInView({ triggerOnce: true, threshold: 0.5 });
 
   return (
     <Box bg={Light.backgroundWhite} minHeight="100vh" paddingTop={{ base: "0rem", md: "0rem" }}>
@@ -67,49 +71,50 @@ const HomePage = () => {
           <VStack
             align="start"
             flex="1"
-            padding={{ base: "1rem", md: "2.5rem" }} // Adjusted padding
+            padding={{ base: "1rem", md: "1.5rem" }} // Adjusted padding
             marginBottom={{ base: "2rem", md: "0" }}
           >
             <Heading
               textAlign="left"
               zIndex={2}
-              width={{ base: "90%", md: "453px" }}
+              width={{ base: "90%", md: "463px" }}
               height={{ base: "auto", md: "266px" }}
-              marginLeft="20px"
+              marginLeft="0"
             >
               <Text
-                fontFamily="Bricolage Grotesque"
+                fontFamily={DLFonts.heading}
                 fontWeight="600"
-                fontSize={{ base: "60px", md: "65px", lg : "85px" }} // Adjusted font size for mobile
+                fontSize={{ base: "55px", md: "60px", lg : "75px" }} // Adjusted font size for mobile
                 color={Light.black100}
-                lineHeight="90px"
+                lineHeight={{base: "60px", lg: "75px" }}
               >
                 Discover the Wonder of
               </Text>
               <Text
-                fontFamily="Bricolage Grotesque"
+                fontFamily={DLFonts.heading}
                 color={Light.darkGreen}
                 fontWeight="600"
-                fontSize={{ base: "80px", md: "95px", lg : "115px" }} // Adjusted font size for mobile
-                lineHeight="120px"
+                fontSize={{ base: "70px", md: "85px", lg : "110px" }} // Adjusted font size for mobile
+                lineHeight={{base: "75px", lg: "110px" }}
               >
                 Biology
               </Text>
             </Heading>
 
             <Text
+              fontFamily={DLFonts.body}
               fontSize={{ base: "sm", md: "lg" }} // Adjusted font size for mobile
               color={Light.black75}
               lineHeight="1.5"
               maxW="30rem"
               marginTop="3.5rem"
-              marginLeft="20px"
+              marginLeft="0"
             >
               Interactive lessons and resources to make learning biology engaging and effective.
             </Text>
             <HStack 
               marginTop="3rem"
-              marginLeft={{ base: "10px", md: "20px" }} 
+              marginLeft={{ base: "10px", md: "0px" }} 
               gap={8}
             >
               <Button
@@ -123,7 +128,7 @@ const HomePage = () => {
                   transition: "transform 0.2s ease-in-out",
                 }}
               >
-                <Text fontWeight="bold" fontSize="lg" color={Light.white100}>
+                <Text fontWeight="bold" fontSize="lg" color={Light.white100} fontFamily={DLFonts.body}>
                   Start Learning
                 </Text>
               </Button>
@@ -140,7 +145,7 @@ const HomePage = () => {
                   transition: "transform 0.2s ease-in-out",
                 }}
               >
-                <Text fontWeight="bold" fontSize="lg" color={Light.black100}>
+                <Text fontWeight="bold" fontSize="lg" color={Light.black100} fontFamily={DLFonts.body}>
                   Browse Courses
                 </Text>
               </Button>
@@ -198,19 +203,19 @@ const HomePage = () => {
             bg={Light.darkGreen}
             borderRadius="10px"
             w="100%" // Makes it responsive
-            maxW="22rem"
+            maxW="24rem"
             h="auto"
             textAlign="center"
             boxShadow={Light.boxShadow}
             padding="1.5rem"
           >
-            <Flex align="center">
+            <Flex align="center" fontFamily={DLFonts.body} gap={4}>
               <Image src={BookImage} w={{ base: "3.5rem", md: "4.6875rem" }} h={{ base: "3.5rem", md: "4.6875rem" }} />
               <Box ml="1rem">
                 <Text fontSize={{ base: "1.5rem", md: "2rem" }} fontWeight="bold" color={Light.white100} textAlign="left">
                   100+
                 </Text>
-                <Text fontSize={{ base: "1rem", md: "1.5rem" }} color={Light.white100} textAlign="left">
+                <Text fontSize={{ base: "0.7rem", md: "1.4rem" }} color={Light.white100} textAlign="left">
                   Interactive Lessons
                 </Text>
               </Box>
@@ -222,13 +227,13 @@ const HomePage = () => {
             bg={Light.darkGreen}
             borderRadius="10px"
             w="100%"
-            maxW="22rem"
+            maxW="24rem"
             h="auto"
             textAlign="center"
             boxShadow={Light.boxShadow}
             padding="1.5rem"
           >
-            <Flex align="center">
+            <Flex align="center" fontFamily={DLFonts.body} gap={4}>
               <Image src={MicroImage} w={{ base: "3.5rem", md: "4.6875rem" }} h={{ base: "3.5rem", md: "4.6875rem" }} />
               <Box ml="1rem">
                 <Text fontSize={{ base: "1.5rem", md: "2rem" }} fontWeight="bold" color={Light.white100} textAlign="left">
@@ -246,13 +251,13 @@ const HomePage = () => {
             bg={Light.darkGreen}
             borderRadius="10px"
             w="100%"
-            maxW="22rem"
+            maxW="24rem"
             h="auto"
             textAlign="center"
             boxShadow={Light.boxShadow}
             padding="1.5rem"
           >
-            <Flex align="center">
+            <Flex align="center" fontFamily={DLFonts.body} gap={4}>
               <Image src={TeamImage} w={{ base: "3.5rem", md: "4.6875rem" }} h={{ base: "3.5rem", md: "4.6875rem" }} />
               <Box ml="1rem">
                 <Text fontSize={{ base: "1.5rem", md: "2rem" }} fontWeight="bold" color={Light.white100} textAlign="left">
@@ -270,8 +275,7 @@ const HomePage = () => {
 
 
       {/*section 2 */}
-      <Box
-        ref={ref2} 
+      <Box 
         position="relative"
         width="100%"
         textAlign="center"
@@ -279,18 +283,19 @@ const HomePage = () => {
         marginBottom={0}
       >
         <MotionBox
+          ref={ref2}
           initial={{ opacity: 0.7, y: '-100%' }}  
           animate={{ opacity: inView2 ? 1 : 0, y: inView2 ? 0 : '-100%' }} 
           transition={{ duration: 2.3, ease: 'easeOut', type: 'spring', stiffness: 100, damping: 15 }}
         >
           <Text
-            fontFamily="Bricolage Grotesque"
+            fontFamily={DLFonts.body}
             fontSize={{ base: "1.5rem", md: "2rem", lg: "2.75rem" }} // Consistent font size scaling
             fontWeight="600"
             lineHeight={{ base: "2rem", md: "2.5rem" }} // Adjusted line height for readability
             textAlign="center"
             color={Light.black100}
-            width={{ base: "90%", md: "80%", lg: "705px" }}
+            width={{ base: "90%", md: "80%", lg: "800px" }}
             mx="auto"
             marginTop={{ base: "1rem", md: "2rem" }}
           >
@@ -298,7 +303,7 @@ const HomePage = () => {
           </Text>
 
           <Text
-            fontFamily="Bricolage Grotesque"
+            fontFamily={DLFonts.body}
             fontSize={{ base: "0.875rem", md: "1.1rem" }} // Reduced font size for better consistency
             fontWeight="400"
             lineHeight={{ base: "1.2rem", md: "1.6rem" }} // Adjusted line height
@@ -306,13 +311,15 @@ const HomePage = () => {
             color={Light.black100}
             width={{ base: "90%", md: "80%", lg: "705px" }}
             mx="auto"
+            marginTop={{ base: "0.3rem", md: "0.7rem" }}
           >
             Explore our wide range of biology topics
           </Text>
         </MotionBox>
         <MotionBox
+          ref={ref7}
           initial={{ opacity: 0.7, y: '100%' }}  
-          animate={{ opacity: inView2 ? 1 : 0, y: inView2 ? 0 : '100%' }} 
+          animate={{ opacity: inView7 ? 1 : 0, y: inView7 ? 0 : '100%' }} 
           transition={{ duration: 2.3, ease: 'easeOut', type: 'spring', stiffness: 100, damping: 15 }}
           >
           <Flex
@@ -358,44 +365,40 @@ const HomePage = () => {
         position="relative"
         w="90%"
         mx="auto"
-        bg="#ffffff" // Light.white100 fallback
+        bg={Light.white100} // Light.white100 fallback
         marginBottom="10rem"
         direction={{ base: "column", md: "row" }}
       >
         <MotionBox
+          fontFamily={DLFonts.body}
           initial={{ x: '-50%', opacity: 0 }}
           animate={{ x: inView3 ? '0%' : '-50%', opacity: inView3 ? 1 : 0 }}
           transition={{ duration: 1.5, ease: 'easeOut', type: 'spring', stiffness: 100, damping: 12 }}
           width={{ base: "100%", md: "50%" }}
           padding="0.5rem"
-          textAlign="center"
-          marginTop={{ base: "2rem", md: "5rem" }}
+          textAlign="left"
+          marginTop={{ base: "2rem", md: "4rem" }}
+          marginLeft={{ base: "0", md: "2rem" }}
         >
           <Text
-            fontFamily="Bricolage Grotesque"
-            fontSize={{ base: "1.75rem", md: "40px" }}
+            fontSize={{ base: "1.75rem", md: "48px" }}
             fontWeight="bold"
-            textAlign="center"
-            color="#000000" // Light.black100 fallback
+            color={Light.black100} // Light.black100 fallback
           >
             Meet Your Biology Expert
           </Text>
           <Text
-            fontFamily="Bricolage Grotesque"
             fontSize={{ base: "1.75rem", md: "24px" }}
             fontWeight="500"
-            textAlign="center"
-            color="#000000"
+            color={Light.black100}
           >
             Mr. Sashanka Dhanujaya, MBBS(UG)
           </Text>
           <Text
             marginTop="25px"
-            fontFamily="Bricolage Grotesque"
             fontSize={{ base: "1.75rem", md: "20px" }}
             fontWeight="300"
-            textAlign="center"
-            color="#000000"
+            color={Light.black100}
           >
             With over 5 years of teaching experience, Mr. Sashanka has helped thousands of students achieve their academic goals. His innovative teaching methods and deep understanding of biology make complex concepts easy to grasp.
           </Text>
@@ -428,14 +431,16 @@ const HomePage = () => {
             <Box
               bg={`linear-gradient(rgba(50, 85, 65, 0.64), rgba(50, 85, 65, 0.64)), url(${Background})`}
               bgSize="cover"
+              height={{ base: "auto", md: "500px" }}
               backgroundPosition="center -100px"
-              py={5}  // Adjust padding to a positive value for better layout
+              py={5}  
               px={4}
             >
               <Flex 
+                marginTop={{ base: "0", md: "3.8rem" }}
                 justify="center" 
                 align="center" 
-                gap={8} 
+                gap={12} 
                 wrap="wrap"
                 mx="auto"
                 maxW="1200px"
@@ -446,7 +451,7 @@ const HomePage = () => {
                   animate={{ x: inView4 ? '0%' : '-50%', opacity: inView4 ? 1 : 0 }}
                   transition={{ duration: 1.5, ease: 'easeOut', type: 'spring', stiffness: 100, damping: 12 }}
                 >
-                  <HStack>
+                  <HStack gap={12}>
                   <VStack
                       bg="rgba(255, 255, 255, 0.15)"
                       borderRadius="80px"
@@ -535,7 +540,7 @@ const HomePage = () => {
                   animate={{ x: inView4 ? '0%' : '50%', opacity: inView4 ? 1 : 0 }}
                   transition={{ duration: 1.5, ease: 'easeOut', type: 'spring', stiffness: 100, damping: 12 }}
                 >
-                  <HStack>
+                  <HStack gap={12}>
                   <VStack
                       bg="rgba(255, 255, 255, 0.15)"
                       borderRadius="80px"
@@ -646,7 +651,7 @@ const HomePage = () => {
               name: "Alex Jay",
               grade: "A Grade (2024)",
               date: "23/12/2024",
-              avatarUrl: "https://via.placeholder.com/60",
+              avatarUrl: AvetarImage,
               title: "Super Class With Great Experience!",
               testimonial:
                 "I absolutely enjoyed my biology class this semester! The materialcovered was both challenging and fascinating. From learning about thecell's intricate processes to diving deep into genetics, each topicwas presented in a way that was easy to understand. The teacher did an excellent job of explaining complex concepts, using visual aidsand real-life examples that made everything more relatable.",
@@ -655,7 +660,7 @@ const HomePage = () => {
               name: "Alex Jay",
               grade: "A Grade (2024)",
               date: "23/12/2024",
-              avatarUrl: "https://via.placeholder.com/60",
+              avatarUrl: AvetarImage,
               title: "Super Class With Great Experience!",
               testimonial:
                 "I absolutely enjoyed my biology class this semester! The materialcovered was both challenging and fascinating. From learning about thecell's intricate processes to diving deep into genetics, each topicwas presented in a way that was easy to understand. The teacher did an excellent job of explaining complex concepts, using visual aidsand real-life examples that made everything more relatable.",
@@ -664,7 +669,7 @@ const HomePage = () => {
               name: "Alex Jay",
               grade: "A Grade (2024)",
               date: "23/12/2024",
-              avatarUrl: "https://via.placeholder.com/60",
+              avatarUrl: AvetarImage,
               title: "Super Class With Great Experience!",
               testimonial:
                 "I absolutely enjoyed my biology class this semester! The materialcovered was both challenging and fascinating. From learning about thecell's intricate processes to diving deep into genetics, each topicwas presented in a way that was easy to understand. The teacher did an excellent job of explaining complex concepts, using visual aidsand real-life examples that made everything more relatable.",
@@ -684,6 +689,7 @@ const HomePage = () => {
 
       <Box ref={ref6}>
       <MotionBox
+        fontFamily={DLFonts.body}
         position="relative"
         width="100%"
         textAlign="center"
@@ -694,21 +700,19 @@ const HomePage = () => {
         transition={{ duration: 2.3, ease: 'easeOut', type: 'spring', stiffness: 100, damping: 15 }}
       >
         <Text
-          fontFamily="Bricolage Grotesque"
-          fontSize={{ base: "1.5rem", md: "2.5rem", lg: "2.75rem" }} 
+          fontSize={{ base: "1.5rem", md: "2.5rem", lg: "2.9rem" }} 
           fontWeight="600"
           lineHeight={{ base: "2rem", md: "3rem" }} 
           textAlign="center"
           color={Light.black100}
-          width={{ base: "90%", md: "80%", lg: "705px" }} 
+          width={{ base: "90%", md: "80%", lg: "820px" }} 
           mx="auto"
           marginTop={{ base: "1rem", md: "2rem" }} 
         >
           Join Our Learning Community
         </Text>
         <Text
-          fontFamily="Bricolage Grotesque"
-          fontSize={{ base: "0.875rem", md: "1.3rem" }}
+          fontSize={{ base: "0.875rem", md: "1.0rem" }}
           fontWeight="400"
           lineHeight={{ base: "1.2rem", md: "1.7rem" }}
           textAlign="center"

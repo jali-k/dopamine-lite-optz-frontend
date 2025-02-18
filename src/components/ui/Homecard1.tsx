@@ -1,6 +1,7 @@
 import React from "react";
 import { Image, Box, Flex, Text, Heading } from "@chakra-ui/react";
 import { DopamineLiteColors } from "../../themes/colors";
+import { DLFonts } from "@/themes/fonts";
 
 interface TestimonialCardProps {
   name: string;
@@ -34,6 +35,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
         mx="auto"
         borderTopLeftRadius="2rem"
         borderBottomRightRadius="2rem"
+        fontFamily={DLFonts.body}
       >
         <Flex alignItems="center" mb="1rem">
           <Image

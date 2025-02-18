@@ -116,13 +116,14 @@ export default function Navbar() {
       border="none" // Explicitly remove any border
       boxShadow="none" // Remove box shadow if it's there
       zIndex="50"
+      padding={"0.3rem"}
   >
       <Flex h={16} alignItems="center" justifyContent="space-between" px={4}>
       <Flex flex="1" >
         <NavbarLink onClick={onHomeClick}>
           <Flex alignItems="center">
             <Text
-            fontSize="xl"
+            fontSize={{base : "18px", lg : "28px"}}
             fontWeight="bold"
             color={Light.black100}
             fontFamily={fontFamily} // Use consistent font family
