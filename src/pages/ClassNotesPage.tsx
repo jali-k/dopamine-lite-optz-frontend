@@ -12,6 +12,7 @@ import { useEffect, useState } from 'react';
 import SideDrawer from '@/components/SideDrawer';
 import { DopamineLiteColors } from '@/themes/colors';
 import NotesCard from '@/components/ui/NotesCard';
+import { DLFonts } from '@/themes/fonts';
 
 
 interface Note {
@@ -83,7 +84,7 @@ export default function NotesPage() {
   return (
     <Flex minH="100vh">
       {/* Main Content */}
-      <Box zIndex={0} flex="1" bg={Light.backgroundWhite} py={8} px={6} position="relative">
+      <Box zIndex={0} flex="1" bg={Light.backgroundWhite} py={8} px={6} position="relative" fontFamily={DLFonts.body}>
         <SideDrawer classId={params.clsid} />
         <Container maxW="container.xl">
           <VStack gap={8} align="stretch">

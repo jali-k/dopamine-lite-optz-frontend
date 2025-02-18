@@ -3,6 +3,7 @@ import { Box, Text, Button, Icon, Flex } from "@chakra-ui/react";
 import { FaDownload, FaRegFileAlt, FaCalendarAlt, FaFile } from "react-icons/fa";
 import { DopamineLiteColors } from "@/themes/colors";
 import { Divider } from "@aws-amplify/ui-react";
+import { DLFonts } from "@/themes/fonts";
 
 // Updated NotesCard to accept props
 interface NotesCardProps {
@@ -45,7 +46,7 @@ const NotesCard: React.FC<NotesCardProps> = ({
       _hover={{ borderColor: Light.blue400 }}
       bg={Light.washedGreen}
       color={Light.white800}
-      fontFamily="Arial, sans-serif"
+      fontFamily={DLFonts.body}
     >
       {/* Title */}
       <Text fontSize={{ base: "1.25rem", sm: "1.375rem" }} mt={2} fontWeight="bold">
