@@ -17,7 +17,7 @@ import {
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { FaCalendarAlt, FaFilePdf, FaDownload, FaFileAlt } from 'react-icons/fa';
-import SideDrawer from '@/components/SideDrawer';
+import SideDrawer from '../components/SideDrawer';
 
 
 

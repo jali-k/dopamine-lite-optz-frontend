@@ -15,13 +15,13 @@ import {
   Flex,
 } from '@chakra-ui/react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Class } from '@/types/class.types';
+import { Class } from '../types/class.types';
 import { useEffect, useState } from 'react';
-import { classesService_dev } from '@/services/classes';
-import { lessonsService_dev } from '@/services/lessons';
-import { Lesson } from '@/types/lesson.types';
+import { classesService_dev } from '../services/classes';
+import { lessonsService_dev } from '../services/lessons';
+import { Lesson } from '../types/lesson.types';
 import { FaCalendarAlt, FaUserAlt, FaBook } from 'react-icons/fa';
-import SideDrawer from '@/components/SideDrawer';
+import SideDrawer from '../components/SideDrawer';
 
 // Color palette
 const colors = {

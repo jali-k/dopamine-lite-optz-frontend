@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button"
+import { Button } from "../components/ui/button"
 import {
   DrawerBackdrop,
   DrawerBody,
@@ -7,8 +7,8 @@ import {
   DrawerHeader,
   DrawerRoot,
   DrawerTrigger,
-} from "@/components/ui/drawer"
-import { DopamineLiteColors } from "@/themes/colors"
+} from "../components/ui/drawer"
+import { DopamineLiteColors } from "../themes/colors"
 import { 
   Box,
   VStack,
@@ -21,10 +21,10 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { FaBook, FaVideo, FaNotesMedical, FaChevronRight, FaBars } from 'react-icons/fa';
-import { Class } from '@/types/class.types';
-import { Lesson } from '@/types/lesson.types';
-import { classesService_dev } from '@/services/classes';
-import { lessonsService_dev } from '@/services/lessons';
+import { Class } from '../types/class.types';
+import { Lesson } from '../types/lesson.types';
+import { classesService_dev } from '../services/classes';
+import { lessonsService_dev } from '../services/lessons';
 
 interface SideDrawerProps {
   classId?: string;

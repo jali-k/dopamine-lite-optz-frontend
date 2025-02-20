@@ -21,11 +21,11 @@ import {
   IconButton,
   Stack
 } from "@chakra-ui/react";
-import { toaster } from "@/components/ui/toaster";
-import { Tag } from "@/components/ui/tag"
+import { toaster } from "../components/ui/toaster";
+import { Tag } from "../components/ui/tag"
 import { FaGraduationCap, FaEdit, FaTrash, FaPlus } from "react-icons/fa";
-import { classesService, classesService_dev } from "@/services/classes";
-import { Class } from '@/types/class.types';
+import { classesService, classesService_dev } from "../services/classes";
+import { Class } from '../types/class.types';
 import { useNavigate } from 'react-router-dom';
 
 const colors = {

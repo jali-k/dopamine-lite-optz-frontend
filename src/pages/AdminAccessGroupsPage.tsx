@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Box, Container, VStack, Heading, Button, Table, Icon, IconButton, HStack } from "@chakra-ui/react";
 import { FaEdit, FaTrash, FaPlus } from "react-icons/fa";
-import { accessGroupService_dev } from "@/services/access-groupes";
-import { AccessGroup } from "@/types/access-group.types";
+import { accessGroupService_dev } from "../services/access-groupes";
+import { AccessGroup } from "../types/access-group.types";
 import { useNavigate } from "react-router-dom";
-import { toaster } from "@/components/ui/toaster";
+import { toaster } from "../components/ui/toaster";
 
 const colors = {
   primary: "#00712D",

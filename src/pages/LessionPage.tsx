@@ -20,10 +20,10 @@ import {
   FaChalkboardTeacher,
   FaBookReader,
 } from 'react-icons/fa';
-import VideoPlayer from '@/components/VideoPlayer';
-import { lessonsService_dev } from '@/services/lessons';
-import { Lesson } from '@/types/lesson.types';
-import SideDrawer from '@/components/SideDrawer';
+import VideoPlayer from '../components/VideoPlayer';
+import { lessonsService_dev } from '../services/lessons';
+import { Lesson } from '../types/lesson.types';
+import SideDrawer from '../components/SideDrawer';
 
 // Color palette
 const colors = {

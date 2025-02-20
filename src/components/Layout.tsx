@@ -2,7 +2,7 @@ import { Box, Flex } from '@chakra-ui/react';
 import { Outlet } from 'react-router-dom';
 import Navbar from './Navbar';
 import Footer from './Footer';
-import { DopamineLiteColors } from '@/themes/colors';
+import { DopamineLiteColors } from '../themes/colors';
 
 export default function Layout() {
   return (

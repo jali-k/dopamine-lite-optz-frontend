@@ -1,15 +1,26 @@
 {
   "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-dopamineliteoptzfron-dev-3e90c-authRole",
-      "UnauthRoleArn": "arn:aws:iam::897722692949:role/amplify-dopamineliteoptzfron-dev-3e90c-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::897722692949:role/amplify-dopamineliteoptzfron-dev-3e90c-authRole",
+      "AuthRoleName": "amplify-testingworkflowandre-dev-4d512-authRole",
+      "UnauthRoleArn": "arn:aws:iam::897722692949:role/amplify-testingworkflowandre-dev-4d512-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::897722692949:role/amplify-testingworkflowandre-dev-4d512-authRole",
       "Region": "us-east-1",
-      "DeploymentBucketName": "amplify-dopamineliteoptzfron-dev-3e90c-deployment",
-      "UnauthRoleName": "amplify-dopamineliteoptzfron-dev-3e90c-unauthRole",
-      "StackName": "amplify-dopamineliteoptzfron-dev-3e90c",
-      "StackId": "arn:aws:cloudformation:us-east-1:897722692949:stack/amplify-dopamineliteoptzfron-dev-3e90c/3d2dc080-edca-11ef-b20d-1256e5c7f4a7",
-      "AmplifyAppId": "dpkp3blaxk32g"
+      "DeploymentBucketName": "amplify-testingworkflowandre-dev-4d512-deployment",
+      "UnauthRoleName": "amplify-testingworkflowandre-dev-4d512-unauthRole",
+      "StackName": "amplify-testingworkflowandre-dev-4d512",
+      "StackId": "arn:aws:cloudformation:us-east-1:897722692949:stack/amplify-testingworkflowandre-dev-4d512/ac9f8250-e4ab-11ef-9533-0e7e52d8e349",
+      "AmplifyAppId": "d1apaf0ex6ssm"
+    },
+    "categories": {
+      "auth": {
+        "testingworkflowandre957a1d21": {}
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d1apaf0ex6ssm",
+          "type": "cicd"
+        }
+      }
     }
   }
 }

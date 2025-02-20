@@ -25,10 +25,10 @@ import {
   DialogTrigger,
   DialogBackdrop
 } from "@chakra-ui/react";
-import { toaster } from "@/components/ui/toaster";
+import { toaster } from "../components/ui/toaster";
 import { FaCalendarAlt, FaUserAlt, FaBook, FaEdit, FaTrash, FaPlus } from "react-icons/fa";
-import { lessonsService, lessonsService_dev } from "@/services/lessons";
-import { Lesson } from '@/types/lesson.types';
+import { lessonsService, lessonsService_dev } from "../services/lessons";
+import { Lesson } from '../types/lesson.types';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const colors = {
