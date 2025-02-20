@@ -18,7 +18,7 @@ import { clearUser } from '../state/slices/userSlice';
 import { signOut } from '@aws-amplify/auth';
 import dopamineLogo from '@/assets/dopamine_logo.jpg';
 import { useNavigate } from 'react-router-dom';
-import { DopamineLiteColors } from '@/themes/colors';
+import { DopamineLiteColors } from '../themes/colors';
 import { forwardRef, ForwardedRef } from 'react';
 
 const NavbarLink = forwardRef(({ onClick, children, ...props }: any, ref: ForwardedRef<HTMLAnchorElement>) => (
@@ -83,7 +83,7 @@ export default function Navbar() {
   );
 
   return (
-    <Box bg={DopamineLiteColors.darkGreen} position="sticky" top="0" zIndex={2} w="100%">
+    <Box bg={DopamineLiteColors.greenColor} position="sticky" top="0" zIndex={2} w="100%">
    
       <Flex h={16} alignItems="center" justifyContent="space-between" px={4}>
 

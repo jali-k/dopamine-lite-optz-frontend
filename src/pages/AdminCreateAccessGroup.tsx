@@ -14,8 +14,8 @@ import {
 } from "@chakra-ui/react";
 import { FaTimes } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
-import { accessGroupService_dev } from "@/services/access-groupes";
-import { toaster } from "@/components/ui/toaster";
+import { accessGroupService_dev } from "../services/access-groupes";
+import { toaster } from "../components/ui/toaster";
 
 const colors = {
  primary: "#00712D",

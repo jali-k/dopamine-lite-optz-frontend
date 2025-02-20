@@ -17,11 +17,11 @@ import {
   createListCollection
 } from "@chakra-ui/react";
 import { useParams, useNavigate } from 'react-router-dom';
-import { lessonsService_dev } from "@/services/lessons";
-import { accessGroupService_dev } from "@/services/access-groupes";
-import { toaster } from "@/components/ui/toaster";
-import { AccessGroup } from '@/types/access-group.types';
-import { belongingLessons } from '@/assets/static/belongingLessons';
+import { lessonsService_dev } from "../services/lessons";
+import { accessGroupService_dev } from "../services/access-groupes";
+import { toaster } from "../components/ui/toaster";
+import { AccessGroup } from '../types/access-group.types';
+import { belongingLessons } from '../assets/static/belongingLessons';
 
 
 const colors = {

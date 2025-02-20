@@ -19,10 +19,10 @@ import {
  } from '@chakra-ui/react';
  import "../styles/slider.css";
  import { FaDna, FaLeaf, FaBrain, FaBook, FaMicroscope, FaUsers, FaTelegram } from 'react-icons/fa';
- import { DopamineLiteColors } from '@/themes/colors';
+ import { DopamineLiteColors } from '../themes/colors';
  import { useNavigate } from 'react-router-dom';
  import { useInView } from 'react-intersection-observer';
- import { Avatar } from "@/components/ui/avatar"
+ import { Avatar } from "../components/ui/avatar"
  import CountUp from "react-countup";
  import { motion } from 'framer-motion';
 import { useState, useRef, useEffect } from 'react';

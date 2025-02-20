@@ -15,7 +15,7 @@ vi.mock('react-intersection-observer', () => ({
 const mockStore = configureStore({
   reducer: { user: userReducer },
   preloadedState: {
-    user: { isAuthenticated: false, isLoading: false }, // ✅ Mock as unauthenticated
+    user: { isAuthenticated: false, isLoading: false, username: '', userId: '', email: '', loginId: '' }, // ✅ Mock as unauthenticated
   },
 });
 

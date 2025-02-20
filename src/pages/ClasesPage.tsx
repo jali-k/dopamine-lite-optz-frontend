@@ -12,9 +12,9 @@ import {
   Tag,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import { classesService_dev } from "@/services/classes";
+import { classesService_dev } from "../services/classes";
 import { useEffect, useState } from "react";
-import { Class } from "@/types/class.types";
+import { Class } from "../types/class.types";
 import { FaGraduationCap, FaArrowRight } from "react-icons/fa";
 
 // Color palette

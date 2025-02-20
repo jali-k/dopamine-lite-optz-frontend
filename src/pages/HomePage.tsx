@@ -35,14 +35,14 @@ export default function HomePage() {
   }, [isAuthenticated, navigate]);
 
   const { ref: lessonsRef, inView: lessonsInView } = useInView({ triggerOnce: true });
-  const { ref: labsRef, inView: labsInView } = useInView({ triggerOnce: true });
-  const { ref: studentsRef, inView: studentsInView } = useInView({ triggerOnce: true });
+  const { inView: labsInView } = useInView({ triggerOnce: true });
+  const { inView: studentsInView } = useInView({ triggerOnce: true });
 
   if (isAuthenticated) return null;
  
-   const { ref: tutorRef, inView: tutorInView } = useInView({ triggerOnce: true });
-   const { ref: testimonialsRef, inView: testimonialsInView } = useInView({ triggerOnce: true });
-   const { ref: telegramRef, inView: telegramInView } = useInView({ triggerOnce: true });
+   const { ref: tutorRef } = useInView({ triggerOnce: true });
+   const { ref: testimonialsRef } = useInView({ triggerOnce: true });
+   const { ref: telegramRef } = useInView({ triggerOnce: true });
  
    const features = [
      {

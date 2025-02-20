@@ -26,7 +26,7 @@ interface VideoPlayerProps {
 
 export default function VideoPlayer({ url, watermark, onError }: VideoPlayerProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const controlsTimeoutRef = useRef<number>();
+  const controlsTimeoutRef = useRef<ReturnType<typeof setTimeout>>();
   const [state, setState] = useState<VideoState>({
     isPlaying: false,
     currentTime: 0,

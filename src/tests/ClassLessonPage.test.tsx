@@ -1,4 +1,4 @@
-import { render, screen, waitFor, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
@@ -10,9 +10,32 @@ const mockStore = configureStore([]);
 const store = mockStore({});
 
 const mockLessonsData = [
-  { id: 1, title: 'Lesson 1', description: 'Description for lesson 1', createdAt: '2025-02-01', handler: 'John Doe', lesson: 1 },
-  { id: 2, title: 'Lesson 2', description: 'Description for lesson 2', createdAt: '2025-02-02', handler: 'Jane Doe', lesson: 2 },
+  { 
+    id: '1', 
+    title: 'Lesson 1', 
+    description: 'Description for lesson 1', 
+    createdAt: '2025-02-01', 
+    handler: 'John Doe', 
+    lesson: '1',  // Convert to string
+    classId: 'class1', 
+    date: '2025-02-01', 
+    tutor: 'John Doe', 
+    updatedAt: '2025-02-01' 
+  },
+  { 
+    id: '2', 
+    title: 'Lesson 2', 
+    description: 'Description for lesson 2', 
+    createdAt: '2025-02-02', 
+    handler: 'Jane Doe', 
+    lesson: '2',  // Convert to string
+    classId: 'class2', 
+    date: '2025-02-02', 
+    tutor: 'Jane Doe', 
+    updatedAt: '2025-02-02' 
+  },
 ];
+
 
 
 lessonsService_dev.getLessonsByClassId = () => Promise.resolve(mockLessonsData);
