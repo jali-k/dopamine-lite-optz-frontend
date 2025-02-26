@@ -9,12 +9,6 @@ import {
   Textarea,
   Text,
   HStack,
-  SelectRoot,
-  SelectTrigger,
-  SelectValueText,
-  SelectContent,
-  SelectItem,
-  createListCollection,
 } from "@chakra-ui/react";
 import { useParams, useNavigate } from "react-router-dom";
 import { lessonsService } from "@/services/lessons";
@@ -27,6 +21,8 @@ const colors = {
   primary: "#00712D",
   background: "#FFFBE6",
 };
+
+const lessonOptions = Object.values(Lesson);
 
 export default function AdminCreateLessonPage() {
   const { clsid } = useParams();
@@ -50,7 +46,12 @@ export default function AdminCreateLessonPage() {
     const fetchAccessGroups = async () => {
       try {
         const groups = await accessGroupService.getGroups();
-        processAccessGroups(groups);
+        setAccessGroupsList(
+          groups.map((group) => ({
+            label: group.name,
+            value: group.accessGroupId,
+          }))
+        );
       } catch (error) {
         toaster.create({
           title: "Error fetching access groups",
@@ -61,14 +62,6 @@ export default function AdminCreateLessonPage() {
 
     fetchAccessGroups();
   }, []);
-
-  const processAccessGroups = (groups: AccessGroup[]) => {
-    const processedGroups = groups.map((group) => ({
-      label: group.name,
-      value: group.accessGroupId,
-    }));
-    setAccessGroupsList(processedGroups);
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -114,7 +107,6 @@ export default function AdminCreateLessonPage() {
                   required
                 />
               </Box>
-
               <Box w="full">
                 <Text color={colors.primary} mb={2}>
                   Handler
@@ -134,67 +126,63 @@ export default function AdminCreateLessonPage() {
                 </Text>
                 <Input
                   color="black"
+                  type="number"
                   value={formData.duration}
                   onChange={(e) =>
                     setFormData({
                       ...formData,
-                      duration: e.target.value
-                        ? parseInt(e.target.value, 10)
-                        : 0,
+                      duration: parseInt(e.target.value, 10) || 0,
                     })
                   }
                   required
                 />
               </Box>
               <Box w="full">
-                <Text mb={2} color={colors.primary}>
-                  Belonging lesson
+                <Text color={colors.primary} mb={2}>
+                  Belonging Lesson
                 </Text>
-                <SelectRoot
-                  color={colors.primary}
-                  collection={createListCollection({ items: belongingLessons })}
+                <select
+                  value={formData.belongingLesson}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      belongingLesson: e.target.value as Lesson,
+                    })
+                  }
+                  style={{ width: "100%", padding: "8px", borderRadius: "4px" }}
                   required
                 >
-                  <SelectTrigger>
-                    <SelectValueText placeholder="Select a belonging lesson" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {createListCollection({
-                      items: belongingLessons,
-                    }).items.map((eachLesson) => {
-                      return (
-                        <SelectItem key={eachLesson.value} item={eachLesson}>
-                          {eachLesson.label}
-                        </SelectItem>
-                      );
-                    })}
-                  </SelectContent>
-                </SelectRoot>
+                  <option value="" disabled>
+                    Select a lesson
+                  </option>
+                  {lessonOptions.map((lesson) => (
+                    <option key={lesson} value={lesson}>
+                      {lesson}
+                    </option>
+                  ))}
+                </select>
               </Box>
               <Box w="full">
                 <Text color={colors.primary} mb={2}>
                   Access Group
                 </Text>
-                <SelectRoot
-                  color={colors.primary}
-                  collection={createListCollection({ items: accessGroupsList })}
-                  // onChange={(e) => setFormData({ ...formData, accessGroupId: (e.target as HTMLSelectElement).value })}
+                <select
+                  value={formData.accessGroupId}
+                  onChange={(e) =>
+                    setFormData({ ...formData, accessGroupId: e.target.value })
+                  }
+                  style={{ width: "100%", padding: "8px", borderRadius: "4px" }}
                   required
                 >
-                  <SelectTrigger>
-                    <SelectValueText placeholder="Select an access group" />
-                  </SelectTrigger>
-
-                  <SelectContent>
-                    {createListCollection({
-                      items: accessGroupsList,
-                    }).items.map((group) => (
-                      <SelectItem key={group.value} item={group}>
-                        {group.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </SelectRoot>
+                  <option value="" disabled>
+                    Select an access group
+                  </option>
+                  {accessGroupsList.map((group) => (
+                    <option key={group.value} value={group.value}>
+                      {group.label}
+                    </option>
+                  ))}
+                </select>
               </Box>
               <HStack justify="flex-end" w="full">
                 <Button onClick={() => navigate(-1)} mr={3}>

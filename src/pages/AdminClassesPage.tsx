@@ -22,7 +22,7 @@ import {
 import { toaster } from "@/components/ui/toaster";
 import { Tag } from "@/components/ui/tag";
 import { FaGraduationCap, FaEdit, FaTrash, FaPlus } from "react-icons/fa";
-import { classesService, classesService_dev } from "@/services/classes";
+import { classesService } from "@/services/classes";
 import { Class } from "@/types/class.types";
 import { useNavigate } from "react-router-dom";
 
@@ -45,7 +45,7 @@ const AdminClassesPage = () => {
   }, []);
 
   const fetchClasses = async () => {
-    const data = await classesService_dev.getClasses();
+    const data = await classesService.getClasses();
     setClasses(data);
   };
 
@@ -73,7 +73,7 @@ const AdminClassesPage = () => {
   const handleDelete = async (id: string) => {
     if (window.confirm("Are you sure you want to delete this class?")) {
       try {
-        await classesService_dev.deleteClass(id);
+        await classesService.deleteClass(id);
         toaster.create({
           title: "Class deleted successfully",
           type: "success",

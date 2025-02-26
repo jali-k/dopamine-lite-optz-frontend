@@ -90,7 +90,7 @@ const AdminLessonsPage = () => {
           type: "success",
         });
       } else {
-        await lessonsService_dev.createLesson({
+        await lessonsService.createLesson({
           ...formData,
           classId: params.clsid!,
           date: "",
@@ -279,90 +279,94 @@ const AdminLessonsPage = () => {
             </Box>
 
             <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={6}>
-              {lessons?.lectures.map((lesson) => (
-                <Card.Root
-                  key={lesson.lectureId}
-                  overflow="hidden"
-                  borderRadius="lg"
-                  boxShadow="md"
-                  transition="all 0.3s"
-                  _hover={{
-                    transform: "translateY(-4px)",
-                    boxShadow: "lg",
-                    borderColor: colors.primary,
-                  }}
-                  borderWidth="1px"
-                  borderColor="gray.100"
-                >
-                  <Image
-                    src={"/api/placeholder/400/200"}
-                    alt={lesson.title}
-                    height="200px"
-                    objectFit="cover"
-                  />
-                  <CardBody>
-                    <VStack align="start" gap={4}>
-                      <Badge
-                        colorScheme="green"
-                        bg={colors.secondary}
-                        color={colors.primary}
-                        px={3}
-                        py={1}
-                        borderRadius="full"
-                      >
-                        <HStack gap={1}>
-                          <Icon boxSize={3}>
-                            <FaBook />
-                          </Icon>
-                          <Text>Lesson {lesson.title}</Text>
-                        </HStack>
-                      </Badge>
+              {lessons?.lectures ? (
+                lessons?.lectures.map((lesson) => (
+                  <Card.Root
+                    key={lesson.lectureId}
+                    overflow="hidden"
+                    borderRadius="lg"
+                    boxShadow="md"
+                    transition="all 0.3s"
+                    _hover={{
+                      transform: "translateY(-4px)",
+                      boxShadow: "lg",
+                      borderColor: colors.primary,
+                    }}
+                    borderWidth="1px"
+                    borderColor="gray.100"
+                  >
+                    <Image
+                      src={"/api/placeholder/400/200"}
+                      alt={lesson.title}
+                      height="200px"
+                      objectFit="cover"
+                    />
+                    <CardBody>
+                      <VStack align="start" gap={4}>
+                        <Badge
+                          colorScheme="green"
+                          bg={colors.secondary}
+                          color={colors.primary}
+                          px={3}
+                          py={1}
+                          borderRadius="full"
+                        >
+                          <HStack gap={1}>
+                            <Icon boxSize={3}>
+                              <FaBook />
+                            </Icon>
+                            <Text>Lesson {lesson.title}</Text>
+                          </HStack>
+                        </Badge>
 
-                      <Heading size="md" color={colors.primary}>
-                        {lesson.title}
-                      </Heading>
+                        <Heading size="md" color={colors.primary}>
+                          {lesson.title}
+                        </Heading>
 
-                      <Text color="gray.600" fontSize="sm">
-                        {lesson.description}
-                      </Text>
+                        <Text color="gray.600" fontSize="sm">
+                          {lesson.description}
+                        </Text>
 
-                      <VStack gap={2} align="start" w="full">
-                        <HStack fontSize="sm" color="gray.600">
-                          <Icon color={colors.accent}>
-                            <FaCalendarAlt />
-                          </Icon>
-                          <Text>Created: {formatDate(lesson.date)}</Text>
-                        </HStack>
-                        <HStack fontSize="sm" color="gray.600">
-                          <Icon color={colors.accent}>
-                            <FaUserAlt />
-                          </Icon>
-                          <Text>Handler: {lesson.handler}</Text>
+                        <VStack gap={2} align="start" w="full">
+                          <HStack fontSize="sm" color="gray.600">
+                            <Icon color={colors.accent}>
+                              <FaCalendarAlt />
+                            </Icon>
+                            <Text>Created: {formatDate(lesson.date)}</Text>
+                          </HStack>
+                          <HStack fontSize="sm" color="gray.600">
+                            <Icon color={colors.accent}>
+                              <FaUserAlt />
+                            </Icon>
+                            <Text>Handler: {lesson.handler}</Text>
+                          </HStack>
+                        </VStack>
+
+                        <HStack justify="flex-end" w="full" gap={2}>
+                          <IconButton
+                            aria-label="Edit lesson"
+                            onClick={() => handleEditClick(lesson.lectureId)}
+                            colorScheme="blue"
+                            variant="ghost"
+                          >
+                            <FaEdit />
+                          </IconButton>
+                          <IconButton
+                            aria-label="Delete lesson"
+                            onClick={() => handleDelete(lesson.lectureId)}
+                            colorScheme="red"
+                            variant="ghost"
+                          >
+                            <FaTrash />
+                          </IconButton>
                         </HStack>
                       </VStack>
-
-                      <HStack justify="flex-end" w="full" gap={2}>
-                        <IconButton
-                          aria-label="Edit lesson"
-                          onClick={() => handleEditClick(lesson.lectureId)}
-                          colorScheme="blue"
-                          variant="ghost"
-                        >
-                          <FaEdit />
-                        </IconButton>
-                        <IconButton
-                          aria-label="Delete lesson"
-                          onClick={() => handleDelete(lesson.lectureId)}
-                          colorScheme="red"
-                          variant="ghost"
-                        >
-                          <FaTrash />
-                        </IconButton>
-                      </HStack>
-                    </VStack>
-                  </CardBody>
-                </Card.Root>
-              ))}
+                    </CardBody>
+                  </Card.Root>
+                ))
+              ) : (
+                <div>No lessons available</div>
+              )}
             </SimpleGrid>
           </VStack>
         </Container>

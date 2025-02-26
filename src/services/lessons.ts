@@ -56,7 +56,7 @@ export const lessonsService = {
   },
 
   createLesson: (data: CreateLessonDto) => {
-    return api.request<Lesson>(`/classes/${data.classId}/lessons`, {
+    return api.request<Lesson>(`/lectures?email=dasun.theekshana.git@gmail.com`, {
       method: 'POST',
       body: JSON.stringify(data),
     });
@@ -69,7 +69,7 @@ export const lessonsService = {
     });
   },
 
-  deleteLesson: (classId: string, lessonId: string) => {
+  deleteLesson: (classId: string, lessonId: number) => {
     return api.request(`/classes/${classId}/lessons/${lessonId}`, {
       method: 'DELETE',
     });

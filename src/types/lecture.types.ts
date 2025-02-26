@@ -43,9 +43,9 @@ export interface ILecture {
   duration: number;
   access?: boolean;
   file?: string;
-  updatedAt: Date;​
+  updatedAt: Date;
   uploadedAt:Date;
 }
 
-export type CreateLectureDTO = Omit<ILecture, 'lectureId' | 'uploadedAt'>;
+export type CreateLectureDTO = Omit<ILecture, 'lectureId' | 'uploadedAt' | 'updatedAt'>;
 export type UpdateLectureDTO = Partial<ILecture>;
