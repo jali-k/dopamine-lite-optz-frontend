@@ -23,6 +23,7 @@ import SideDrawer from "@/components/SideDrawer";
 import { DopamineLiteColors } from "@/themes/colors";
 import { ClassDetails } from "@/types/class-details.types";
 import { ILecture } from "@/types/lecture.types";
+import { useAppSelector } from "@/hooks/redux";
 
 export default function LessonsPage() {
   const params: Record<string, string | undefined> = useParams();
@@ -31,11 +32,14 @@ export default function LessonsPage() {
   const [isLoading, setIsLoading] = useState(true);
   // const [selectedLesson, setSelectedLesson] = useState<string | null>(null);
   const navigate = useNavigate();
+  const email = useAppSelector((state) => state.user.email);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         setIsLoading(true);
+
+        console.log(email);
 
         const response = await lessonsService
           .getLessonsByClassId(

@@ -17,11 +17,11 @@ import {
   createListCollection,
 } from "@chakra-ui/react";
 import { useParams, useNavigate } from "react-router-dom";
-import { lessonsService_dev } from "@/services/lessons";
-import { accessGroupService_dev } from "@/services/access-groupes";
+import { lessonsService } from "@/services/lessons";
+import { accessGroupService } from "@/services/access-groupes";
 import { toaster } from "@/components/ui/toaster";
 import { AccessGroup } from "@/types/access-group.types";
-import { belongingLessons } from "@/assets/static/belongingLessons";
+import { Lesson, Month, CreateLectureDTO } from "@/types/lecture.types";
 
 const colors = {
   primary: "#00712D",
@@ -31,26 +31,26 @@ const colors = {
 export default function AdminCreateLessonPage() {
   const { clsid } = useParams();
   const navigate = useNavigate();
-  // const [accessGroups, setAccessGroups] = useState<AccessGroup[]>([]);
   const [accessGroupsList, setAccessGroupsList] = useState<
     { label: string; value: string }[]
   >([]);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<CreateLectureDTO>({
+    classId: clsid ? parseInt(clsid, 10) : 0,
     title: "",
     description: "",
-    lesson: "",
-    tutor: "",
     handler: "",
     accessGroupId: "",
+    belongingMonth: Month.JANUARY,
+    belongingLesson: Lesson.lesson1,
+    date: new Date(),
+    duration: 0,
   });
 
   useEffect(() => {
     const fetchAccessGroups = async () => {
       try {
-        const groups = await accessGroupService_dev.getGroups();
-        // setAccessGroups(groups);
+        const groups = await accessGroupService.getGroups();
         processAccessGroups(groups);
-        // No default selection
       } catch (error) {
         toaster.create({
           title: "Error fetching access groups",
@@ -72,13 +72,8 @@ export default function AdminCreateLessonPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("formData", formData);
     try {
-      await lessonsService_dev.createLesson({
-        ...formData,
-        classId: clsid!,
-        date: new Date().toISOString(),
-      });
+      await lessonsService.createLesson(formData);
       toaster.create({ title: "Lesson created successfully", type: "success" });
       navigate(`/admin/classes/${clsid}/lessons`);
     } catch (error) {
@@ -135,13 +130,18 @@ export default function AdminCreateLessonPage() {
               </Box>
               <Box w="full">
                 <Text color={colors.primary} mb={2}>
-                  Tutor
+                  Duration
                 </Text>
                 <Input
                   color="black"
-                  value={formData.tutor}
+                  value={formData.duration}
                   onChange={(e) =>
-                    setFormData({ ...formData, tutor: e.target.value })
+                    setFormData({
+                      ...formData,
+                      duration: e.target.value
+                        ? parseInt(e.target.value, 10)
+                        : 0,
+                    })
                   }
                   required
                 />
