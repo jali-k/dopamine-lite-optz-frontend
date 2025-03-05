@@ -1,5 +1,6 @@
 import { Box, Image, Text, VStack } from "@chakra-ui/react";
 import { DopamineLiteColors } from "../../themes/colors";
+import { DLFonts } from "@/themes/fonts";
 
 interface HcardProps {
   title: string;
@@ -11,11 +12,12 @@ const Hcard: React.FC<HcardProps> = ({ title, description, imageUrl }) => {
   const Light = DopamineLiteColors;
   return (
     <Box
+      fontFamily={DLFonts.body}
       bg={Light.white100}
       borderRadius="1rem"
       boxShadow={Light.boxShadow}
-      width={{ base: "90%", sm: "20rem", md: "22rem"}}
-      height={{ base: "auto", md: "22rem", lg: "300px" }}
+      width={{ base: "90%", sm: "20rem", md: "26rem"}}
+      height={{ base: "auto", md: "22rem", lg: "320px" }}
       textAlign="center"
       overflow="hidden"
       position="relative"
@@ -36,7 +38,6 @@ const Hcard: React.FC<HcardProps> = ({ title, description, imageUrl }) => {
       {/* Text Content */}
       <VStack align="center" width="100%">
         <Text
-          fontFamily="Bricolage Grotesque"
           fontWeight="600"
           fontSize={{ base: "1.1rem", md: "1.7rem" }}
           color={Light.black100}
@@ -46,7 +47,6 @@ const Hcard: React.FC<HcardProps> = ({ title, description, imageUrl }) => {
           {title}
         </Text>
         <Text
-          fontFamily="Bricolage Grotesque"
           fontWeight="500"
           fontSize={{ base: "0.9rem", md: "1.125rem" }}
           lineHeight="1.4"

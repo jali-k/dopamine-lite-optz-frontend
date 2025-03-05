@@ -25,6 +25,7 @@ import { Lesson } from '@/types/lesson.types';
 import { classesService_dev } from '@/services/classes';
 import { lessonsService_dev } from '@/services/lessons';
 import { DopamineLiteColors } from "@/themes/colors";
+import { DLFonts } from "@/themes/fonts";
 
 interface SideDrawerProps {
   classId?: string;
@@ -76,7 +77,7 @@ const SideDrawer = ({ classId }: SideDrawerProps) => {
 
   const Light = DopamineLiteColors;
   return (
-    <Box zIndex={1}>
+    <Box zIndex={1} fontFamily={DLFonts.body}>
       <DrawerRoot  placement={'start'}>
       <DrawerBackdrop />
       <DrawerTrigger bg="transparent" asChild>
@@ -101,7 +102,6 @@ const SideDrawer = ({ classId }: SideDrawerProps) => {
               fontSize="1.25rem" // 20px = 1.25rem
               lineHeight="1.5rem" // 24px = 1.5rem
               fontWeight="500"
-              fontFamily="'Bricolage Grotesque', sans-serif"
               alignItems="center"
               bg={Light.white100}
               color={Light.darkGreen}
@@ -133,8 +133,6 @@ const SideDrawer = ({ classId }: SideDrawerProps) => {
                 <Text fontWeight="bold" fontSize="1.25rem" marginBottom="0.3rem">Lessons</Text>
               </HStack>
             </Button>
-
-
               
               <VStack align="stretch" gap="1rem" marginTop="1rem">
                 {classLessons.map((lesson) => (

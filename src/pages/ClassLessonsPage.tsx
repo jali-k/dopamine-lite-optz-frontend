@@ -24,6 +24,7 @@ import { Lesson } from '@/types/lesson.types';
 import { FaCalendarAlt, FaUserAlt, FaBook } from 'react-icons/fa';
 import SideDrawer from '@/components/SideDrawer';
 import { DopamineLiteColors } from '@/themes/colors';
+import { DLFonts } from '@/themes/fonts';
 
 
 
@@ -72,7 +73,7 @@ export default function LessonsPage() {
      
 
       {/* Main Content */}
-      <Box zIndex={0} flex="1" bg={Light.backgroundWhite} py={8} px={6} position={'relative'}>
+      <Box zIndex={0} flex="1" bg={Light.backgroundWhite} py={8} px={6} position={'relative'} fontFamily={DLFonts.body}>
         <SideDrawer classId={classData?.id} />
         <Container maxW="container.xl">
           <VStack gap={8} align="stretch">

@@ -21,6 +21,7 @@ import AdminHomePage from './pages/AdminHome';
 import AdminAccessGroupsPage from './pages/AdminAccessGroupsPage';
 import AdminEditAccessGroupPage from './pages/AdminEditAccessGroups';
 import AdminCreateAccessGroupPage from './pages/AdminCreateAccessGroup';
+import '@fontsource-variable/bricolage-grotesque/index.css';
 
 
 function App() {

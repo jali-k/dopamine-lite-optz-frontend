@@ -22,6 +22,7 @@ import { lessonsService_dev } from '@/services/lessons';
 import { Lesson } from '@/types/lesson.types';
 import SideDrawer from '@/components/SideDrawer';
 import {DopamineLiteColors} from '@/themes/colors';
+import { DLFonts } from '@/themes/fonts';
 
 const Light = DopamineLiteColors;
 
@@ -75,7 +76,7 @@ const LessonPage = () => {
   }
 
   return (
-    <Box bg={Light.backgroundWhite} minH="100vh">
+    <Box bg={Light.backgroundWhite} minH="100vh" fontFamily={DLFonts.body}>
     <Container maxW="container.xl" px={{ base: "1rem", md: "2rem" }}>
       <HStack mx={"auto"} gap={{ base: "1rem", md: "2rem" }} align="start" flexWrap="wrap">
         <Box mt="1.5rem">
