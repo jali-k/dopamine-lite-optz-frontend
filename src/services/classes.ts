@@ -3,23 +3,28 @@ import { api } from './api';
 
 export const dummyClasses: Class[] = [
   {
-    id: "class-001",
+    classId: "class-001",
     name: "Mathematics 101",
     createdAt: "2024-01-01T08:00:00Z",
     updatedAt: "2024-01-05T10:00:00Z",
   },
   {
-    id: "class-002",
+    classId: "class-002",
     name: "Physics 201",
     createdAt: "2024-02-01T09:00:00Z",
     updatedAt: "2024-02-10T12:00:00Z",
   },
 ];
 
+const email = "test@email.com"
 
 export const classesService = {
   getClasses: () => {
-    return api.request<Class[]>('/classes');
+    console.log('getClasses');
+    const data = api.request<Class[]>('/classes').then((data) => {
+      return data;
+    });
+    return data;
   },
 
   getClassById: (id: string) => {
@@ -27,16 +32,21 @@ export const classesService = {
   },
 
   createClass: (data: CreateClassDto) => {
-    return api.request<Class>('/classes', {
+    return api.request<Class>(`/classes?email=${encodeURIComponent(email)}`, {
       method: 'POST',
       body: JSON.stringify(data),
     });
   },
 
   updateClass: (id: string, data: Partial<CreateClassDto>) => {
-    return api.request<Class>(`/classes/${id}`, {
+    console.log('updateClass');
+    console.log(data);
+    return api.request<Class>(`/classes/${id}?email=${encodeURIComponent(email)}`, {
       method: 'PUT',
       body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
   },
 
@@ -47,8 +57,10 @@ export const classesService = {
     });
   },
 
-  deleteClass: (id: string) => {
-    return api.request(`/classes/${id}`, {
+  deleteClass: (classId: string) => {
+    console.log('deleteClass');
+    console.log(classId);
+    return api.request(`/classes/${classId}?email=${encodeURIComponent(email)}`, {
       method: 'DELETE',
     });
   },
@@ -60,7 +72,7 @@ export const classesService_dev = {
   },
 
   getClassById: (id: string) => {
-    const foundClass = dummyClasses.find((c) => c.id === id);
+    const foundClass = dummyClasses.find((c) => c.classId === id);
     if (foundClass) {
       return Promise.resolve(foundClass);
     }
@@ -90,7 +102,7 @@ export const classesService_dev = {
   // },
 
   deleteClass: (id: string) => {
-    const index = dummyClasses.findIndex((c) => c.id === id);
+    const index = dummyClasses.findIndex((c) => c.classId === id);
     if (index !== -1) {
       dummyClasses.splice(index, 1);
       return Promise.resolve();

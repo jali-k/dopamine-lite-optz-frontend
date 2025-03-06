@@ -1,3 +1,4 @@
+import { ClassDetails } from '@/types/class-details.types';
 import { Lesson, CreateLessonDto } from '../types/lesson.types';
 import { api } from './api';
 
@@ -40,8 +41,14 @@ export const dummyLessons: Lesson[] = [
 ];
 
 export const lessonsService = {
-  getLessonsByClassId: (classId: string) => {
-    return api.request<Lesson[]>(`/classes/${classId}/lessons`);
+  getLessonsByClassId: (classId: string, email: string) => {
+    console.log('getLessonsByClassId');
+    const queryParams = new URLSearchParams({ classId, email }).toString();
+    console.log(queryParams);
+    const data = api.request<ClassDetails>(`/lessons?${queryParams}`).then((data) => {
+      return data;
+    });
+    return data;
   },
 
   getLesson: (classId: string, lessonId: string) => {
@@ -49,7 +56,7 @@ export const lessonsService = {
   },
 
   createLesson: (data: CreateLessonDto) => {
-    return api.request<Lesson>(`/classes/${data.classId}/lessons`, {
+    return api.request<Lesson>(`/lectures?email=dasun.theekshana.git@gmail.com`, {
       method: 'POST',
       body: JSON.stringify(data),
     });
@@ -62,7 +69,7 @@ export const lessonsService = {
     });
   },
 
-  deleteLesson: (classId: string, lessonId: string) => {
+  deleteLesson: (classId: string, lessonId: number) => {
     return api.request(`/classes/${classId}/lessons/${lessonId}`, {
       method: 'DELETE',
     });

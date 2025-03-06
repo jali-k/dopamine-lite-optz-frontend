@@ -11,15 +11,15 @@ export interface Lesson {
   updatedAt: string;
 }
 
-export interface CreateLessonDto {
-  classId: string;
-  title: string;
-  lesson: string;
-  description: string;
-  tutor: string;
-  date: string;
-  handler: string;
-}
+// export interface CreateLessonDto {
+//   classId: string;
+//   title: string;
+//   lesson: string;
+//   description: string;
+//   tutor: string;
+//   date: string;
+//   handler: string;
+// }
 
 export interface LessonState {
   items: Record<string, Lesson[]>; // Keyed by classId

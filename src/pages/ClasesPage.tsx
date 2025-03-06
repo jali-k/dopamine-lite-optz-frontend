@@ -13,14 +13,12 @@ import {
 } from "@chakra-ui/react";
 import { Divider } from "@aws-amplify/ui-react";
 import { useNavigate } from "react-router-dom";
-import { classesService_dev } from "@/services/classes";
+import { classesService } from "@/services/classes";
 import { useEffect, useState } from "react";
 import { Class } from "@/types/class.types";
 import { FaCalculator } from "react-icons/fa";
 import { DopamineLiteColors } from "@/themes/colors";
 import { DLFonts } from "@/themes/fonts";
-
-const getClasses = classesService_dev.getClasses;
 
 const ClassesPage = () => {
   const Light = DopamineLiteColors;
@@ -28,17 +26,29 @@ const ClassesPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    getClasses().then((data) => setClasses(data));
+    try {
+      const fetchData = async () => {
+        const data = await classesService.getClasses();
+        setClasses(data);
+      };
+      fetchData();
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   }, []);
 
   const onClickHandler = (cls: Class) => {
-    navigate(`/classes/${cls.id}/lessons`);
+    navigate(`/classes/${cls.classId}/lessons`);
   };
 
   return (
     <Box minH="100vh" display="flex" flexDirection="column" fontFamily={DLFonts.body}>
       {/* Main Content */}
-      <Box bg={Light.backgroundWhite} flex="1" py={{ base: "1.5rem", md: "2rem" }}>
+      <Box
+        bg={Light.backgroundWhite}
+        flex="1"
+        py={{ base: "1.5rem", md: "2rem" }}
+      >
         <Container maxW="container.lg" px={{ base: "1rem", md: "1.5rem" }}>
           <VStack gap="1.5rem" align="stretch">
             {/* Page Heading */}
@@ -70,7 +80,7 @@ const ClassesPage = () => {
             >
               {classes.map((cls) => (
                 <CardRoot
-                  key={cls.id}
+                  key={cls.classId}
                   width="100%"
                   maxW="25.5rem"
                   onClick={() => onClickHandler(cls)}
@@ -84,16 +94,24 @@ const ClassesPage = () => {
                 >
                   <CardBody p={{ base: "1.25rem", md: "1.5rem" }}>
                     <VStack align="stretch" gap="1rem">
-                      <HStack align="center" gap={{ base: "1rem", md: "1.25rem" }}>
-                        <Icon as={FaCalculator} boxSize={{ base: "1.75rem", md: "2.25rem" }} color={Light.darkGreen} />
+                      <HStack
+                        align="center"
+                        gap={{ base: "1rem", md: "1.25rem" }}
+                      >
+                        <Icon
+                          as={FaCalculator}
+                          boxSize={{ base: "1.75rem", md: "2.25rem" }}
+                          color={Light.darkGreen}
+                        />
                         <VStack align="start" gap="0.25rem">
                           <Text
                             color={Light.black75}
                             fontSize={{ base: "1rem", md: "1.125rem" }}
                             fontWeight="400"
                           >
-                            Class ID: {cls.id}
+                            Class ID: {cls.classId}
                           </Text>
+                          {/* // TODO: Should not show class ID to user */}
                           <Text
                             color={Light.black100}
                             fontSize={{ base: "1.25rem", md: "1.5rem" }}
@@ -104,7 +122,10 @@ const ClassesPage = () => {
                         </VStack>
                       </HStack>
 
-                      <Divider borderColor={Light.gray300} marginBottom="0.7rem" />
+                      <Divider
+                        borderColor={Light.gray300}
+                        marginBottom="0.7rem"
+                      />
 
                       <Box display="flex" justifyContent="center">
                         <Button
