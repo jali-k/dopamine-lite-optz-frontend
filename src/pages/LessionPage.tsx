@@ -23,6 +23,7 @@ import { Lesson } from "@/types/lesson.types";
 import SideDrawer from "@/components/SideDrawer";
 import { DopamineLiteColors } from "@/themes/colors";
 import { ClassDetails } from "@/types/class-details.types";
+import { DLFonts } from "@/themes/fonts";
 
 const Light = DopamineLiteColors;
 
@@ -77,7 +78,7 @@ const LessonPage = () => {
   }
 
   return (
-    <Box bg={Light.backgroundWhite} minH="100vh">
+    <Box bg={Light.backgroundWhite} minH="100vh" fontFamily={DLFonts.body}>
       <Container maxW="container.xl" px={{ base: "1rem", md: "2rem" }}>
         <HStack
           mx={"auto"}

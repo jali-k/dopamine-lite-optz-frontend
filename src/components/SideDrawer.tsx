@@ -21,6 +21,7 @@ import { DopamineLiteColors } from "@/themes/colors";
 import { ClassDetails } from "@/types/class-details.types";
 import { ILecture } from "@/types/lecture.types";
 import { INote } from "@/types/note.types";
+import { DLFonts } from "@/themes/fonts";
 
 interface SideDrawerProps {
   classData: ClassDetails;
@@ -74,7 +75,7 @@ const SideDrawer = ({ classData }: SideDrawerProps) => {
 
   const Light = DopamineLiteColors;
   return (
-    <Box zIndex={1}>
+    <Box zIndex={1} fontFamily={DLFonts.body}>
       <DrawerRoot placement={"start"}>
         <DrawerBackdrop />
         <DrawerTrigger bg="transparent" asChild>

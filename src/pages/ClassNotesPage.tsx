@@ -15,6 +15,7 @@ import NotesCard from "@/components/ui/NotesCard";
 import { ClassDetails } from "@/types/class-details.types";
 import { INote } from "@/types/note.types";
 import { lessonsService } from "@/services/lessons";
+import { DLFonts } from "@/themes/fonts";
 
 export default function NotesPage() {
   const Light = DopamineLiteColors;
@@ -81,6 +82,7 @@ export default function NotesPage() {
         py={8}
         px={6}
         position="relative"
+        fontFamily={DLFonts.body}
       >
         {classData && <SideDrawer classData={classData} />}
         <Container maxW="container.xl">

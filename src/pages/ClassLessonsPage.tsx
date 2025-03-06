@@ -24,6 +24,7 @@ import { DopamineLiteColors } from "@/themes/colors";
 import { ClassDetails } from "@/types/class-details.types";
 import { ILecture } from "@/types/lecture.types";
 import { useAppSelector } from "@/hooks/redux";
+import { DLFonts } from "@/themes/fonts";
 
 export default function LessonsPage() {
   const params: Record<string, string | undefined> = useParams();
@@ -86,6 +87,7 @@ export default function LessonsPage() {
         py={8}
         px={6}
         position={"relative"}
+        fontFamily={DLFonts.body}
       >
         {classData && <SideDrawer classData={classData} />}
         <Container maxW="container.xl">
