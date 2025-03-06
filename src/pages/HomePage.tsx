@@ -30,6 +30,7 @@ import { DopamineLiteColors } from "../themes/colors"
 import { useInView } from 'react-intersection-observer';
 const MotionBox = motion(Box);
 
+
 const HomePage = () => {
   const navigator = useNavigate();
   const Light = DopamineLiteColors;
