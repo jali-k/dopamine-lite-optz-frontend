@@ -18,6 +18,7 @@
     "@chakra-ui/theme-utils": "^2.0.21",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
+    "@fontsource-variable/bricolage-grotesque": "^5.2.5",
     "@fontsource/manrope": "^5.1.1",
     "@fontsource/montserrat": "^5.1.1",
     "@fontsource/open-sans": "^5.1.1",
