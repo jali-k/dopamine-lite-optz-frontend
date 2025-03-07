@@ -5,7 +5,6 @@ import { DLFonts } from "@/themes/fonts";
 
 const TelegramGroupCard = () => {
   const Light = DopamineLiteColors;
-  const fontFamily = "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif";
   return (
     <Box
       maxW="22.25rem" 
